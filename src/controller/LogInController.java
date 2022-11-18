@@ -1,3 +1,8 @@
+package controller;
+
+import entity.*;
+import manager.*;
+
 public class LogInController {
     private String username;
     private String password;

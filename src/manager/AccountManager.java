@@ -1,4 +1,7 @@
+package manager;
+
 import java.util.HashMap;
+import entity.Account;
 
 public class AccountManager {
     private HashMap<String, Account> accounts = new HashMap<>();
