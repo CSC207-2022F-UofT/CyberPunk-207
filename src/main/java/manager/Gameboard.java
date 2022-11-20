@@ -37,6 +37,7 @@ public class Gameboard {
 
     public static void startGame(){
         CardsHeap cardsheap = new CardsHeap();
+        Captin = new Player(cardsheap);
         int numPlayers = 5;
         for(int i = 0; i < numPlayers; i++){
             players.add(new Player(cardsheap));
