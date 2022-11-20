@@ -54,7 +54,7 @@ public abstract class Card {
     public abstract String toString();
     public Player selectTarget(Player player) {
         source = player;
-        target = player.selectPlayer(false);  //Need to call entity
+        //target = player.selectPlayer(false);  //Need to call entity
         return target;
     }
 

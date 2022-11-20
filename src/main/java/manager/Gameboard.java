@@ -6,15 +6,21 @@ import gateway.CardsHeap;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Gameboard {
-    private ArrayList<Player> players = new ArrayList<>();
+    private static Player player;
+    private static List<Player> players = new ArrayList<>();
     private static int round = 1;
-    private int numPlayers = 5;
-    private static Player Captin = new Player();
+    private static Player Captin;
+    private CardsHeap cardsheap;
+
+    public static void setCaptin(Player captin) {
+        Captin = captin;
+    }
     //setroles 随机分配角色
 
-    public void Game_Main(){
+    public static void Game_Main(){
         startGame();
         while (!checkEnd()) {
             System.out.println("round " + round++);
@@ -29,17 +35,18 @@ public class Gameboard {
         endGame();
     }
 
-    public void startGame(){
-        CardsHeap.init();
+    public static void startGame(){
+        CardsHeap cardsheap = new CardsHeap();
+        int numPlayers = 5;
         for(int i = 0; i < numPlayers; i++){
-            players.add(new Player());
+            players.add(new Player(cardsheap));
         }
         for(Player player: players) {;
             player.drawCards(4);
         }
     }
 
-    public void endGame(){
+    public static void endGame(){
         System.exit(0);
     }
 
@@ -50,6 +57,8 @@ public class Gameboard {
         }
         return false;
     }
+
+
 
 
 }
