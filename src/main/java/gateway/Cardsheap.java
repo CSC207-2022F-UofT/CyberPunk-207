@@ -1,10 +1,5 @@
 package gateway;
-package entity;
-
-import entity.Cards.Card;
-import entity.Cards.basic.Shoot;
-import Cards.basic.Dodge;
-import Cards.basic.Medkit;
+import entity.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,23 +23,23 @@ public class Cardsheap {
     }
 
     public static void addBasicCards() {
-        addCard(Shoot, 30);
-        addCard(Dodge, 15);
-        addCard(Medkit, 8);
+        addCard(new Shoot(), 30);
+        addCard(new Dodge(), 15);
+        addCard(new Medkit(), 8);
     }
 
     public static void addStrategyCards() {
-        addCard(Destruction, 6);
-        addCard(Robbery, 6);
-        addCard(Lottery, 4);
-        addCard(Policeraid, 4);
-        addCard(Shootout, 2);
-        addCard(TraumaTeam, 1);
+        addCard(new Destruction(), 6);
+        addCard(new Robbery(), 6);
+        addCard(new Lottery(), 4);
+        addCard(new Policeraid(), 4);
+        addCard(new Shootout(), 2);
+        addCard(new Traumateam(), 1);
     }
 
     public static void addEquipmentCards() {
-        addCard(R99MachineGun, 2);
-        addCard(CarBomb, 2);
+        addCard(new R99MachineGun(), 2);
+        addCard(new CarBomb(), 2);
     }
 
     //Initialize the cards heap.
@@ -90,7 +85,9 @@ public class Cardsheap {
 
     public static ArrayList<Card> getDrawCards(int num) {
         if (num > drawCards.size()) {
-            shuffle();
+            drawCards.addAll(usedCards);
+            Collections.shuffle(drawCards);
+            usedCards.clear();
         }
         return drawCards;
     }
@@ -100,7 +97,7 @@ public class Cardsheap {
     }
 
     public static void setDrawCards(ArrayList<Card> drawCards) {
-        CardsHeap.drawCards = drawCards;
+        Cardsheap.drawCards = drawCards;
     }
 
     public static int getNumCards() {

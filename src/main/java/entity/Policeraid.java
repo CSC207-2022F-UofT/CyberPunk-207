@@ -13,4 +13,9 @@ public class Policeraid extends strategy_card{
         }
     }
 
+    @Override
+    public String toString() {
+        return null;
+    }
+
 }
