@@ -1,8 +1,6 @@
 package manager;
 
-import entity.Card;
 import entity.Player;
-import gateway.CardsHeap;
 
 import java.util.ArrayList;
 
@@ -43,6 +41,10 @@ public class Gameboard {
         for(Player player: players) {
             player.drawCards(4);
         }
+    }
+
+    public static ArrayList<Player> get_players(){
+        return this.players;
     }
 
 
