@@ -68,5 +68,6 @@ public class Player {
     }
 
 
-
+    public void runPhase() {
+    }
 }
