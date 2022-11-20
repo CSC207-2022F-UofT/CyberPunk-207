@@ -1,7 +1,10 @@
 package entity;
 
-public class destruction extends strategy_card{
-    public void use(int pick_num){
+public class Destruction extends strategy_card{
+    @Override
+    public Object use(int pick_num){
+
         getTarget().removeCard(getTarget().get_pocketcards().get(pick_num));
     }
+
 }

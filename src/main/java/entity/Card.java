@@ -2,7 +2,7 @@ package entity;
 
 import java.util.ArrayList;
 
-public class Card {
+public abstract class Card {
     private Player target;
     private Player source;
     private boolean isTaken = false;//can use observer pattern
@@ -22,6 +22,7 @@ public class Card {
         return thisCard;
     }
 
+    // Getter functions
     public Player getTarget() {
         return target;
     }
@@ -45,4 +46,16 @@ public class Card {
     public void setTaken(boolean taken) {
         isTaken = taken;
     }
+
+    // Card usage functions:
+
+    public abstract Object use();
+
+    public abstract String toString();
+    public Player selectTarget(Player player) {
+        source = player;
+        target = player.selectPlayer(false);  //Need to call entity
+        return target;
+    }
+
 }

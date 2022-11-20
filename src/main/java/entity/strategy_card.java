@@ -1,5 +1,4 @@
 package entity;
 
-public class strategy_card extends Card{
-
+public abstract class strategy_card extends Card{
 }

@@ -1,6 +1,7 @@
 package entity;
 
-public class medkit extends basic_card{
+public class Medkit extends basic_card{
+    @Override
     public void use(int num){
         if (getTarget().gethp() < getTarget().getmaxhp()){
             getTarget().recover(1);
