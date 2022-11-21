@@ -2,7 +2,7 @@ package entity;
 
 public class Dodge extends basic_card{
     @Override
-    public Object use(){
+    public void use(){
         getSource().activate_dodge();
     }
     @Override

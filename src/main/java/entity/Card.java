@@ -49,12 +49,10 @@ public abstract class Card {
 
     // Card usage functions:
 
-    public abstract Object use();
-
     public abstract String toString();
     public Player selectTarget(Player player) {
         source = player;
-        target = player.selectPlayer(false);  //Need to call entity
+        //target = player.selectPlayer(false);  //Need to call entity
         return target;
     }
 

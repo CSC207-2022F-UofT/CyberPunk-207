@@ -1,47 +1,56 @@
 package entity;
 
+
 import java.util.ArrayList;
+
+import static gateway.CardsHeap.draw;
 
 public class Player {
     private int hp;
-    private int handlimit;
     private ArrayList<Card> pocketcards;
     private String role;
     private boolean status;
+
+    private boolean alive;
 
     private boolean shoot = false;
 
     private boolean dodge = false;
 
-    private int location;
+    public boolean Status() {
+        return status;
+    }
 
-    private int max_hp;
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+
 
     public Player() {
         this.hp = 3;
-        this.handlimit = hp;
         this.pocketcards = new ArrayList<>();
-        this.role = null;
+        this.role = "";
+        this.alive = true;
         this.status = true;
     }
 
-    public void drawCards(int num) {
+    public String getRole() {
+        return role;
     }
 
-    public void playCards(){
-
+    public void setRole(String role) {
+        this.role = role;
     }
+
     public int gethp(){
         return this.hp;
     }
 
-    public int getmaxhp(){
-        return this.max_hp;
+    public void sethp(int hp){
+         this.hp = hp;
     }
 
-    public void recover(int num){
-        this.hp += num;
-    }
 
     public void hurted(int num){
         this.hp -= num;
@@ -58,16 +67,24 @@ public class Player {
     public ArrayList<Card> get_pocketcards(){
         return this.pocketcards;
     }
-
-    public void addCard(Card c){
-        this.pocketcards.add(c);
+    public void loosCard(int card) {
+        pocketcards.remove(card);
     }
 
-    public void removeCard(Card c){
-        this.pocketcards.remove(c);
+    public void addToHand(ArrayList<Card> cards){
+        this.pocketcards.addAll(cards);
     }
 
 
-    public void runPhase() {
+
+
+
+    public boolean isAlive() {
+        return status;
     }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
 }
