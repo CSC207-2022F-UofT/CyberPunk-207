@@ -129,6 +129,9 @@ public class Gameboard {
         System.out.println("This turn ends.");
     }
 
+    public static List<Player> getPlayers(){
+        return players;
+    }
 
 
 }
