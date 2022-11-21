@@ -3,77 +3,50 @@ package entity;
 import gateway.CardsHeap;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
+
+import static gateway.Cardsheap.draw;
 
 public class Player {
     private int hp;
     private ArrayList<Card> pocketcards;
     private String role;
     private boolean status;
-    public CardsHeap cardsheap;
+
+    private boolean alive;
 
     private boolean shoot = false;
 
     private boolean dodge = false;
 
+    public boolean Status() {
+        return status;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
     private int location;
 
     private int max_hp;
 
-    public Player(CardsHeap cardsheap) {
+
+    public Player() {
         this.hp = 3;
         this.pocketcards = new ArrayList<>();
         this.role = null;
+        this.alive = true;
         this.status = true;
-        this.cardsheap = cardsheap;
     }
 
-    public void runPhase() {
-        if(!this.isAlive()){
-            return;
-        }
-        drawPhase();
-        playPhase();
-        if(hp < pocketcards.size()){
-            throwPhase();
-        }
-        endPhase();
+    public String getRole() {
+        return role;
     }
 
-
-    public void drawPhase(){
-        System.out.println("Draws 2 cards from cards heap");
-        drawCards(2);
-    }
-
-    public void drawCards(int num) {
-        this.pocketcards.add(cardsheap.draw(2));
-    }
-
-
-    public void playPhase(){
-
-    }
-
-    public void throwPhase(){
-        int num = pocketcards.size() - this.hp;
-        System.out.println("You need to throw " + num + " cards" );
-        for(int i = 0; i < num; i++){
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("choose a number");
-            String card = scanner.next();
-            loosCard(Integer.parseInt(card));
-            scanner.close();
-        }
-
-    }
-
-    private void loosCard(int card) {
-        pocketcards.remove(card);
-    }
-
-    private void endPhase() {
-        System.out.println("This round ends.");
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public int gethp(){
@@ -104,8 +77,8 @@ public class Player {
         return this.pocketcards;
     }
 
-    public void addCard(Card c){
-        this.pocketcards.add(c);
+    public void addCard(ArrayList<Card> cards){
+        this.pocketcards.addAll(cards);
     }
 
     public void removeCard(Card c){
