@@ -10,12 +10,21 @@ public class Account {
         this.username = username;
         this.password = password;
         this.wins = 0;
+        this.loses = 0;
+        this.win_rate = 0;
     }
 
     public String getPassword() {
         return this.password;
     }
-    public String getUsername() {
-        return this.username;
+
+    public void updateRecord(Boolean win){
+        if(win){
+            wins += 1;
+        }
+        else{
+            loses += 1;
+        }
+        win_rate = wins/(wins+loses);
     }
 }
