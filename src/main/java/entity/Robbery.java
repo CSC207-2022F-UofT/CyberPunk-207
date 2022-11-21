@@ -10,4 +10,4 @@ public class Robbery extends strategy_card{
     public String toString() {
         return null;
     }
-}
+    

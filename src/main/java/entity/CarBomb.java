@@ -1,12 +1,14 @@
 package entity;
 
-public class Dodge extends basic_card{
+
+public class CarBomb extends equipment_card{
     @Override
     public void use(){
-        getSource().activate_dodge();
+        return;
     }
+
     @Override
     public String toString(){
-        return "Dodge";
+        return "Car Bomb";
     }
 }

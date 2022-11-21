@@ -16,4 +16,3 @@ public class Shootout extends strategy_card{
         return "Shootout";
     }
 }
-
