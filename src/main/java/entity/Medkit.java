@@ -1,9 +1,14 @@
 package entity;
 
 public class Medkit extends basic_card{
+    @Override
+    public boolean needTarget() {
+        return false;
+    }
+
     public void use(){
-        if (getTarget().gethp() < getTarget().getmaxhp()){
-            getTarget().recover(1);
+        if (getSource().gethp() < getSource().getmaxhp()){
+            getSource().recover(1);
         }
     }
 

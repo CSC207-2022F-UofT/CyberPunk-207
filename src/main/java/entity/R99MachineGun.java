@@ -1,7 +1,15 @@
 package entity;
 
 public class R99MachineGun extends equipment_card{
-    public void use(){}
+
+    @Override
+    public boolean needTarget() {
+        return false;
+    }
+
+    public void use(){
+        getSource().putOnEquipment("Weapon", this);
+    }
 
     @Override
     public String toString(){

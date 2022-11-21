@@ -2,12 +2,16 @@ package entity;
 
 import gateway.CardsHeap;
 
+import static gateway.CardsHeap.draw;
+
 public class Lottery extends strategy_card{
+    @Override
+    public boolean needTarget() {
+        return false;
+    }
+
     public void use(){
-        Card c1 = CardsHeap.draw();
-        Card c2 = CardsHeap.draw();
-        getTarget().addCard(c1);
-        getTarget().addCard(c2);
+        getSource().addToHand(draw(2));
     }
 
     @Override

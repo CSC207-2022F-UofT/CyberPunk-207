@@ -1,11 +1,14 @@
 package manager;
 
+import entity.Card;
 import entity.Player;
+import entity.Shoot;
 import gateway.CardsHeap;
 
 import java.util.*;
 
 import static gateway.CardsHeap.draw;
+import static java.util.Collections.checkedSet;
 import static java.util.Collections.swap;
 import static manager.IO.input;
 import static manager.IO.output;
@@ -19,18 +22,15 @@ public class Gameboard {
     private List<String> rolemap = new ArrayList<>();
 
 
-    public static void setCaptin(Player captin) {
-        Captin = captin;
-    }
-    //setroles 随机分配角色
-
     public void Game_Main(){
         startGame();
         while (!checkEnd()) {  // can use game status
             output("Round " + round++);
             for (Player p : players) {
                 output("Your round begins");
+                System.out.println(p.gethp());
                 runPhase(p);
+                System.out.println(p.gethp());
                 if (checkEnd()) {
                     endGame();
                 }
@@ -86,12 +86,13 @@ public class Gameboard {
         return roles.get(role).isEmpty();
     }
 
-    //添加判断人员死亡
     public void runPhase(Player player) {
         if(!player.isAlive()){
+            output("I'm dead");
             return;
         }
         drawPhase(player);
+        System.out.println(player.get_pocketcards());
         playPhase(player);
         if(player.gethp() < player.get_pocketcards().size()){
             throwPhase(player);
@@ -109,11 +110,45 @@ public class Gameboard {
     }
 
     public void playPhase(Player player){
-
+        while(player.isAlive()){
+            output("num for cards, 0 for end turn");
+            int order = input();
+            if(order == 0){
+                return;
+            } else{
+                order = order - 1;
+            }
+            useCard(player, order);
+        }
     }
 
-    private void useCard(int num) {
+    public void useCard(Player player, int num) {
+        Card card = player.get_pocketcards().get(num);
+        card.setSource(player);
+        if(card.needTarget()){
+            output("choose your target");
+            int target = input() - 1;
+            card.setTarget(players.get(target));
+            if (calDis(card.getSource(), card.getTarget()) > 1) {
+                output("out of range, try again");
+                return;
+            }
+        }
+        if(card instanceof Shoot){
+            if(player.isUseShoot() && player.getEquipment().get("Weapon") == null){
+                output("shoot used, try another card");
+                return;
+            } else{
+                player.setUseShoot(true);
+            }
+        }
+        System.out.println(player.get_pocketcards());
+        card.use();
+        player.loosCard(num);
+        System.out.println(player.get_pocketcards());
+        output(card.toString());
     }
+
 
     public void throwPhase(Player player){
         int num = player.get_pocketcards().size() - player.gethp();
@@ -125,9 +160,24 @@ public class Gameboard {
         }
     }
 
-    private void endPhase() {
+    public void endPhase() {
         System.out.println("This turn ends.");
     }
+
+    public int calDis(Player player1, Player player2){
+        int pos1 = players.indexOf(player1);
+        int pos2 = players.indexOf(player2);
+        int dis = Math.max(pos1 - pos2, pos2 - pos1);
+        dis = Math.min(dis, 5 - dis);
+        if (player1.getEquipment().get("Minus") != null){
+            dis -= 1;
+        }
+        if (player2.getEquipment().get("Plus") != null){
+            dis += 1;
+        }
+        return dis;
+    }
+
 
     public static List<Player> getPlayers(){
         return players;
