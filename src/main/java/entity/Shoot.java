@@ -1,3 +1,4 @@
+package entity;
 
 public class Shoot extends basic_card{
 
