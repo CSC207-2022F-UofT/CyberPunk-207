@@ -47,12 +47,12 @@ public class PlayCardsController {
     //player discards one card. Card's index is taken as input
     public void DiscardCard(int sourcePlayerIndex, int cardIndex){
         Player source_player = gameboard.getPlayers().get(sourcePlayerIndex);
-        gameboard.getPlayers().get(sourcePlayerIndex).removeCard(cardIndex);
+        source_player.removeCard(cardIndex);
     }
 
     //player discards multiple cards. List of cards' indices is taken as input
     public void DiscardCard(int sourcePlayerIndex, ArrayList<Integer> cardIndices){
         Player source_player = gameboard.getPlayers().get(sourcePlayerIndex);
-        gameboard.getPlayers().get(sourcePlayerIndex).removeCard(cardIndices);
+        source_player.removeCard(cardIndices);
     }
 }
