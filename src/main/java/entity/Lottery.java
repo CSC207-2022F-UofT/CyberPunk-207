@@ -1,11 +1,11 @@
 package entity;
 
-import gateway.Cardsheap;
+import gateway.CardsHeap;
 
 public class Lottery extends strategy_card{
     public void use(){
-        Card c1 = Cardsheap.draw();
-        Card c2 = Cardsheap.draw();
+        Card c1 = CardsHeap.draw();
+        Card c2 = CardsHeap.draw();
         getTarget().addCard(c1);
         getTarget().addCard(c2);
     }

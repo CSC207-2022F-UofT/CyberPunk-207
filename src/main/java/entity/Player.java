@@ -7,6 +7,7 @@ import static gateway.CardsHeap.draw;
 
 public class Player {
     private int hp;
+    private int maxhp;
     private ArrayList<Card> pocketcards;
     private String role;
     private boolean status;
@@ -29,6 +30,7 @@ public class Player {
 
     public Player() {
         this.hp = 3;
+        this.maxhp = 3;
         this.pocketcards = new ArrayList<>();
         this.role = "";
         this.alive = true;
@@ -87,4 +89,28 @@ public class Player {
         this.status = status;
     }
 
+    public void recover(int i) {
+        this.hp += 1;
+    }
+
+    public boolean whether_has_dodge(){
+        for (int i = 0; i < this.pocketcards.size(); i++){
+            if (this.pocketcards.get(i) instanceof Dodge){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getmaxhp(){
+        return this.maxhp;
+    }
+
+    public void addCard(Card c){
+        this.pocketcards.add(c);
+    }
+
+    public void removeCard(Card c){
+        this.pocketcards.remove(c);
+    }
 }
