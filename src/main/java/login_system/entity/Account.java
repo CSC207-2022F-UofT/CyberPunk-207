@@ -1,5 +1,6 @@
-package login_system;
-public class Account {
+package login_system.entity;
+
+public class Account implements IAccount {
     private String username;
     private String password;
 
@@ -14,4 +15,8 @@ public class Account {
     public String getUsername() {return username;}
 
 
+    @Override
+    public String writeAccount() {
+        return username + "," + password;
+    }
 }
