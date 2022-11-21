@@ -1,12 +1,15 @@
 package login_system;
 
-public class LogInController {
+import java.io.FileNotFoundException;
+
+public class LoginController {
     private String username;
     private String password;
     private AccountManager manager;
 
-    public LogInController() {
+    public LoginController() throws FileNotFoundException {
         this.manager = new AccountManager();
+        manager.getAccount("src/main/resource/Accounts.txt");
     }
 
     public void login(String username, String password) {
