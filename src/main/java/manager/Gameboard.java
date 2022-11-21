@@ -1,10 +1,8 @@
 package manager;
 
-import entity.Card;
 import entity.Player;
 import gateway.CardsHeap;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class Gameboard {
@@ -12,6 +10,7 @@ public class Gameboard {
     private static int round = 1;
     private int numPlayers = 5;
     private static Player Captin = new Player();
+
     //setroles 随机分配角色
 
     public void Game_Main(){
@@ -51,5 +50,8 @@ public class Gameboard {
         return false;
     }
 
+    public ArrayList<Player> get_players(){
+        return this.players;
+    }
 
 }

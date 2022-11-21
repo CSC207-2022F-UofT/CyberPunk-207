@@ -28,46 +28,56 @@ public class Player {
     public void drawCards(int num) {
     }
 
-    public void playCards(){
+    public void playCards() {
 
     }
-    public int gethp(){
+
+    public int gethp() {
         return this.hp;
     }
 
-    public int getmaxhp(){
+    public int getmaxhp() {
         return this.max_hp;
     }
 
-    public void recover(int num){
+    public void recover(int num) {
         this.hp += num;
     }
 
-    public void hurted(int num){
+    public void hurted(int num) {
         this.hp -= num;
     }
 
-    public void activate_dodge(){
+    public void activate_dodge() {
         this.dodge = true;
     }
 
-    public boolean check_dodge(){
+    public boolean check_dodge() {
         return this.dodge;
     }
 
-    public ArrayList<Card> get_pocketcards(){
+    public ArrayList<Card> get_pocketcards() {
         return this.pocketcards;
     }
 
-    public void addCard(Card c){
+    public void addCard(Card c) {
         this.pocketcards.add(c);
     }
 
-    public void removeCard(Card c){
+    public void removeCard(Card c) {
         this.pocketcards.remove(c);
     }
 
-
-    public void runPhase() {
+    public boolean whether_has_dodge() {
+        for (int i = 0; i < this.get_pocketcards().size(); i++) {
+            if (!(this.get_pocketcards().get(i) instanceof Dodge)) {
+                return false;
+            }
+        }
+        return true;
     }
+
+
+
 }
+

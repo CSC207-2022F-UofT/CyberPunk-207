@@ -5,4 +5,9 @@ public class Robbery extends strategy_card{
         getSource().addCard(getTarget().get_pocketcards().get(pick_num));
         getTarget().removeCard(getTarget().get_pocketcards().get(pick_num));
     }
+
+    @Override
+    public String toString() {
+        return null;
+    }
 }
