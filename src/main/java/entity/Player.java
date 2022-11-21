@@ -2,10 +2,8 @@ package entity;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Scanner;
 
-import static gateway.Cardsheap.draw;
+import static gateway.CardsHeap.draw;
 
 public class Player {
     private int hp;
@@ -27,15 +25,12 @@ public class Player {
         this.alive = alive;
     }
 
-    private int location;
-
-    private int max_hp;
 
 
     public Player() {
         this.hp = 3;
         this.pocketcards = new ArrayList<>();
-        this.role = null;
+        this.role = "";
         this.alive = true;
         this.status = true;
     }
@@ -80,9 +75,6 @@ public class Player {
         this.pocketcards.addAll(cards);
     }
 
-    public void removeCard(Card c){
-        this.pocketcards.remove(c);
-    }
 
 
 

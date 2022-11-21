@@ -3,8 +3,8 @@ package entity;
 
 public class CarBomb extends equipment_card{
     @Override
-    public Object use(){
-        return null;
+    public void use(){
+        return;
     }
 
     @Override

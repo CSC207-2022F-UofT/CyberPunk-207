@@ -1,12 +1,11 @@
 package manager;
 
 import entity.Player;
-import gateway.Cardsheap;
-import manager.IO;
+import gateway.CardsHeap;
 
 import java.util.*;
 
-import static gateway.Cardsheap.draw;
+import static gateway.CardsHeap.draw;
 import static java.util.Collections.swap;
 import static manager.IO.input;
 import static manager.IO.output;
@@ -16,7 +15,7 @@ public class Gameboard {
     private static List<Player> players = new ArrayList<>();
     private static int round = 1;
     private static Player Captin;
-    private HashMap<String, List<Player>> roles;
+    private HashMap<String, List<Player>> roles = new HashMap<>();
     private List<String> rolemap = new ArrayList<>();
 
 
@@ -41,20 +40,18 @@ public class Gameboard {
     }
 
     public void startGame(){
-        Cardsheap.init();
+        CardsHeap.init();
         shuffleRoles();
         int numPlayers = 5;
-        roles.put("Captain", new ArrayList<Player>());
-        roles.put("Criminal", new ArrayList<Player>());
-        roles.put("Police", new ArrayList<Player>());
-        roles.put("Corpo", new ArrayList<Player>());
+        roles.put("Captain", new ArrayList<>());
+        roles.put("Criminal", new ArrayList<>());
+        roles.put("Police", new ArrayList<>());
+        roles.put("Corpo", new ArrayList<>());
         for(int i = 0; i < numPlayers; i++){
             players.add(new Player());
             players.get(i).setRole(rolemap.get(i));
             roles.get(rolemap.get(i)).add(players.get(i));
-        }
-        for(Player player: players) {;
-            drawCards(player, 4);
+            drawCards(players.get(i), 4);
         }
         roles.get("Captain").get(0).sethp(4);
     }
@@ -72,13 +69,13 @@ public class Gameboard {
     }
 
     public boolean checkEnd() {
-        if (!isExtinct("Captain") && !isExtinct("Criminal") && !isExtinct("Police")){
+        if (isExtinct("Captain") && isExtinct("Criminal") && isExtinct("Police")){
             output("Corpo Win!");
             return true;
-        } else if(!isExtinct("Captain") && isExtinct("Criminal")){
+        } else if(isExtinct("Captain") && !isExtinct("Criminal")){
             output("Criminal Win!");
             return true;
-        }else if(isExtinct("Captain") && !isExtinct("Criminal") && !isExtinct("Corpo")) {
+        }else if(!isExtinct("Captain") && isExtinct("Criminal") && isExtinct("Corpo")) {
             output("Police Win!");
             return true;
         }
@@ -90,8 +87,6 @@ public class Gameboard {
     }
 
     //添加判断人员死亡
-
-
     public void runPhase(Player player) {
         if(!player.isAlive()){
             return;
@@ -104,16 +99,14 @@ public class Gameboard {
         endPhase();
     }
 
-
     public void drawPhase(Player player){
         output("Draws 2 cards from cards heap");
         drawCards(player, 2);
     }
 
     public void drawCards(Player player, int num) {
-        player.addToHand(draw(2));
+        player.addToHand(draw(num));
     }
-
 
     public void playPhase(Player player){
 
@@ -121,7 +114,6 @@ public class Gameboard {
 
     private void useCard(int num) {
     }
-
 
     public void throwPhase(Player player){
         int num = player.get_pocketcards().size() - player.gethp();
@@ -133,10 +125,8 @@ public class Gameboard {
         }
     }
 
-
-
     private void endPhase() {
-        System.out.println("This round ends.");
+        System.out.println("This turn ends.");
     }
 
 

@@ -1,13 +1,13 @@
 package entity;
 
-public class Medkit extends basic_card{
+public class Shootout extends strategy_card {
     @Override
     public String toString() {
         return null;
     }
 
     @Override
-    public void use() {
+    public void use(int pick_num) {
 
     }
 }
