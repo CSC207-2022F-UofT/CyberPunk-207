@@ -1,25 +1,36 @@
 package gateway;
-package entity;
 
-import entity.Cards.Card;
-import entity.Cards.basic.Shoot;
-import Cards.basic.Dodge;
-import Cards.basic.Medkit;
+import entity.Card;
+import entity.Shoot;
+import entity.Dodge;
+import entity.Medkit;
+import entity.Shootout;
+import entity.Policeraid;
+import entity.Traumateam;
+import entity.Destruction;
+import entity.Lottery;
+import entity.Robbery;
+import entity.R99MachineGun;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
+
+import static java.util.Collections.shuffle;
+import static java.util.Collections.swap;
 
 public class Cardsheap {
 
     private static ArrayList<Card> drawCards = new ArrayList<>(); //Cards to be drawn
-    private static ArrayList<Card> usedCards = new ArrayList<>(); //Cards already been used
-    private static ArrayList<Card> allCards = new ArrayList<>(); //All cards
+    private static final ArrayList<Card> usedCards = new ArrayList<>(); //Cards already been used
+    private static final ArrayList<Card> allCards = new ArrayList<>(); //All cards
     private static int numCards = 0;
 
 
     // Add certain number of cards to drawCards and allCards
-    public static void addCard(Card c, int num) {
+    public static void addCard(Class<? extends Card> cls, int num) {
         int count = 0;
+        Card c = cls.getConstructor();
         while (count < num) {
             drawCards.add(c);
             allCards.add(c);
@@ -28,23 +39,22 @@ public class Cardsheap {
     }
 
     public static void addBasicCards() {
-        addCard(Shoot, 30);
-        addCard(Dodge, 15);
-        addCard(Medkit, 8);
+        addCard(Shoot.class, 30);
+        addCard(Dodge.class, 15);
+        addCard(Medkit.class, 8);
     }
 
     public static void addStrategyCards() {
-        addCard(Destruction, 6);
-        addCard(Robbery, 6);
-        addCard(Lottery, 4);
-        addCard(Policeraid, 4);
-        addCard(Shootout, 2);
-        addCard(TraumaTeam, 1);
+        addCard(Destruction.class, 6);
+        addCard(Robbery.class, 6);
+        addCard(Lottery.class, 4);
+        addCard(Policeraid.class, 4);
+        addCard(Shootout.class, 2);
+        addCard(Traumateam.class, 1);
     }
 
     public static void addEquipmentCards() {
-        addCard(R99MachineGun, 2);
-        addCard(CarBomb, 2);
+        addCard(R99MachineGun.class, 2);
     }
 
     //Initialize the cards heap.
@@ -52,7 +62,7 @@ public class Cardsheap {
         addBasicCards();
         addStrategyCards();
         addEquipmentCards();
-        Collections.shuffle(drawCards);
+        shuffle();
         numCards = drawCards.size();
     }
 
@@ -61,7 +71,7 @@ public class Cardsheap {
         //If no cards left in drawCards, add all used cards to drawCards
         if (drawCards.isEmpty()) {
             drawCards.addAll(usedCards);
-            Collections.shuffle(drawCards);
+            shuffle();
             usedCards.clear();
         }
         Card c = drawCards.get(0);
@@ -95,12 +105,19 @@ public class Cardsheap {
         return drawCards;
     }
 
+    private static void shuffle() {
+        Random r = new Random();
+        for (int i = 77; i >= 1; i--){
+            swap(allCards, i, r.nextInt(i));
+        }
+    }
+
     public static ArrayList<Card> getUsedCards() {
         return usedCards;
     }
 
     public static void setDrawCards(ArrayList<Card> drawCards) {
-        CardsHeap.drawCards = drawCards;
+        Cardsheap.drawCards = drawCards;
     }
 
     public static int getNumCards() {

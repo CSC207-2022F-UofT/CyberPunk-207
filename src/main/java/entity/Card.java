@@ -49,8 +49,6 @@ public abstract class Card {
 
     // Card usage functions:
 
-    public abstract Object use();
-
     public abstract String toString();
     public Player selectTarget(Player player) {
         source = player;
