@@ -1,21 +1,22 @@
 package manager;
 
-import entity.Card;
 import entity.Player;
 import gateway.Cardsheap;
+import manager.IO;
 
-import java.io.PrintStream;
 import java.util.*;
 
 import static gateway.Cardsheap.draw;
 import static java.util.Collections.swap;
+import static manager.IO.input;
+import static manager.IO.output;
 
 public class Gameboard {
     private static Player player;
     private static List<Player> players = new ArrayList<>();
     private static int round = 1;
     private static Player Captin;
-    private HashMap<String, Player> roles;
+    private HashMap<String, List<Player>> roles;
     private List<String> rolemap = new ArrayList<>();
 
 
@@ -26,11 +27,11 @@ public class Gameboard {
 
     public void Game_Main(){
         startGame();
-        while (!checkEnd()) {
-            System.out.println("round " + round++);
+        while (!checkEnd()) {  // can use game status
+            output("Round " + round++);
             for (Player p : players) {
-                System.out.println("Your round begins");
-                runPhase();
+                output("Your round begins");
+                runPhase(p);
                 if (checkEnd()) {
                     endGame();
                 }
@@ -43,14 +44,19 @@ public class Gameboard {
         Cardsheap.init();
         shuffleRoles();
         int numPlayers = 5;
+        roles.put("Captain", new ArrayList<Player>());
+        roles.put("Criminal", new ArrayList<Player>());
+        roles.put("Police", new ArrayList<Player>());
+        roles.put("Corpo", new ArrayList<Player>());
         for(int i = 0; i < numPlayers; i++){
             players.add(new Player());
             players.get(i).setRole(rolemap.get(i));
-            roles.put(rolemap.get(i), players.get(i));
+            roles.get(rolemap.get(i)).add(players.get(i));
         }
         for(Player player: players) {;
-            drawCards(4);
+            drawCards(player, 4);
         }
+        roles.get("Captain").get(0).sethp(4);
     }
 
     public void shuffleRoles(){
@@ -66,46 +72,50 @@ public class Gameboard {
     }
 
     public boolean checkEnd() {
-        if (!Captin.isAlive()){
-            System.out.println("Criminal Win!");
+        if (!isExtinct("Captain") && !isExtinct("Criminal") && !isExtinct("Police")){
+            output("Corpo Win!");
+            return true;
+        } else if(!isExtinct("Captain") && isExtinct("Criminal")){
+            output("Criminal Win!");
+            return true;
+        }else if(isExtinct("Captain") && !isExtinct("Criminal") && !isExtinct("Corpo")) {
+            output("Police Win!");
             return true;
         }
         return false;
     }
 
-    public void runPhase() {
-        if(!this.isAlive()){
+    public boolean isExtinct(String role){
+        return roles.get(role).isEmpty();
+    }
+
+    //添加判断人员死亡
+
+
+    public void runPhase(Player player) {
+        if(!player.isAlive()){
             return;
         }
-        drawPhase();
-        playPhase();
-        if(hp < pocketcards.size()){
-            throwPhase();
+        drawPhase(player);
+        playPhase(player);
+        if(player.gethp() < player.get_pocketcards().size()){
+            throwPhase(player);
         }
         endPhase();
     }
 
 
-    public void drawPhase(){
-        System.out.println("Draws 2 cards from cards heap");
-        drawCards(2);
+    public void drawPhase(Player player){
+        output("Draws 2 cards from cards heap");
+        drawCards(player, 2);
     }
 
     public void drawCards(Player player, int num) {
-        player.addCard(draw(2));
+        player.addToHand(draw(2));
     }
 
 
-    public void playPhase(){
-        String order = "";
-        while (order != "skip"){
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("choose a number or skip");
-            order = scanner.next();
-            useCard(Integer.parseInt(order));
-            scanner.close();
-
-        }
+    public void playPhase(Player player){
 
     }
 
@@ -113,22 +123,17 @@ public class Gameboard {
     }
 
 
-    public void throwPhase(){
-        int num = pocketcards.size() - this.hp;
-        System.out.println("You need to throw " + num + " cards" );
+    public void throwPhase(Player player){
+        int num = player.get_pocketcards().size() - player.gethp();
+        output("You need to throw " + num + " cards" );
         for(int i = 0; i < num; i++){
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("choose a number");
-            String card = scanner.next();
-            loosCard(Integer.parseInt(card));
-            scanner.close();
+            output("choose a number");
+            int card =  input() -1;
+            player.loosCard(card);
         }
-
     }
 
-    private void loosCard(int card) {
-        pocketcards.remove(card);
-    }
+
 
     private void endPhase() {
         System.out.println("This round ends.");

@@ -1,6 +1,5 @@
 package entity;
 
-import gateway.CardsHeap;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,13 +52,10 @@ public class Player {
         return this.hp;
     }
 
-    public int getmaxhp(){
-        return this.max_hp;
+    public void sethp(int hp){
+         this.hp = hp;
     }
 
-    public void recover(int num){
-        this.hp += num;
-    }
 
     public void hurted(int num){
         this.hp -= num;
@@ -76,8 +72,11 @@ public class Player {
     public ArrayList<Card> get_pocketcards(){
         return this.pocketcards;
     }
+    public void loosCard(int card) {
+        pocketcards.remove(card);
+    }
 
-    public void addCard(ArrayList<Card> cards){
+    public void addToHand(ArrayList<Card> cards){
         this.pocketcards.addAll(cards);
     }
 
