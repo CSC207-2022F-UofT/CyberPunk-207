@@ -34,8 +34,8 @@ public class CardsHeap {
     }
 
     public static void addBasicCards() {
-        addCard("Shoot", 30);
-        addCard("Dodge", 15);
+        addCard("Shoot", 15);
+//        addCard("Dodge", 10);
         addCard("Medkit", 8);
     }
 
@@ -43,7 +43,7 @@ public class CardsHeap {
         addCard("Destruction", 6);
         addCard("Robbery", 6);
         addCard("Lottery", 4);
-        addCard("Policeraid", 4);
+        addCard("Policeraid", 24);
         addCard("Shootout", 2);
         addCard("Traumateam", 1);
     }
@@ -82,7 +82,7 @@ public class CardsHeap {
 
     private static void shuffle() {
         Random r = new Random();
-        for (int i = 77; i >= 1; i--){
+        for (int i = 67; i >= 1; i--){
             swap(cardHeap, i, r.nextInt(i));
         }
     }
