@@ -1,7 +1,7 @@
-package manager;
+package login_system;
 
 import java.util.HashMap;
-import entity.Account;
+import login_system.Account;
 
 public class AccountManager {
     private HashMap<String, Account> accounts = new HashMap<>();

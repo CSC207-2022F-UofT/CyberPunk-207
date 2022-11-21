@@ -1,7 +1,4 @@
-package controller;
-
-import entity.*;
-import manager.*;
+package login_system;
 
 public class LogInController {
     private String username;

@@ -1,4 +1,4 @@
-package entity;
+package login_system;
 public class Account {
     private String username;
     private String password;
