@@ -2,7 +2,7 @@ package manager;
 
 import entity.Card;
 import entity.Player;
-import gateway.CardsHeap;
+import gateway.Cardsheap;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class Gameboard {
     }
 
     public void startGame(){
-        CardsHeap.init();
+        Cardsheap.init();
         for(int i = 0; i < numPlayers; i++){
             players.add(new Player());
         }
@@ -51,5 +51,8 @@ public class Gameboard {
         return false;
     }
 
+    public ArrayList<Player> getPlayers(){
+        return this.players;
+    }
 
 }

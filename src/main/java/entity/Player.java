@@ -20,7 +20,7 @@ public class Player {
     public Player() {
         this.hp = 3;
         this.handlimit = hp;
-        this.pocketcards = new ArrayList<>();
+        this.pocketcards = new ArrayList<Card>();
         this.role = null;
         this.status = true;
     }
@@ -62,9 +62,39 @@ public class Player {
     public void addCard(Card c){
         this.pocketcards.add(c);
     }
+    public void addCard(ArrayList<Card> cards){
+        this.pocketcards.addAll(cards);
+    }
 
     public void removeCard(Card c){
         this.pocketcards.remove(c);
+    }
+
+    public void removeCard(int cardIndex){
+        this.pocketcards.remove(cardIndex);
+    }
+
+    public void removeCard(ArrayList<Integer> cardIndex){
+        for(int i=0; i<cardIndex.size(); i++){
+            this.pocketcards.remove(i);
+        }
+    }
+
+    public void playCard(int cardIndex, Player target){
+        Card cardtoplay = get_pocketcards().get(cardIndex);
+        cardtoplay.setTarget(target);
+        cardtoplay.use();
+        removeCard(cardtoplay);
+    }
+
+    public void playCard(int cardIndex){
+        Card cardtoplay = get_pocketcards().get(cardIndex);
+        cardtoplay.use();
+        removeCard(cardtoplay);
+    }
+
+    public boolean isAlive(){
+        return hp > 0;
     }
 
 
