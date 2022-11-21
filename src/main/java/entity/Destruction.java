@@ -2,13 +2,14 @@ package entity;
 
 public class Destruction extends strategy_card{
     @Override
-    public void use(int pick_num){
-
-        getTarget().loosCard(pick_num);
+    public void use() {
+        if (getTarget().get_pocketcards().size() > 0) {
+            getTarget().loosCard(0);
+        }
     }
 
     @Override
     public String toString() {
-        return null;
+        return "Destruction";
     }
 }
