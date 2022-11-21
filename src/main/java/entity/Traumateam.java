@@ -1,15 +1,18 @@
 package entity;
 
-public class Traumateam extends strategy_card {
+import manager.Gameboard;
 
-
-    @Override
-    public String toString(){
-        return "R99 Machine Gun";
+public class Traumateam extends strategy_card{
+    public void use(){
+        for (Player p : Gameboard.get_players()) {
+            if (p.gethp() < p.getmaxhp()){
+                p.recover(1);
+            }
+        }
     }
 
     @Override
-    public void use(int pick_num) {
-
+    public String toString() {
+        return "Traumateam";
     }
 }
