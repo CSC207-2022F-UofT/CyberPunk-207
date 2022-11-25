@@ -9,7 +9,7 @@ public class Shoot extends basic_card{
 
     public void use(){
         if (getTarget().whether_has_dodge()){
-                getTarget().hurted(1);
+                getTarget().hurt(1);
             }
     }
     @Override

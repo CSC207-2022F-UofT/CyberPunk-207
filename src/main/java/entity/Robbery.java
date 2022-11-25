@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.Random;
-
 public class Robbery extends strategy_card {
     @Override
     public boolean needTarget() {
@@ -9,9 +7,10 @@ public class Robbery extends strategy_card {
     }
 
     public void use() {
-        if (getTarget().get_pocketcards().size() > 0){
-            getSource().addToHand(getTarget().get_pocketcards().get(0));
-            getTarget().removeCard(getTarget().get_pocketcards().get(0));
+        if (getTarget().getPocketcards().size() > 0){
+            Card card = getTarget().getPocketcards().get(0);
+            getSource().addToHand(card);
+            getTarget().removeCard(card);
         }
     }
 

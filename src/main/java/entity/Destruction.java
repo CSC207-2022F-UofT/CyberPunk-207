@@ -8,7 +8,7 @@ public class Destruction extends strategy_card{
 
     @Override
     public void use() {
-        if (getTarget().get_pocketcards().size() > 0) {
+        if (getTarget().getPocketcards().size() > 0) {
             getTarget().loosCard(0);
         }
     }
