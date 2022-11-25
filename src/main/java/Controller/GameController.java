@@ -1,6 +1,5 @@
 package Controller;
 
-import entity.Player;
 import manager.InputBoundary;
 import java.util.Scanner;
 
