@@ -28,10 +28,7 @@ public class PhaseManager {
 
 
     public void playPhase(PlayerManager player){
-        while(player.isAlive()){
-            //output("num for cards, 0 for end turn");
-            player.playCard();
-        }
+        player.playCard();
     }
 
 
@@ -40,8 +37,7 @@ public class PhaseManager {
         //output("You need to throw " + num + " cards" );
         for(int i = 0; i < num; i++){
             //output("choose a number");
-            int card = gameboard.askOrder();
-            player.loosCard(card);
+            player.throwCard();
         }
     }
 

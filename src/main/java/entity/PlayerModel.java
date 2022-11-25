@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import static gateway.CardsHeap.draw;
 
-public class Player {
+public class PlayerModel {
     private int hp;
     private int maxhp;
     private ArrayList<Card> pocketcards;
@@ -24,7 +24,7 @@ public class Player {
         this.alive = alive;
     }
 
-    public Player() {
+    public PlayerModel() {
         this.hp = 3;
         this.maxhp = 3;
         this.pocketcards = new ArrayList<>();
