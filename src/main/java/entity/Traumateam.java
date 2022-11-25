@@ -9,9 +9,9 @@ public class Traumateam extends strategy_card{
     }
 
     public void use(){
-        for (Player p : Gameboard.getPlayers()) {
-            if (p.gethp() < p.getmaxhp()){
-                p.recover(1);
+        for (PlayerModel p : Gameboard.getPlayers()) {
+            if (p.getHp() < p.getmaxhp()){
+                p.heal(1);
             }
         }
     }

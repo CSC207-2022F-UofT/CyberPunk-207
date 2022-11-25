@@ -9,9 +9,9 @@ public class Policeraid extends strategy_card{
     }
 
     public void use(){
-        for (Player p : Gameboard.getPlayers()) {
+        for (PlayerModel p : Gameboard.getPlayers()) {
             if (p != getSource() && !p.whether_has_shoot() ) {
-                p.hurted(1);
+                p.hurt(1);
             }
         }
     }

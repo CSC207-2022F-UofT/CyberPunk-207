@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import static gateway.CardsHeap.draw;
 
-public class Player {
+public class PlayerModel {
     private int hp;
     private int maxhp;
     private ArrayList<Card> pocketcards;
@@ -14,7 +14,6 @@ public class Player {
     private boolean status;
     private boolean alive;
     private boolean useShoot = false;
-
     private HashMap<String, equipment_card> equipment = new HashMap<>();
 
     public boolean Status() {
@@ -25,7 +24,7 @@ public class Player {
         this.alive = alive;
     }
 
-    public Player() {
+    public PlayerModel() {
         this.hp = 3;
         this.maxhp = 3;
         this.pocketcards = new ArrayList<>();
@@ -49,7 +48,7 @@ public class Player {
         this.role = role;
     }
 
-    public int gethp(){
+    public int getHp(){
         return this.hp;
     }
 
@@ -61,18 +60,15 @@ public class Player {
         this.useShoot = useShoot;
     }
 
-    public void sethp(int hp){
+    public void setHp(int hp){
          this.hp = hp;
     }
 
-    public void hurted(int num){
+    public void hurt(int num){
         this.hp -= num;
-        if(hp == 0){
-            this.alive = false;
-        }
     }
 
-    public ArrayList<Card> get_pocketcards(){
+    public ArrayList<Card> getPocketcards(){
         return this.pocketcards;
     }
     public void loosCard(int card) {
@@ -90,11 +86,7 @@ public class Player {
         return alive;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public void recover(int i) {
+    public void heal(int i) {
         this.hp += 1;
     }
 
@@ -122,7 +114,7 @@ public class Player {
         equipment.put(type, card);
     }
 
-    public int getmaxhp(){
+    public int getmaxhp(){ //change name to getMaxHp
         return this.maxhp;
     }
 
@@ -133,4 +125,6 @@ public class Player {
     public void removeCard(Card c){
         this.pocketcards.remove(c);
     }
+
+
 }

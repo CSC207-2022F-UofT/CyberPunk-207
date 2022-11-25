@@ -1,66 +1,71 @@
 package manager;
 
 import entity.Card;
-import entity.Player;
-import entity.Shoot;
+import entity.PlayerModel;
 import gateway.CardsHeap;
 
 import java.util.*;
 
-import static gateway.CardsHeap.draw;
-import static java.util.Collections.checkedSet;
+import static Controller.GameController.input;
 import static java.util.Collections.swap;
-import static manager.IO.input;
-import static manager.IO.output;
 
-public class Gameboard {
-    private static Player player;
-    private static List<Player> players = new ArrayList<>();
+
+public class Gameboard implements InputBoundary{
+    private static List<PlayerManager> players = new ArrayList<>();
     private static int round = 1;
-    private static Player Captin;
-    private HashMap<String, List<Player>> roles = new HashMap<>();
-    private List<String> rolemap = new ArrayList<>();
+    private HashMap<Identity, List<PlayerManager>> roleMap = new HashMap<>();
+    private List<Identity> roles = new ArrayList<>();
+    private static List<PlayerModel> seatMap = new ArrayList<>();
+    private final OutputBoundary outputBoundary;
+    private boolean askTarget;
+    private PhaseManager phaseManager;
 
-
-    public void Game_Main(){
-        startGame();
-        while (!checkEnd()) {  // can use game status
-            output("Round " + round++);
-            for (Player p : players) {
-                output("Your round begins");
-                System.out.println(p.gethp());
-                runPhase(p);
-                System.out.println(p.gethp());
-                if (checkEnd()) {
-                    endGame();
-                }
-            }
-        }
-        endGame();
+    public Gameboard(OutputBoundary outputBoundary){
+        this.outputBoundary = outputBoundary;
     }
 
     public void startGame(){
+        gameInit();
+        while (!checkEnd()) {  // can use game status
+            outputBoundary.output("Round " + round++);
+            for (PlayerManager p : players) {
+                //output("Your round begins");
+                if(!checkDeath(p)){
+                    phaseManager.runPhase(p);
+                }
+            }
+        }
+        //game over
+    }
+
+
+
+    public void gameInit(){
         CardsHeap.init();
         shuffleRoles();
         int numPlayers = 5;
-        roles.put("Captain", new ArrayList<>());
-        roles.put("Criminal", new ArrayList<>());
-        roles.put("Police", new ArrayList<>());
-        roles.put("Corpo", new ArrayList<>());
+        roleMap.put(Identity.CAPTAIN, new ArrayList<>());
+        roleMap.put(Identity.POLICE, new ArrayList<>());
+        roleMap.put(Identity.CRIMINAL, new ArrayList<>());
+        roleMap.put(Identity.CORPO, new ArrayList<>());
         for(int i = 0; i < numPlayers; i++){
-            players.add(new Player());
-            players.get(i).setRole(rolemap.get(i));
-            roles.get(rolemap.get(i)).add(players.get(i));
-            drawCards(players.get(i), 4);
+            PlayerManager player = new HumanPlayer(i + 1, this );// can choose the number of ai and human player
+            players.add(player);
+            player.setRole(roles.get(i)); //can use to add gameHistory to the account
+            roleMap.get(roles.get(i)).add(player);
+            seatMap.add(player.getPlayer());
+            player.drawCards(4);
         }
-        roles.get("Captain").get(0).sethp(4);
+        roleMap.get(Identity.CAPTAIN).get(0).setHp(4);
+        phaseManager = new PhaseManager(this, outputBoundary);
+        //can use strategy pattern to choose different phase logic afterwards
     }
 
     public void shuffleRoles(){
-        rolemap.addAll(List.of("Captain","Police", "Criminal", "Criminal", "Corpo"));
+        roles.addAll(List.of(Identity.CAPTAIN, Identity.POLICE, Identity.CRIMINAL, Identity.CRIMINAL, Identity.CORPO));
         Random r = new Random();
         for(int i = 4; i >= 1 ; i--){
-            swap(rolemap, i, r.nextInt(i));
+            swap(roles, i, r.nextInt(i));
         }
     }
 
@@ -68,119 +73,70 @@ public class Gameboard {
         System.exit(0);
     }
 
+
     public boolean checkEnd() {
-        if (isExtinct("Captain") && isExtinct("Criminal") && isExtinct("Police")){
-            output("Corpo Win!");
+        if (isExtinct(Identity.CAPTAIN) && isExtinct(Identity.CRIMINAL)){
+            //output("Corpo Win!");
             return true;
-        } else if(isExtinct("Captain") && !isExtinct("Criminal")){
-            output("Criminal Win!");
+        } else if(isExtinct(Identity.CAPTAIN) && !isExtinct(Identity.CRIMINAL)){
+            //output("Criminal Win!");
             return true;
-        }else if(!isExtinct("Captain") && isExtinct("Criminal") && isExtinct("Corpo")) {
-            output("Police Win!");
+        }else if(!isExtinct(Identity.CAPTAIN) && isExtinct(Identity.CRIMINAL) && isExtinct(Identity.CORPO)) {
+            //output("Police Win!");
             return true;
         }
         return false;
     }
 
-    public boolean isExtinct(String role){
-        return roles.get(role).isEmpty();
+    public boolean isExtinct(Identity role){
+        return roleMap.get(role).isEmpty();
     }
 
-    public void runPhase(Player player) {
-        if(!player.isAlive()){
-            output("I'm dead");
-            return;
-        }
-        drawPhase(player);
-        System.out.println(player.get_pocketcards());
-        playPhase(player);
-        if(player.gethp() < player.get_pocketcards().size()){
-            throwPhase(player);
-        }
-        endPhase();
-    }
 
-    public void drawPhase(Player player){
-        output("Draws 2 cards from cards heap");
-        drawCards(player, 2);
-    }
 
-    public void drawCards(Player player, int num) {
-        player.addToHand(draw(num));
-    }
-
-    public void playPhase(Player player){
-        while(player.isAlive()){
-            output("num for cards, 0 for end turn");
-            int order = input();
-            if(order == 0){
-                return;
-            } else{
-                order = order - 1;
-            }
-            useCard(player, order);
-        }
-    }
-
-    public void useCard(Player player, int num) {
-        Card card = player.get_pocketcards().get(num);
-        card.setSource(player);
+    public void askTarget(Card card){
         if(card.needTarget()){
-            output("choose your target");
+            //output("choose your target");
             int target = input() - 1;
-            card.setTarget(players.get(target));
+            card.setTarget(seatMap.get(target));
             if (calDis(card.getSource(), card.getTarget()) > 1) {
-                output("out of range, try again");
-                return;
+                //output("out of range, try again");
+                outputBoundary.output("");// display out of range
             }
         }
-        if(card instanceof Shoot){
-            if(player.isUseShoot() && player.getEquipment().get("Weapon") == null){
-                output("shoot used, try another card");
-                return;
-            } else{
-                player.setUseShoot(true);
-            }
-        }
-        System.out.println(player.get_pocketcards());
-        card.use();
-        player.loosCard(num);
-        System.out.println(player.get_pocketcards());
-        output(card.toString());
     }
 
-
-    public void throwPhase(Player player){
-        int num = player.get_pocketcards().size() - player.gethp();
-        output("You need to throw " + num + " cards" );
-        for(int i = 0; i < num; i++){
-            output("choose a number");
-            int card =  input() -1;
-            player.loosCard(card);
-        }
+    public int askOrder(){
+        int order = input() - 1;
+        return order;
     }
 
-    public void endPhase() {
-        System.out.println("This turn ends.");
-    }
-
-    public int calDis(Player player1, Player player2){
-        int pos1 = players.indexOf(player1);
-        int pos2 = players.indexOf(player2);
+    public int calDis(PlayerModel playerModel1, PlayerModel playerModel2){
+        int pos1 = seatMap.indexOf(playerModel1);
+        int pos2 = seatMap.indexOf(playerModel2);
         int dis = Math.max(pos1 - pos2, pos2 - pos1);
         dis = Math.min(dis, 5 - dis);
-        if (player1.getEquipment().get("Minus") != null){
+        if (playerModel1.getEquipment().get("Minus") != null){
             dis -= 1;
         }
-        if (player2.getEquipment().get("Plus") != null){
+        if (playerModel2.getEquipment().get("Plus") != null){
             dis += 1;
         }
         return dis;
     }
 
+    public boolean checkDeath(PlayerManager player){
+        if(player.getHp() == 0 && player.isAlive()){
+            player.isDead();
+            Identity role = player.getRole();
+            roleMap.get(role).remove(player);
+            return true;
+        } else return !player.isAlive();
+    }
 
-    public static List<Player> getPlayers(){
-        return players;
+
+    public static List<PlayerModel> getPlayers(){
+        return seatMap;
     }
 
 

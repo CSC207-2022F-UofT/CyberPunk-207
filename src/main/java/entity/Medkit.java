@@ -7,8 +7,8 @@ public class Medkit extends basic_card{
     }
 
     public void use(){
-        if (getSource().gethp() < getSource().getmaxhp()){
-            getSource().recover(1);
+        if (getSource().getHp() < getSource().getmaxhp()){
+            getSource().heal(1);
         }
     }
 

@@ -1,27 +1,25 @@
 package entity;
 
-import java.util.ArrayList;
-
 public abstract class Card {
-    private Player target;
-    private Player source;
+    private PlayerModel target;
+    private PlayerModel source;
 
     public abstract boolean needTarget();
 
 
-    public Player getTarget() {
+    public PlayerModel getTarget() {
         return target;
     }
 
-    public void setTarget(Player target) {
+    public void setTarget(PlayerModel target) {
         this.target = target;
     }
 
-    public Player getSource() {
+    public PlayerModel getSource() {
         return source;
     }
 
-    public void setSource(Player source) {
+    public void setSource(PlayerModel source) {
         this.source = source;
     }
 
