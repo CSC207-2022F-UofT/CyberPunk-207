@@ -7,14 +7,24 @@ public class LoginController {
     private String password;
     private AccountManager manager;
 
-    public LoginController() throws FileNotFoundException {
-        this.manager = new AccountManager();
-        manager.getAccount("src/main/resource/Accounts.txt");
+    public LoginController(AccountManager manager) throws FileNotFoundException {
+        this.manager = manager;
     }
 
-    public void login(String username, String password) {
-        if(manager.login(username, password)){
-            //TODO: asd
-        }
+//    public String login(String username, String password) {
+//        if(manager.login(username, password).equals("SUCCESSFUL LOG IN")){
+//            //TODO: asd
+//        } else if (manager.login(username, password).equals("WRONG PASSWORD")) {
+//
+//        }
+//        else{
+//
+//        }
+//    }
+
+    public void quit() {
+        Serialization serialize = new Serialization(manager.getAccounts());
+        serialize.write();
+        System.out.println("LOG OUT");
     }
 }

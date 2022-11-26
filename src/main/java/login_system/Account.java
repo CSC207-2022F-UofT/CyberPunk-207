@@ -1,5 +1,7 @@
 package login_system;
-public class Account {
+import java.io.Serializable;
+public class Account implements Serializable{
+    private static final long serialVersionUID = 1L;
     private String username;
     private String password;
     private int wins;
@@ -18,13 +20,12 @@ public class Account {
         return this.password;
     }
 
-    public void updateRecord(Boolean win){
-        if(win){
+    public void updateRecord(Boolean win) {
+        if (win) {
             wins += 1;
         }
-        else{
-            loses += 1;
-        }
-        win_rate = wins/(wins+loses);
     }
+
+    public int getWins(){return this.wins;}
+
 }
