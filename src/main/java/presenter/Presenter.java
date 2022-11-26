@@ -1,11 +1,13 @@
 package presenter;
 
+import entity.Card;
 import manager.OutputBoundary;
+
+import java.util.ArrayList;
 
 public class Presenter implements OutputBoundary {
     @Override
     public void displayHand() {
-
     }
 
     @Override
