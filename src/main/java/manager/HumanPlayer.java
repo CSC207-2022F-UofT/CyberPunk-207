@@ -23,7 +23,7 @@ public class HumanPlayer extends PlayerManager{
     }
 
     public void useCard(int num) {
-        Card card = playerModel.getPocketcards().get(num);
+        Card card = PlayerManager.getPocketcards().get(num);
         card.setSource(playerModel);
         gameboard.askTarget(card);
         if(card instanceof Shoot){

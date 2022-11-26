@@ -1,17 +1,10 @@
 package gateway;
 
-import entity.Card;
-import entity.Dodge;
-import entity.Medkit;
-import entity.Shootout;
-import entity.Policeraid;
-import entity.Traumateam;
-import entity.Destruction;
-import entity.Lottery;
-import entity.Robbery;
-import entity.R99MachineGun;
+import entity.*;
+import manager.PlayerManager;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static java.util.Collections.shuffle;
@@ -20,7 +13,7 @@ import static java.util.Collections.swap;
 public class CardsHeap {
 
     private static final ArrayList<Card> cardHeap = new ArrayList<>(); //All cards
-
+    private static List<Listener> listeners = new ArrayList<>();
 
 
     // Add certain number of cards to drawCards and allCards
@@ -30,9 +23,16 @@ public class CardsHeap {
         while (count < num) {
             cardHeap.add(factory.getCard(card));
             count += 1;
+            notifyCardHeap(cardHeap.size());
         }
     }
 
+
+    public static void notifyCardHeap(int size){
+        for (Listener listener : listeners) {
+            listener.updateCardHeap(size);
+        }
+    }
     public static void addBasicCards() {
         addCard("Shoot", 15);
 //        addCard("Dodge", 10);

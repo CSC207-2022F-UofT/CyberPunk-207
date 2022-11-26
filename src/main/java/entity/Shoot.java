@@ -1,5 +1,7 @@
 package entity;
 
+import manager.PlayerManager;
+
 public class Shoot extends basic_card{
 
     @Override
@@ -12,6 +14,7 @@ public class Shoot extends basic_card{
                 getTarget().hurt(1);
             }
     }
+
     @Override
     public String toString(){
         return "Shoot";

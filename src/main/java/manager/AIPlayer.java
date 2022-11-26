@@ -3,6 +3,7 @@ package manager;
 import entity.Card;
 import entity.Shoot;
 
+import static manager.Gameboard.getPlayerManager;
 import static manager.Gameboard.getPlayers;
 
 public class AIPlayer extends PlayerManager{
@@ -22,7 +23,7 @@ public class AIPlayer extends PlayerManager{
         Card card = playerModel.getPocketcards().get(num);
         card.setSource(playerModel);
         if(card.needTarget()){
-            card.setTarget(getPlayers().get(playerNO));
+            card.setTarget(getPlayerManager().get(playerNO));
         }
         //System.out.println(player.getPocketcards());
         card.use();
