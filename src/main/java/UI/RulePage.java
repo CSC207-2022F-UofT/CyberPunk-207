@@ -36,7 +36,11 @@ public class RulePage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                new GamePage().init();
+                try {
+                    new GamePage().init();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
