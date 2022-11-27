@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class panel1 extends JPanel {
     public panel1() throws IOException{
@@ -49,13 +50,16 @@ public class panel1 extends JPanel {
         this.add(name);
 
         JButton use = new JButton("use");
-        use.setBounds(480,710,80,40);
+        use.setBounds(380,710,80,40);
 
         JButton discard = new JButton("discard");
-        discard.setBounds(680,710,80,40);
+        discard.setBounds(530,710,80,40);
 
         JButton end = new JButton("end");
-        end.setBounds(880,710,80,40);
+        end.setBounds(680,710,80,40);
+
+        JButton show = new JButton("see card");
+        show.setBounds(830,710,80,40);
 
         BufferedImage car1 = ImageIO.read(new File("src/main/resource/car50.png"));
         Image car2 = car1.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
@@ -73,8 +77,47 @@ public class panel1 extends JPanel {
         this.add(end);
         this.add(mg);
         this.add(car);
+        this.add(show);
+
+        JComboBox<String> cards = new JComboBox<>();
+        ArrayList<String> deck = new ArrayList<>();
+        deck.add("Shoot");
+        deck.add("Dodge");
+        deck.add("PoliceRaid");
+        for (String s : deck) {
+            cards.addItem(s);}
+        cards.setBounds(400, 500,200,200);
+
+        JLabel yourd = new JLabel("Your Deck:");
+        yourd.setForeground(Color.white);
+        yourd.setFont(new Font("Calibri", Font.BOLD, 20));
+        yourd.setBounds(400, 540, 200, 40);
+
+        JComboBox<String> players = new JComboBox<>();
+        ArrayList<String> plist = new ArrayList<>();
+        plist.add("Player2");
+        plist.add("Player3");
+        plist.add("Player4");
+        plist.add("Player5");
+        for (String s : plist) {
+            players.addItem(s);}
+        players.setBounds(620, 500,200,200);
+
+        JLabel choose = new JLabel("Play on:");
+        choose.setForeground(Color.white);
+        choose.setFont(new Font("Calibri", Font.BOLD, 20));
+        choose.setBounds(620, 540, 200, 40);
+
+        BufferedImage carddis = ImageIO.read(new File("src/main/resource/shoot.png"));
+        Image carddis1 = carddis.getScaledInstance(200, 270, Image.SCALE_SMOOTH);
+        JLabel carddis2 = new JLabel(new ImageIcon(carddis1));
+        carddis2.setBounds(850,400,200,270);
+
+        this.add(cards);
+        this.add(players);
+        this.add(yourd);
+        this.add(choose);
+        this.add(carddis2);
+
     }
-
-
-
 }
