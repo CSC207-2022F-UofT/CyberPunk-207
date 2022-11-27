@@ -9,7 +9,7 @@ import java.util.List;
 import static gateway.CardsHeap.draw;
 
 public abstract class PlayerManager {
-    protected PlayerModel playerModel;
+    protected static PlayerModel playerModel;
     protected int playerNO;
     protected Gameboard gameboard;
     protected Identity role;
@@ -104,7 +104,7 @@ public abstract class PlayerManager {
             listener.updateEquipment(type, card);
         }
     }
-    public ArrayList<Card> getPocketcards(){
+    public static ArrayList<Card> getPocketcards(){
         return playerModel.getPocketcards();
     }
 

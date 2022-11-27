@@ -15,8 +15,15 @@ public class HumanPlayer extends PlayerManager{
             int order = gameboard.askOrder();
             if(order == -1){
                 return;
-            } else{
-                useCard(order);
+            }
+            else{
+                try{
+                    useCard(order);
+                }
+                catch(Exception e){
+                    System.out.println("Input out of range. Please enter again.");
+                    playCard();
+                }
             }
         }
 
@@ -43,6 +50,12 @@ public class HumanPlayer extends PlayerManager{
 
     public void throwCard() {
         int card = gameboard.askOrder() - 1;
-        loosCard(card);
+        try {
+            loosCard(card);
+        }
+        catch (Exception e){
+            System.out.println("Index out of range. Please enter again.");
+            throwCard();
+        }
     }
 }

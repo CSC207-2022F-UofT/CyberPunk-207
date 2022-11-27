@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class GameController {
     private final InputBoundary inputBoundary;
-    private static final Scanner scan = new Scanner(System.in);
+    //private static final Scanner scan = new Scanner(System.in);
 
     public GameController(InputBoundary inputBoundary){
         this.inputBoundary = inputBoundary;
@@ -20,8 +20,16 @@ public class GameController {
     }
 
     public static int input(){
+        Scanner scan = new Scanner(System.in);
         String ans = "";
         ans = scan.next();
-        return Integer.parseInt(ans);
+        try {
+            return Integer.parseInt(ans);
+        }
+        catch(Exception e){
+            System.out.println("Input must be integer. Please input again.");
+            input();
+        }
+        return -1;
     }
 }

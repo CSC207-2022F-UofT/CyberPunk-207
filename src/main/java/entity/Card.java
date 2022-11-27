@@ -21,7 +21,7 @@ public abstract class Card {
         return source;
     }
 
-    public void setSource(PlayerManager source) {
+    public void setSource(PlayerModel source) {
         this.source = source;
     }
 
