@@ -26,9 +26,6 @@ public class OtherPlayers extends JPanel{
         addImageAt( "src/main/resource/default.png", 50, 60, 90, 90);
         addImageAt("src/main/resource/health.png", -10, 60, 50,40);
 
-
-
-
     }
 
 }
