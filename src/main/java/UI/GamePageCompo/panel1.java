@@ -113,6 +113,12 @@ public class panel1 extends JPanel {
         JLabel carddis2 = new JLabel(new ImageIcon(carddis1));
         carddis2.setBounds(850,400,200,270);
 
+        BufferedImage logo = ImageIO.read(new File("src/main/resource/logo.png"));
+        Image logo1 = logo.getScaledInstance(300, 150, Image.SCALE_SMOOTH);
+        JLabel logof = new JLabel(new ImageIcon(logo1));
+        logof.setBounds(0,0,300,150);
+        this.add(logof);
+
         this.add(cards);
         this.add(players);
         this.add(yourd);
