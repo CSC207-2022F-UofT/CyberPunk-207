@@ -100,10 +100,17 @@ public class Gameboard implements InputBoundary{
         if(card.needTarget()){
             //output("choose your target");
             int target = input() - 1;
-            card.setTarget(players.get(target));
+            try {
+                card.setTarget(players.get(target));
+            }
+            catch (Exception e){
+                outputBoundary.output("Target index outside range. Please enter again");
+                askTarget(card);
+            }
             if (calDis(card.getSource(), card.getTarget()) > 1) {
                 //output("out of range, try again");
-                outputBoundary.output("");// display out of range
+                outputBoundary.output("Target out of distance range. Please enter again");// display out of range
+                askTarget(card);
             }
         }
     }

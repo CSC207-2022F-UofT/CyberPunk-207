@@ -14,16 +14,15 @@ public class HumanPlayer extends PlayerManager{
             //output("num for cards, 0 for end turn");
             int order = gameboard.askOrder();
             if(order == -1){
+                System.out.println("You have chosen to end playing phase. Now start throwing card.");
                 return;
             }
-            else{
-                try{
-                    useCard(order);
-                }
-                catch(Exception e){
+            else if (order + 1 > PlayerManager.getPocketcards().size()){
                     System.out.println("Input out of range. Please enter again.");
                     playCard();
                 }
+            else{
+                useCard(order);
             }
         }
 
