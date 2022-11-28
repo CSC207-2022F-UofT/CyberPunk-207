@@ -10,10 +10,17 @@ public class LoginController {
     public LoginController(AccountManager manager) throws FileNotFoundException {
         this.manager = manager;
     }
+    public void addAccount(String username, String password){
+        if (manager.checkUsername(username)) {
+            manager.getAccounts().put(username, new Account(username, password));
+            Serialization serialize = new Serialization(manager.getAccounts());
+            serialize.write();
+        }
+    }
 
 //    public String login(String username, String password) {
 //        if(manager.login(username, password).equals("SUCCESSFUL LOG IN")){
-//            //TODO: asd
+//            //
 //        } else if (manager.login(username, password).equals("WRONG PASSWORD")) {
 //
 //        }

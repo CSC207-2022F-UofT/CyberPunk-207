@@ -19,6 +19,12 @@ public class AccountManager {
         return this.accounts;
     }
 
+    public void addAccount(String username, String password){
+        accounts.put(username, new Account(username, password));
+        Serialization serialize = new Serialization(accounts);
+        serialize.write();
+    }
+
 //    public void getAccount(String filename) throws FileNotFoundException {
 //        File myAccounts = new File(filename);
 //        Scanner myReader = new Scanner(myAccounts);
@@ -30,19 +36,19 @@ public class AccountManager {
 //        myReader.close();
 //    }
 
-    public String login(String username, String password){
-        if (accounts.containsKey(username)){
-            if(accounts.get(username).getPassword().equals(password)) {
-                return "SUCCESSFUL LOG IN";
-            }
-            else {
-                return "WRONG PASSWORD";
-            }
-        }
-        else{
-            return "WRONG USERNAME";
-        }
-    }
+//    public String login(String username, String password){
+//        if (accounts.containsKey(username)){
+//            if(accounts.get(username).getPassword().equals(password)) {
+//                return "SUCCESSFUL LOG IN";
+//            }
+//            else {
+//                return "WRONG PASSWORD";
+//            }
+//        }
+//        else{
+//            return "WRONG USERNAME";
+//        }
+//    }
     //check username
     public boolean checkUsername(String username){
         return accounts.containsKey(username);
