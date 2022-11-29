@@ -1,5 +1,8 @@
 package UI;
 
+import login_system.LoginController;
+import login_system.LoginPresenter;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -7,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class LoginPage {
@@ -48,24 +52,22 @@ public class LoginPage {
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                from loginsystem/usecase/accountdatamanager
-//                if(use_case.check(usnm) == false){
-//                    use_case.write(usnm,pswd);
-//                    lpage.setVisible(false);
-//                    new RulePage().init();
-//                } else if (use_case.check(usnm) && use_case.verify(usnm, pswd)) {
-//                    lpage.setVisible(false);
-//                    new RulePage().init();
-//                }
-//                else{
-//                }
-                error.setVisible(true);
-//                lpage.setVisible(false);
-//                try {
-//                    new RulePage().init();
-//                } catch (IOException ex) {
-//                    throw new RuntimeException(ex);
-//                }
+                String user = usnm.getText();
+                String pass = pswd.getText();
+                LoginPresenter pre = new LoginPresenter(user,pass);
+                LoginController controller = new LoginController();
+
+                if(!pre.getCheckUsername()){
+                    controller.addAccount(user, pass);
+                    lpage.setVisible(false);
+                    try {new RulePage().init();} catch (IOException ex) {
+                        throw new RuntimeException(ex);}
+                } else if (pre.getCheckUsername() && pre.getCheckPassword()) {
+                   lpage.setVisible(false);
+                    try {new RulePage().init();
+                    } catch (IOException ex) {throw new RuntimeException(ex);}
+                }
+               else{error.setVisible(true);}
             }
         });
 
