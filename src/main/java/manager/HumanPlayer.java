@@ -11,14 +11,14 @@ public class HumanPlayer extends PlayerManager{
 
     public void playCard(){
         while(isAlive()){
-            //output("num for cards, 0 for end turn");
+            outputBoundary.displayInstruction("Please choose card or end phase");
             int order = gameboard.askOrder();
             if(order == -1){
-                System.out.println("You have chosen to end playing phase. Now start throwing card.");
+                outputBoundary.displayInstruction("You have chosen to end playing phase. Now start throwing card.");
                 return;
             }
             else if (order + 1 > PlayerManager.getPocketcards().size()){
-                    System.out.println("Input out of range. Please enter again.");
+                outputBoundary.displayInstruction("Input out of range. Please enter again.");
                     playCard();
                 }
             else{
@@ -34,17 +34,16 @@ public class HumanPlayer extends PlayerManager{
         gameboard.askTarget(card);
         if(card instanceof Shoot){
             if(playerModel.isUseShoot() && playerModel.getEquipment().get("Weapon") == null){
-                //output("shoot used, try another card");
+                outputBoundary.displayInstruction("shoot used, try another card");
                 return;
             } else{
                 playerModel.setUseShoot(true);
             }
         }
-        //System.out.println(player.getPocketcards());
+        outputBoundary.displayHand(getPocketcardnames());
         card.use();
         playerModel.loosCard(num);
-        //System.out.println(player.getPocketcards());
-        //output(card.toString());
+        outputBoundary.displayHand(getPocketcardnames());
     }
 
     public void throwCard() {
@@ -53,7 +52,7 @@ public class HumanPlayer extends PlayerManager{
             loosCard(card);
         }
         catch (Exception e){
-            System.out.println("Index out of range. Please enter again.");
+            outputBoundary.displayInstruction("Index out of range. Please enter again.");
             throwCard();
         }
     }
