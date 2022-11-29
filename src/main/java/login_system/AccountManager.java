@@ -10,7 +10,10 @@ import java.util.Scanner;
 public class AccountManager {
 
     private HashMap<String, Account> accounts;
-    public void getAccounts(IDeserialization deserialization) {
+    public AccountManager(){
+        getAllAccounts(new Deserialization());
+    }
+    public void getAllAccounts(Deserialization deserialization) {
         String filename = "src/main/resource/Accounts.txt";
         this.accounts = deserialization.read(filename);
     }
