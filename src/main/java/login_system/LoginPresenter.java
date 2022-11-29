@@ -1,6 +1,6 @@
 package login_system;
 
-public class LoginPresenter {
+public class LoginPresenter implements LoginOutputBoundary{
     private AccountManager manager;
     private boolean checkUsername;
     private boolean checkPassword;
@@ -11,5 +11,7 @@ public class LoginPresenter {
     }
 
     public boolean getCheckUsername(){return this.checkUsername;}
+
+
     public boolean getCheckPassword(){return this.checkPassword;}
 }

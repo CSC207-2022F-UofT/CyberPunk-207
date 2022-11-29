@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class AccountManager {
+public class AccountManager implements LoginInputBoundary{
 
     private HashMap<String, Account> accounts;
     public AccountManager(){
