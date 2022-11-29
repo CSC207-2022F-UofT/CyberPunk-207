@@ -24,4 +24,21 @@ public class GameController {
         ans = scan.next();
         return Integer.parseInt(ans);
     }
+
+    public void endRound() {
+
+    }
+
+    public void selectTarget() {
+
+    }
+
+    public void playCard(int num) {
+//        inputBoundary.
+    }
+
+    public void discardCard() {
+
+    }
+
 }

@@ -3,10 +3,13 @@ package UI.GamePageCompo;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 public class panel1 extends JPanel {
     public panel1() throws IOException{
@@ -78,6 +81,29 @@ public class panel1 extends JPanel {
         this.add(mg);
         this.add(car);
         this.add(show);
+
+        use.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionHandlers.handleUse();
+            }
+        });
+
+        discard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionHandlers.handleDiscard();
+            }
+        });
+
+        end.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionHandlers.handleEnd();
+            }
+        });
+
+
 
         JComboBox<String> cards = new JComboBox<>();
         ArrayList<String> deck = new ArrayList<>();

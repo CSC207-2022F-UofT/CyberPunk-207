@@ -2,10 +2,20 @@ package presenter;
 
 import entity.Card;
 import manager.OutputBoundary;
+import manager.PlayerManager;
 
 import java.util.ArrayList;
 
 public class Presenter implements OutputBoundary {
+
+    private PlayerManager plm;
+
+
+
+//    public String displayIcon() {
+//
+//    }
+
     @Override
     public void displayHand() {
     }
