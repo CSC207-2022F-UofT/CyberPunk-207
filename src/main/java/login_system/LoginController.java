@@ -7,8 +7,8 @@ public class LoginController {
     private String password;
     private AccountManager manager;
 
-    public LoginController(AccountManager manager) throws FileNotFoundException {
-        this.manager = manager;
+    public LoginController() throws FileNotFoundException {
+        this.manager = new AccountManager();
     }
     public void addAccount(String username, String password){
         if (manager.checkUsername(username)) {
