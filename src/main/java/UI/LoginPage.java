@@ -67,24 +67,24 @@ public class LoginPage {
             public void actionPerformed(ActionEvent e) {
                 String user = usnm.getText();
                 String pass = pswd.getText();
-
+                boolean login = false;
                 try {
-                    controller.login(user, pass);
+                    login = controller.login(user, pass);
                 } catch (FileNotFoundException ex) {
                     throw new RuntimeException(ex);// how to handle?
                 }
 
-//                if(){
-//                    lpage.setVisible(false);
-//                    try {new RulePage().init();} catch (IOException ex) {
-//                        throw new RuntimeException(ex);}
-//                } else if (a) {
-//                   lpage.setVisible(false);
-//                    try {new RulePage().init();
-//                    } catch (IOException ex) {throw new RuntimeException(ex);}
-//                }
-//               else{error.setVisible(true);}
-//            }
+                if(login){
+                    lpage.setVisible(false);
+                    try {new RulePage().init();} catch (IOException ex) {
+                        throw new RuntimeException(ex);}
+                } else if (!login) {
+                   lpage.setVisible(false);
+                    try {new RulePage().init();
+                    } catch (IOException ex) {throw new RuntimeException(ex);}
+                }
+               else{error.setVisible(true);}
+            }
         });
 
         BufferedImage bg = ImageIO.read(new File("src/main/resource/rulesbg.jpg"));

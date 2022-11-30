@@ -1,7 +1,5 @@
 package login_system;
 
-import login_system.usecase.AccountManager;
-
 import java.io.FileNotFoundException;
 
 public class LoginController {
@@ -13,8 +11,8 @@ public class LoginController {
             this.loginInputBoundary = loginInputBoundary;
         }
 
-        public void login(String username, String password) throws FileNotFoundException {
-            loginInputBoundary.login(username, password);
+        public boolean login(String username, String password) throws FileNotFoundException {
+            return loginInputBoundary.login(username, password);
         }
         public void register(String username, String password){
             loginInputBoundary.register(username, password);
