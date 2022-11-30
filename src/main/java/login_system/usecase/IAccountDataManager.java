@@ -1,13 +1,13 @@
 package login_system.usecase;
 
-import java.io.*;
-import java.util.HashMap;
+import login_system.entity.Account;
 
-public interface IAccountDataManager {
+import java.io.FileNotFoundException;
+import java.util.List;
 
-    HashMap<String, String> getAccounts();
+public interface IAccountDataManager{
 
-    void writeAccount();
+    List<Account> getAccounts() throws FileNotFoundException;
 
-
+    void newAccount(Account account);
 }

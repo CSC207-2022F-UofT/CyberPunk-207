@@ -1,13 +1,17 @@
 package login_system.entity;
 
-public class Account implements IAccount {
+import java.io.Serializable;
+
+public class Account implements Serializable {
     private String username;
     private String password;
+    private int win;
 
 
     public Account(String username, String password){
         this.username = username;
         this.password = password;
+        this.win = 0;
     }
 
     public String getPassword() {return this.password;}
@@ -16,7 +20,8 @@ public class Account implements IAccount {
 
 
     @Override
-    public String writeAccount() {
-        return username + "," + password;
+    public String toString(){
+        return "Account{" + "username: " + username + ", password: " + password + ", win: " + win + "}";
     }
+
 }
