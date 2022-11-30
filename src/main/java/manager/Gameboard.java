@@ -18,7 +18,6 @@ public class Gameboard implements InputBoundary{
     private List<Identity> roles = new ArrayList<>();
     private static List<PlayerModel> seatMap = new ArrayList<>();
     private final OutputBoundary outputBoundary;
-    private boolean askTarget;
     private PhaseManager phaseManager;
     private List<Listener> listeners = new ArrayList<>();
 
@@ -51,8 +50,6 @@ public class Gameboard implements InputBoundary{
         for(int i = 0; i < numPlayers; i++){
             PlayerManager player = new HumanPlayer(i + 1, this );// can choose the number of ai and human player
             players.add(player);
-            notifyAlivePeople(players);
-            notifyAlivePeopleSize(players);
             player.setRole(roles.get(i)); //can use to add gameHistory to the account
             roleMap.get(roles.get(i)).add(player);
             seatMap.add(player.getPlayer());
@@ -88,7 +85,7 @@ public class Gameboard implements InputBoundary{
             return true;
         }
         return false;
-    }
+    }//死亡判断
 
     public boolean isExtinct(Identity role){
         return roleMap.get(role).isEmpty();
@@ -116,19 +113,18 @@ public class Gameboard implements InputBoundary{
     }
 
     public int askOrder(){
-        int order = input() - 1;
-        return order;
+        return input() - 1;
     }
 
-    public int calDis(PlayerManager playerModel1, PlayerManager playerModel2){
-        int pos1 = players.indexOf(playerModel1);
-        int pos2 = players.indexOf(playerModel2);
+    public int calDis(PlayerManager player1, PlayerManager player2){
+        int pos1 = players.indexOf(player1);
+        int pos2 = players.indexOf(player2);
         int dis = Math.max(pos1 - pos2, pos2 - pos1);
         dis = Math.min(dis, 5 - dis);
-        if (playerModel1.getEquipment().get("Minus") != null){
+        if (player1.getEquipment().get("Minus") != null){
             dis -= 1;
         }
-        if (playerModel2.getEquipment().get("Plus") != null){
+        if (player2.getEquipment().get("Plus") != null){
             dis += 1;
         }
         return dis;
@@ -157,11 +153,8 @@ public class Gameboard implements InputBoundary{
         }
     }
 
-    public static List<PlayerModel> getPlayers(){
-        return seatMap;
-    }
-
-    public static List<PlayerManager> getPlayerManager(){
+    public static List<PlayerManager> getPlayers(){
         return players;
     }
+
 }

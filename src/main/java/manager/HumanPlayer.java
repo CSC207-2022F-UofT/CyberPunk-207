@@ -17,7 +17,7 @@ public class HumanPlayer extends PlayerManager{
                 outputBoundary.displayInstruction("You have chosen to end playing phase. Now start throwing card.");
                 return;
             }
-            else if (order + 1 > PlayerManager.getPocketcards().size()){
+            else if (order + 1 > playerModel.getPocketcards().size()){
                 outputBoundary.displayInstruction("Input out of range. Please enter again.");
                     playCard();
                 }
@@ -29,8 +29,8 @@ public class HumanPlayer extends PlayerManager{
     }
 
     public void useCard(int num) {
-        Card card = PlayerManager.getPocketcards().get(num);
-        card.setSource(playerModel);
+        Card card = getPocketcards().get(num);
+        card.setSource(this);
         gameboard.askTarget(card);
         if(card instanceof Shoot){
             if(playerModel.isUseShoot() && playerModel.getEquipment().get("Weapon") == null){
