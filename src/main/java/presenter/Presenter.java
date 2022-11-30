@@ -1,11 +1,18 @@
 package presenter;
 
+import UI.GamePageCompo.OtherPlayers;
+import UI.GamePageCompo.panel1;
+import manager.Gameboard;
 import manager.OutputBoundary;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Presenter implements OutputBoundary {
+
+    OtherPlayers op;
+    panel1 p1;
 
     @Override
     public String displayInstruction(String s){
@@ -14,10 +21,6 @@ public class Presenter implements OutputBoundary {
     @Override
     public int displayHp(int hp){
         return hp;
-    }
-    @Override
-    public ArrayList<String> displayHand(ArrayList<String> lc) {
-        return lc;
     }
     @Override
     public Object displayEquipment(Object equipment) { return equipment;}
@@ -35,6 +38,11 @@ public class Presenter implements OutputBoundary {
     @Override
     public ArrayList<Integer> displayOthersHp(ArrayList<Integer> lhp){
         return lhp;
+    }
+
+
+    public void displayPocket(List<String> pc) {
+        p1.displayPc(pc);
     }
 
 

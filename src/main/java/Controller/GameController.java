@@ -3,6 +3,8 @@ package Controller;
 import manager.InputBoundary;
 import java.util.Scanner;
 
+import static java.lang.Thread.sleep;
+
 public class GameController {
     private final InputBoundary inputBoundary;
     //private static final Scanner scan = new Scanner(System.in);
@@ -41,7 +43,6 @@ public class GameController {
     public void selectTarget() {
 
     }
-
     public void playCard(int num) {
         inputBoundary.getCurrPlayer().useCard(num);
     }
@@ -50,4 +51,4 @@ public class GameController {
 
     }
 
-}
+    }

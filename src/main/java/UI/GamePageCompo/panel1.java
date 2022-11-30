@@ -1,5 +1,8 @@
 package UI.GamePageCompo;
 
+import Controller.GameController;
+import presenter.Presenter;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +12,17 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class panel1 extends JPanel {
+
+    private Presenter ps;
+    private GameController gc;
+    private List<String> pcards;
     public panel1() throws IOException{
+
+//        Presenter presenter = new
         this.setLayout(null);
 
         BufferedImage hp1 = ImageIO.read(new File("src/main/resource/health.png"));
@@ -104,15 +114,8 @@ public class panel1 extends JPanel {
         });
 
 
-
         JComboBox<String> cards = new JComboBox<>();
-        ArrayList<String> deck = new ArrayList<>();
-        deck.add("Shoot");
-        deck.add("Dodge");
-        deck.add("PoliceRaid");
-        for (String s : deck) {
-            cards.addItem(s);}
-        cards.setBounds(400, 500,200,200);
+
 
         JLabel yourd = new JLabel("Your Deck:");
         yourd.setForeground(Color.white);
@@ -151,5 +154,9 @@ public class panel1 extends JPanel {
         this.add(choose);
         this.add(carddis2);
 
+    }
+
+    public void displayPc(List<String> pc) {
+        pcards = pc;
     }
 }

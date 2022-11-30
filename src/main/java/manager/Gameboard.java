@@ -43,6 +43,11 @@ public class Gameboard implements InputBoundary{
         //game over
     }
 
+    public void getCurrPlayerPC(PlayerManager cp) {
+        List<String> pc = cp.getPocketcardnames();
+        outputBoundary.displayPocket(pc);
+    }
+
     public void gameInit(){
         CardsHeap.init();
         shuffleRoles();
