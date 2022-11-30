@@ -9,7 +9,7 @@ import java.util.List;
 import static gateway.CardsHeap.draw;
 
 public abstract class PlayerManager {
-    protected static PlayerModel playerModel;
+    protected PlayerModel playerModel;
     protected int playerNO;
     protected Gameboard gameboard;
     protected Identity role;
@@ -106,11 +106,11 @@ public abstract class PlayerManager {
             listener.updateEquipment(type, card);
         }
     }
-    public static ArrayList<Card> getPocketcards(){
+    public ArrayList<Card> getPocketcards(){
         return playerModel.getPocketcards();
     }
 
-    public static ArrayList<String> getPocketcardnames(){
+    public ArrayList<String> getPocketcardnames(){
         ArrayList<String> hand_card_name = new ArrayList<>(playerModel.getPocketcards().size());
         for (Object c : playerModel.getPocketcards()) {
             hand_card_name.add(c.toString());
