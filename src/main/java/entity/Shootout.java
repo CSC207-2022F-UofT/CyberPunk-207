@@ -10,7 +10,7 @@ public class Shootout extends strategy_card{
     }
 
     public void use(){
-        for (PlayerManager p : Gameboard.getPlayerManager()) {
+        for (PlayerManager p : Gameboard.getPlayers()) {
             if (p != getSource() && p.whether_has_dodge()){
                 p.hurt(1);
             }

@@ -11,11 +11,17 @@ public class HumanPlayer extends PlayerManager{
 
     public void playCard(){
         while(isAlive()){
-            //output("num for cards, 0 for end turn");
+            outputBoundary.displayInstruction("Please choose card or end phase");
             int order = gameboard.askOrder();
             if(order == -1){
+                outputBoundary.displayInstruction("You have chosen to end playing phase. Now start throwing card.");
                 return;
-            } else{
+            }
+            else if (order + 1 > playerModel.getPocketcards().size()){
+                outputBoundary.displayInstruction("Input out of range. Please enter again.");
+                    playCard();
+                }
+            else{
                 useCard(order);
             }
         }
@@ -23,26 +29,31 @@ public class HumanPlayer extends PlayerManager{
     }
 
     public void useCard(int num) {
-        Card card = PlayerManager.getPocketcards().get(num);
-        card.setSource(playerModel);
+        Card card = getPocketcards().get(num);
+        card.setSource(this);
         gameboard.askTarget(card);
         if(card instanceof Shoot){
             if(playerModel.isUseShoot() && playerModel.getEquipment().get("Weapon") == null){
-                //output("shoot used, try another card");
+                outputBoundary.displayInstruction("shoot used, try another card");
                 return;
             } else{
                 playerModel.setUseShoot(true);
             }
         }
-        //System.out.println(player.getPocketcards());
+        outputBoundary.displayHand(getPocketcardnames());
         card.use();
         playerModel.loosCard(num);
-        //System.out.println(player.getPocketcards());
-        //output(card.toString());
+        outputBoundary.displayHand(getPocketcardnames());
     }
 
     public void throwCard() {
         int card = gameboard.askOrder() - 1;
-        loosCard(card);
+        try {
+            loosCard(card);
+        }
+        catch (Exception e){
+            outputBoundary.displayInstruction("Index out of range. Please enter again.");
+            throwCard();
+        }
     }
 }

@@ -15,6 +15,8 @@ public abstract class PlayerManager {
     protected Identity role;
     protected List<Listener> listeners = new ArrayList<>();
 
+    public OutputBoundary outputBoundary;
+
     public PlayerManager(int playerNO, Gameboard gameboard) {
         this.playerModel = new PlayerModel();
         this.playerNO = playerNO;
@@ -106,6 +108,14 @@ public abstract class PlayerManager {
     }
     public ArrayList<Card> getPocketcards(){
         return playerModel.getPocketcards();
+    }
+
+    public ArrayList<String> getPocketcardnames(){
+        ArrayList<String> hand_card_name = new ArrayList<>(playerModel.getPocketcards().size());
+        for (Object c : playerModel.getPocketcards()) {
+            hand_card_name.add(c.toString());
+        }
+        return hand_card_name;
     }
 
     public void addToHand(Card c){

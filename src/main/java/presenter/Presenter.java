@@ -1,48 +1,51 @@
 package presenter;
 
-import entity.Card;
 import manager.OutputBoundary;
-import manager.PlayerManager;
 
 import java.util.ArrayList;
 
+
 public class Presenter implements OutputBoundary {
 
-    private PlayerManager plm;
-
-
-
-//    public String displayIcon() {
-//
-//    }
-
     @Override
-    public void displayHand() {
+    public String displayInstruction(String s){
+        return s;
+    }
+    @Override
+    public int displayHp(int hp){
+        return hp;
+    }
+    @Override
+    public ArrayList<String> displayHand(ArrayList<String> lc) {
+        return lc;
+    }
+    @Override
+    public Object displayEquipment(Object equipment) { return equipment;}
+    @Override
+    public String displayName(String name) {
+        return name;
+    }
+    @Override
+    public String displayRole(String role){
+        return role;
     }
 
     @Override
-    public void displayStatus() {
+    public boolean isPolice(boolean ispolice) {return ispolice;}
+    @Override
+    public ArrayList<Integer> displayOthersHp(ArrayList<Integer> lhp){
+        return lhp;
+    }
 
+
+    @Override
+    public String displayPhaseStage(String s) {
+        return s;
     }
 
     @Override
-    public void displayUsedCard() {
-
-    }
-
-    @Override
-    public void displayPlayer() {
-
-    }
-
-    @Override
-    public void displayGlobal() {
-
-    }
-
-    @Override
-    public void displayLog() {
-
+    public String displayLog(String s) {
+        return s;
     }
 
     @Override
