@@ -25,6 +25,7 @@ public class GameController {
         return Integer.parseInt(ans);
     }
 
+
     public void endRound() {
 
     }
@@ -34,7 +35,7 @@ public class GameController {
     }
 
     public void playCard(int num) {
-//        inputBoundary.
+        inputBoundary.getCurrPlayer().useCard(num);
     }
 
     public void discardCard() {

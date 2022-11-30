@@ -22,6 +22,8 @@ public class Gameboard implements InputBoundary{
     private PhaseManager phaseManager;
     private List<Listener> listeners = new ArrayList<>();
 
+    private PlayerManager currPlayer;
+
     public Gameboard(OutputBoundary outputBoundary){
         this.outputBoundary = outputBoundary;
     }
@@ -33,6 +35,7 @@ public class Gameboard implements InputBoundary{
             for (PlayerManager p : players) {
                 //output("Your round begins");
                 if(!checkDeath(p)){
+                    currPlayer = p;
                     phaseManager.runPhase(p);
                 }
             }
@@ -156,5 +159,9 @@ public class Gameboard implements InputBoundary{
 
     public static List<PlayerManager> getPlayerManager(){
         return players;
+    }
+
+    public PlayerManager getCurrPlayer() {
+        return currPlayer;
     }
 }
