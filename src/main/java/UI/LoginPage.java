@@ -1,7 +1,14 @@
 package UI;
 
 import login_system.LoginController;
+import login_system.LoginInputBoundary;
+import login_system.LoginOutputBoundary;
 import login_system.LoginPresenter;
+import login_system.usecase.AccountDataManager;
+import login_system.usecase.AccountManager;
+import login_system.usecase.IAccountDataManager;
+import manager.OutputBoundary;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,7 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class LoginPage {
-    public void init() throws IOException {
+    public void init() throws IOException{
         JFrame lpage = new JFrame("Login Page");
         lpage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         lpage.setSize(1920,1080);
@@ -49,20 +56,29 @@ public class LoginPage {
 
         JButton login = new JButton("Login");
         login.setBounds(650,600,200,40);
+
+        LoginOutputBoundary loginOutputBoundary = new LoginPresenter();
+        IAccountDataManager accountDataManager = new AccountDataManager();
+        LoginInputBoundary loginInputBoundary = new AccountManager(accountDataManager, loginOutputBoundary);
+        LoginController controller = new LoginController(loginInputBoundary);
+
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String user = usnm.getText();
                 String pass = pswd.getText();
-                LoginPresenter pre = new LoginPresenter(user,pass);
-                LoginController controller = new LoginController();
+                boolean login = false;
+                try {
+                    login = controller.login(user, pass);
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);// how to handle?
+                }
 
-                if(!pre.getCheckUsername()){
-                    controller.addAccount(user, pass);
+                if(login){
                     lpage.setVisible(false);
                     try {new RulePage().init();} catch (IOException ex) {
                         throw new RuntimeException(ex);}
-                } else if (pre.getCheckUsername() && pre.getCheckPassword()) {
+                } else if (!login) {
                    lpage.setVisible(false);
                     try {new RulePage().init();
                     } catch (IOException ex) {throw new RuntimeException(ex);}
@@ -89,5 +105,5 @@ public class LoginPage {
         lpage.setVisible(true);
     }
 
-    public static void main(String[] args) throws IOException { new LoginPage().init();}
+    public static void main(String[] args) throws IOException{ new LoginPage().init();}
 }
