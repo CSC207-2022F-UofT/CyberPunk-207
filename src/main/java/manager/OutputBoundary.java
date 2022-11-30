@@ -1,12 +1,15 @@
 package manager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface OutputBoundary {
 
 
+    void displayPocket(List<String> pc);
+
     String displayInstruction(String s);
-    ArrayList<String> displayHand(ArrayList<String> l);
+
     int displayHp(int hp);
 
     Object displayEquipment(Object equipment);

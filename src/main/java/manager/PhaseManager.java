@@ -26,7 +26,7 @@ public class PhaseManager {
         outputBoundary.displayInstruction("Draws 2 cards from cards heap");
         player.drawCards(2);
         outputBoundary.displayHp(player.getHp());
-        outputBoundary.displayHand(player.getPocketcardnames());
+        outputBoundary.displayPocket(player.getPocketcardnames());
     }
 
 

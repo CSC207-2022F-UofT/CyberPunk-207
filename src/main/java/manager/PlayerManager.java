@@ -110,8 +110,8 @@ public abstract class PlayerManager {
         return playerModel.getPocketcards();
     }
 
-    public ArrayList<String> getPocketcardnames(){
-        ArrayList<String> hand_card_name = new ArrayList<>(playerModel.getPocketcards().size());
+    public List<String> getPocketcardnames(){
+        List<String> hand_card_name = new ArrayList<>(playerModel.getPocketcards().size());
         for (Object c : playerModel.getPocketcards()) {
             hand_card_name.add(c.toString());
         }
