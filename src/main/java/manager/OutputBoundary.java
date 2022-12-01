@@ -8,13 +8,13 @@ public interface OutputBoundary {
 
     void displayPocket(List<String> pc);
 
-    String displayInstruction(String s);
+    void displayInstruction(String s);
 
-    int displayHp(int hp);
+    void displayHp(int hp);
 
     Object displayEquipment(Object equipment);
 
-    String displayName(String name);
+    void displayName(String name);
 
     String displayRole(String role);
 
@@ -27,4 +27,6 @@ public interface OutputBoundary {
     String displayLog(String s);
 
     void output(String s);
+
+
 }

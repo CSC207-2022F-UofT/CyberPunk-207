@@ -15,18 +15,18 @@ public class Presenter implements OutputBoundary {
     panel1 p1;
 
     @Override
-    public String displayInstruction(String s){
-        return s;
+    public void displayInstruction(String s){
+        p1.displayIns(s);
     }
     @Override
-    public int displayHp(int hp){
-        return hp;
+    public void displayHp(int hp){
+        p1.displayHP(String.valueOf(hp));
     }
     @Override
     public Object displayEquipment(Object equipment) { return equipment;}
     @Override
-    public String displayName(String name) {
-        return name;
+    public void displayName(String name) {
+
     }
     @Override
     public String displayRole(String role){
@@ -46,6 +46,7 @@ public class Presenter implements OutputBoundary {
     }
 
 
+
     @Override
     public String displayPhaseStage(String s) {
         return s;
@@ -55,6 +56,7 @@ public class Presenter implements OutputBoundary {
     public String displayLog(String s) {
         return s;
     }
+
 
     @Override
     public void output(String output) {

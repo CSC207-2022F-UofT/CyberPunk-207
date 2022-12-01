@@ -18,14 +18,14 @@ public class CardFactory {
             return new Robbery();
         }else if(cardName.equals("Lottery")){
             return new Lottery();
-        }else if(cardName.equals("Policeraid")){
-            return new Policeraid();
-        }else if(cardName.equals("Shootout")){
-            return new Shootout();
-        }else if(cardName.equals("Traumateam")){
-            return new Traumateam();
-        }else if(cardName.equals("R99MachineGun")){
-            return new R99MachineGun();
+//        }else if(cardName.equals("Policeraid")){
+//            return new Policeraid();
+//        }else if(cardName.equals("Shootout")){
+//            return new Shootout();
+//        }else if(cardName.equals("Traumateam")){
+//            return new Traumateam();
+//        }else if(cardName.equals("R99MachineGun")){
+//            return new R99MachineGun();
         }
         return null;
     }

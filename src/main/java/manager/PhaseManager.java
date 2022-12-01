@@ -25,13 +25,14 @@ public class PhaseManager {
     public void drawPhase(PlayerManager player){
         outputBoundary.displayInstruction("Draws 2 cards from cards heap");
         player.drawCards(2);
-        outputBoundary.displayHp(player.getHp());
         outputBoundary.displayPocket(player.getPocketcardnames());
+        outputBoundary.displayHp(player.getHp());
     }
 
 
 
     public void playPhase(PlayerManager player){
+        outputBoundary.displayInstruction("Please play cards");
         player.playCard();
     }
 
