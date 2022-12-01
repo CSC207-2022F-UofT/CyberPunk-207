@@ -1,6 +1,7 @@
 package entity;
 
 import manager.Gameboard;
+import manager.PlayerManager;
 
 public class Traumateam extends strategy_card{
     @Override
@@ -9,7 +10,7 @@ public class Traumateam extends strategy_card{
     }
 
     public void use(){
-        for (PlayerModel p : Gameboard.getPlayers()) {
+        for (PlayerManager p : Gameboard.getPlayers()) {
             if (p.getHp() < p.getmaxhp()){
                 p.heal(1);
             }

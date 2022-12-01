@@ -1,6 +1,7 @@
 package manager;
 
 import entity.Card;
+import entity.Listener;
 import entity.PlayerModel;
 import gateway.CardsHeap;
 
@@ -17,8 +18,8 @@ public class Gameboard implements InputBoundary{
     private List<Identity> roles = new ArrayList<>();
     private static List<PlayerModel> seatMap = new ArrayList<>();
     private final OutputBoundary outputBoundary;
-    private boolean askTarget;
     private PhaseManager phaseManager;
+    private List<Listener> listeners = new ArrayList<>();
 
     public Gameboard(OutputBoundary outputBoundary){
         this.outputBoundary = outputBoundary;
@@ -37,8 +38,6 @@ public class Gameboard implements InputBoundary{
         }
         //game over
     }
-
-
 
     public void gameInit(){
         CardsHeap.init();
@@ -86,7 +85,7 @@ public class Gameboard implements InputBoundary{
             return true;
         }
         return false;
-    }
+    }//死亡判断
 
     public boolean isExtinct(Identity role){
         return roleMap.get(role).isEmpty();
@@ -98,28 +97,34 @@ public class Gameboard implements InputBoundary{
         if(card.needTarget()){
             //output("choose your target");
             int target = input() - 1;
-            card.setTarget(seatMap.get(target));
+            try {
+                card.setTarget(players.get(target));
+            }
+            catch (Exception e){
+                outputBoundary.output("Target index outside range. Please enter again");
+                askTarget(card);
+            }
             if (calDis(card.getSource(), card.getTarget()) > 1) {
                 //output("out of range, try again");
-                outputBoundary.output("");// display out of range
+                outputBoundary.output("Target out of distance range. Please enter again");// display out of range
+                askTarget(card);
             }
         }
     }
 
     public int askOrder(){
-        int order = input() - 1;
-        return order;
+        return input() - 1;
     }
 
-    public int calDis(PlayerModel playerModel1, PlayerModel playerModel2){
-        int pos1 = seatMap.indexOf(playerModel1);
-        int pos2 = seatMap.indexOf(playerModel2);
+    public int calDis(PlayerManager player1, PlayerManager player2){
+        int pos1 = players.indexOf(player1);
+        int pos2 = players.indexOf(player2);
         int dis = Math.max(pos1 - pos2, pos2 - pos1);
         dis = Math.min(dis, 5 - dis);
-        if (playerModel1.getEquipment().get("Minus") != null){
+        if (player1.getEquipment().get("Minus") != null){
             dis -= 1;
         }
-        if (playerModel2.getEquipment().get("Plus") != null){
+        if (player2.getEquipment().get("Plus") != null){
             dis += 1;
         }
         return dis;
@@ -130,14 +135,26 @@ public class Gameboard implements InputBoundary{
             player.isDead();
             Identity role = player.getRole();
             roleMap.get(role).remove(player);
+            notifyAlivePeople(players);
+            notifyAlivePeopleSize(players);
             return true;
         } else return !player.isAlive();
     }
 
-
-    public static List<PlayerModel> getPlayers(){
-        return seatMap;
+    public void notifyAlivePeople(List<PlayerManager> players){
+        for (Listener listener : listeners) {
+            listener.updateAlivePeople(players);
+        }
     }
 
+    public void notifyAlivePeopleSize(List<PlayerManager> players){
+        for (Listener listener : listeners) {
+            listener.updateAlivePeopleSize(players.size());
+        }
+    }
+
+    public static List<PlayerManager> getPlayers(){
+        return players;
+    }
 
 }

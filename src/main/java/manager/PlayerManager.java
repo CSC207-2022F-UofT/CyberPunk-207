@@ -1,8 +1,10 @@
 package manager;
 
-import entity.Card;
-import entity.PlayerModel;
-import entity.Shoot;
+import entity.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import static gateway.CardsHeap.draw;
 
@@ -11,6 +13,9 @@ public abstract class PlayerManager {
     protected int playerNO;
     protected Gameboard gameboard;
     protected Identity role;
+    protected List<Listener> listeners = new ArrayList<>();
+
+    public OutputBoundary outputBoundary;
 
     public PlayerManager(int playerNO, Gameboard gameboard) {
         this.playerModel = new PlayerModel();
@@ -25,17 +30,21 @@ public abstract class PlayerManager {
     public abstract void throwCard();
 
     public void drawCards( int num) {
-        playerModel.addToHand(draw(num));
+        addToHand(draw(num));
+        notifyHand(playerModel.getPocketcards());
+        notifyHandSize(playerModel.getPocketcards());
     }
 
     public void loosCard(int card) {
         playerModel.loosCard(card);
+        notifyHand(playerModel.getPocketcards());
+        notifyHandSize(playerModel.getPocketcards());
     }
 
     public void setHp(int i) {
         playerModel.setHp(i);
+        notifyHp(i);
     }
-
     public int getHp(){
         return playerModel.getHp();
     }
@@ -68,6 +77,86 @@ public abstract class PlayerManager {
         return playerModel;
     }
 
+    public void subscribe(Listener listener){
+        this.listeners.add(listener);
+    }
 
+    public void unsubscribe(Listener listener){
+        this.listeners.remove(listener);
+    }
 
+    public void notifyHp(int hp){
+        for (Listener listener : listeners) {
+            listener.updateHp(hp);
+        }
+    }
+    public void notifyHand(ArrayList<Card> cards){
+        for (Listener listener : listeners) {
+            listener.updateHand(cards);
+        }
+    }
+
+    public void notifyHandSize(ArrayList<Card> cards){
+        for (Listener listener : listeners) {
+            listener.updateHandSize(cards.size());
+        }
+    }
+    public void notifyEquipment(String type, equipment_card card){
+        for (Listener listener : listeners) {
+            listener.updateEquipment(type, card);
+        }
+    }
+    public ArrayList<Card> getPocketcards(){
+        return playerModel.getPocketcards();
+    }
+
+    public ArrayList<String> getPocketcardnames(){
+        ArrayList<String> hand_card_name = new ArrayList<>(playerModel.getPocketcards().size());
+        for (Object c : playerModel.getPocketcards()) {
+            hand_card_name.add(c.toString());
+        }
+        return hand_card_name;
+    }
+
+    public void addToHand(Card c){
+        playerModel.addToHand(c);
+    }
+
+    public void addToHand(ArrayList<Card> cards){
+        playerModel.addToHand(cards);
+    }
+
+    public void hurt(int i){
+        playerModel.hurt(i);
+        notifyHp(getHp());
+    }
+
+    public void heal(int i){
+        playerModel.heal(i);
+        notifyHp(getHp());
+    }
+
+    public void putOnEquipment(String type, equipment_card card){
+        playerModel.putOnEquipment(type, card);
+        notifyEquipment(type, card);
+    }
+
+    public boolean whether_has_dodge(){
+        return playerModel.whether_has_dodge();
+    }
+    public void removeCard(Card c){
+        playerModel.removeCard(c);
+    }
+
+    public boolean whether_has_shoot(){
+        return playerModel.whether_has_shoot();
+    }
+
+    public int getmaxhp(){
+        return playerModel.getmaxhp();
+    }
+
+    public HashMap<String, equipment_card> getEquipment() {
+        return playerModel.getEquipment();
+    }
 }

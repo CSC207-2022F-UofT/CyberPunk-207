@@ -1,25 +1,27 @@
 package entity;
 
+import manager.PlayerManager;
+
 public abstract class Card {
-    private PlayerModel target;
-    private PlayerModel source;
+    private PlayerManager target;
+    private PlayerManager source;
 
     public abstract boolean needTarget();
 
 
-    public PlayerModel getTarget() {
+    public PlayerManager getTarget() {
         return target;
     }
 
-    public void setTarget(PlayerModel target) {
+    public void setTarget(PlayerManager target) {
         this.target = target;
     }
 
-    public PlayerModel getSource() {
+    public PlayerManager getSource() {
         return source;
     }
 
-    public void setSource(PlayerModel source) {
+    public void setSource(PlayerManager source) {
         this.source = source;
     }
 

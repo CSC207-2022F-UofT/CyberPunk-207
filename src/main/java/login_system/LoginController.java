@@ -3,18 +3,21 @@ package login_system;
 import java.io.FileNotFoundException;
 
 public class LoginController {
-    private String username;
-    private String password;
-    private AccountManager manager;
+        private String username;
+        private String password;
+        private final LoginInputBoundary loginInputBoundary;
 
-    public LoginController() throws FileNotFoundException {
-        this.manager = new AccountManager();
-        manager.getAccount("src/main/resource/Accounts.txt");
-    }
-
-    public void login(String username, String password) {
-        if(manager.login(username, password)){
-            //TODO: asd
+        public LoginController(LoginInputBoundary loginInputBoundary) {
+            this.loginInputBoundary = loginInputBoundary;
         }
-    }
+
+        public boolean login(String username, String password) throws FileNotFoundException {
+            return loginInputBoundary.login(username, password);
+        }
+        public void register(String username, String password){
+            loginInputBoundary.register(username, password);
+        }
+
+        public void logout(){loginInputBoundary.logout();
+        }
 }
