@@ -20,6 +20,8 @@ public class panel1 extends JPanel {
     private Presenter ps;
     private GameController gc;
     private List<String> pcards;
+
+    JComboBox<String> cards = new JComboBox<>();
     public panel1() throws IOException{
 
 //        Presenter presenter = new
@@ -92,10 +94,18 @@ public class panel1 extends JPanel {
         this.add(car);
         this.add(show);
 
+
+        for (String pcard : pcards) {
+            cards.addItem(pcard);
+        }
+        cards.setBounds(400, 500,200,200);
+
         use.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                actionHandlers.handleUse();
+                String selected = (String) cards.getSelectedItem();
+                int indx = pcards.indexOf(selected);
+                gc.playCard(indx);
             }
         });
 
@@ -114,7 +124,7 @@ public class panel1 extends JPanel {
         });
 
 
-        JComboBox<String> cards = new JComboBox<>();
+
 
 
         JLabel yourd = new JLabel("Your Deck:");
@@ -158,5 +168,11 @@ public class panel1 extends JPanel {
 
     public void displayPc(List<String> pc) {
         pcards = pc;
+        cards.removeAllItems();
+        for (String pcard : pcards) {
+            cards.addItem(pcard);
+        }
     }
+
+
 }

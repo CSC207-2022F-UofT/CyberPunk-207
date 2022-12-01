@@ -40,10 +40,10 @@ public class HumanPlayer extends PlayerManager{
                 playerModel.setUseShoot(true);
             }
         }
-        outputBoundary.displayHand(getPocketcardnames());
+//        outputBoundary.displayPocket(getPocketcardnames());
         card.use();
         playerModel.loosCard(num);
-        outputBoundary.displayHand(getPocketcardnames());
+        outputBoundary.displayPocket(getPocketcardnames());
     }
 
     public void throwCard() {
