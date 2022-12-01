@@ -1,6 +1,7 @@
 package manager;
 
 import entity.Card;
+import entity.Listener;
 import entity.PlayerModel;
 import gateway.CardsHeap;
 
@@ -19,6 +20,9 @@ public class Gameboard implements InputBoundary{
     private final OutputBoundary outputBoundary;
     private boolean askTarget;
     private PhaseManager phaseManager;
+    private List<Listener> listeners = new ArrayList<>();
+
+    private PlayerManager currPlayer;
 
     public Gameboard(OutputBoundary outputBoundary){
         this.outputBoundary = outputBoundary;
@@ -31,6 +35,7 @@ public class Gameboard implements InputBoundary{
             for (PlayerManager p : players) {
                 //output("Your round begins");
                 if(!checkDeath(p)){
+                    currPlayer = p;
                     phaseManager.runPhase(p);
                 }
             }
@@ -38,7 +43,10 @@ public class Gameboard implements InputBoundary{
         //game over
     }
 
-
+    public void getCurrPlayerPC(PlayerManager cp) {
+        List<String> pc = cp.getPocketcardnames();
+        outputBoundary.displayPocket(pc);
+    }
 
     public void gameInit(){
         CardsHeap.init();
@@ -51,6 +59,8 @@ public class Gameboard implements InputBoundary{
         for(int i = 0; i < numPlayers; i++){
             PlayerManager player = new HumanPlayer(i + 1, this );// can choose the number of ai and human player
             players.add(player);
+            notifyAlivePeople(players);
+            notifyAlivePeopleSize(players);
             player.setRole(roles.get(i)); //can use to add gameHistory to the account
             roleMap.get(roles.get(i)).add(player);
             seatMap.add(player.getPlayer());
@@ -98,7 +108,7 @@ public class Gameboard implements InputBoundary{
         if(card.needTarget()){
             //output("choose your target");
             int target = input() - 1;
-            card.setTarget(seatMap.get(target));
+            card.setTarget(players.get(target));
             if (calDis(card.getSource(), card.getTarget()) > 1) {
                 //output("out of range, try again");
                 outputBoundary.output("");// display out of range
@@ -111,9 +121,9 @@ public class Gameboard implements InputBoundary{
         return order;
     }
 
-    public int calDis(PlayerModel playerModel1, PlayerModel playerModel2){
-        int pos1 = seatMap.indexOf(playerModel1);
-        int pos2 = seatMap.indexOf(playerModel2);
+    public int calDis(PlayerManager playerModel1, PlayerManager playerModel2){
+        int pos1 = players.indexOf(playerModel1);
+        int pos2 = players.indexOf(playerModel2);
         int dis = Math.max(pos1 - pos2, pos2 - pos1);
         dis = Math.min(dis, 5 - dis);
         if (playerModel1.getEquipment().get("Minus") != null){
@@ -130,14 +140,33 @@ public class Gameboard implements InputBoundary{
             player.isDead();
             Identity role = player.getRole();
             roleMap.get(role).remove(player);
+            notifyAlivePeople(players);
+            notifyAlivePeopleSize(players);
             return true;
         } else return !player.isAlive();
     }
 
+    public void notifyAlivePeople(List<PlayerManager> players){
+        for (Listener listener : listeners) {
+            listener.updateAlivePeople(players);
+        }
+    }
+
+    public void notifyAlivePeopleSize(List<PlayerManager> players){
+        for (Listener listener : listeners) {
+            listener.updateAlivePeopleSize(players.size());
+        }
+    }
 
     public static List<PlayerModel> getPlayers(){
         return seatMap;
     }
 
+    public static List<PlayerManager> getPlayerManager(){
+        return players;
+    }
 
+    public PlayerManager getCurrPlayer() {
+        return currPlayer;
+    }
 }

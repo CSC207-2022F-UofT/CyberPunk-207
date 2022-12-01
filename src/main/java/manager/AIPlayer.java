@@ -3,7 +3,6 @@ package manager;
 import entity.Card;
 import entity.Shoot;
 
-import static manager.Gameboard.getPlayers;
 
 public class AIPlayer extends PlayerManager{
     public AIPlayer(int playerNO, Gameboard gameboard) {
@@ -19,14 +18,14 @@ public class AIPlayer extends PlayerManager{
 
     @Override
     public void useCard(int num) {
-        Card card = playerModel.getPocketcards().get(num);
-        card.setSource(playerModel);
+        Card card = getPocketcards().get(num);
+        card.setSource(this);
         if(card.needTarget()){
-            card.setTarget(getPlayers().get(playerNO));
+            card.setTarget(Gameboard.getPlayers().get(playerNO));
         }
         //System.out.println(player.getPocketcards());
         card.use();
-        playerModel.loosCard(num);
+        loosCard(num);
         //System.out.println(player.getPocketcards());
         //output(card.toString());
     }

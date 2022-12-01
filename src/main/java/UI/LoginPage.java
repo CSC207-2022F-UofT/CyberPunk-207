@@ -1,5 +1,15 @@
 package UI;
 
+import login_system.LoginController;
+import login_system.LoginInputBoundary;
+import login_system.LoginOutputBoundary;
+import login_system.LoginPresenter;
+import login_system.usecase.AccountDataManager;
+import login_system.usecase.AccountManager;
+import login_system.usecase.IAccountDataManager;
+import manager.OutputBoundary;
+
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -7,10 +17,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class LoginPage {
-    public void init() throws IOException {
+    public void init() throws IOException{
         JFrame lpage = new JFrame("Login Page");
         lpage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         lpage.setSize(1920,1080);
@@ -45,27 +56,34 @@ public class LoginPage {
 
         JButton login = new JButton("Login");
         login.setBounds(650,600,200,40);
+
+        LoginOutputBoundary loginOutputBoundary = new LoginPresenter();
+        IAccountDataManager accountDataManager = new AccountDataManager();
+        LoginInputBoundary loginInputBoundary = new AccountManager(accountDataManager, loginOutputBoundary);
+        LoginController controller = new LoginController(loginInputBoundary);
+
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                from loginsystem/usecase/accountdatamanager
-//                if(use_case.check(usnm) == false){
-//                    use_case.write(usnm,pswd);
-//                    lpage.setVisible(false);
-//                    new RulePage().init();
-//                } else if (use_case.check(usnm) && use_case.verify(usnm, pswd)) {
-//                    lpage.setVisible(false);
-//                    new RulePage().init();
-//                }
-//                else{
-//                }
-                error.setVisible(true);
-//                lpage.setVisible(false);
-//                try {
-//                    new RulePage().init();
-//                } catch (IOException ex) {
-//                    throw new RuntimeException(ex);
-//                }
+                String user = usnm.getText();
+                String pass = pswd.getText();
+                boolean login = false;
+                try {
+                    login = controller.login(user, pass);
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);// how to handle?
+                }
+
+                if(login){
+                    lpage.setVisible(false);
+                    try {new RulePage().init();} catch (IOException ex) {
+                        throw new RuntimeException(ex);}
+                } else if (!login) {
+                   lpage.setVisible(false);
+                    try {new RulePage().init();
+                    } catch (IOException ex) {throw new RuntimeException(ex);}
+                }
+               else{error.setVisible(true);}
             }
         });
 
@@ -87,5 +105,5 @@ public class LoginPage {
         lpage.setVisible(true);
     }
 
-    public static void main(String[] args) throws IOException { new LoginPage().init();}
+    public static void main(String[] args) throws IOException{ new LoginPage().init();}
 }

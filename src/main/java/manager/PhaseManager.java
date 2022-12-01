@@ -1,5 +1,8 @@
 package manager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PhaseManager {
     private PlayerManager player;
     private Gameboard gameboard;
@@ -12,7 +15,6 @@ public class PhaseManager {
 
     public void runPhase(PlayerManager player) {
         drawPhase(player);
-        outputBoundary.displayHand();
         playPhase(player);
         if(player.needThrow() < 0){
             throwPhase(player);
@@ -21,8 +23,10 @@ public class PhaseManager {
     }
 
     public void drawPhase(PlayerManager player){
-        //output("Draws 2 cards from cards heap");
+        outputBoundary.displayInstruction("Draws 2 cards from cards heap");
         player.drawCards(2);
+        outputBoundary.displayHp(player.getHp());
+        outputBoundary.displayPocket(player.getPocketcardnames());
     }
 
 
@@ -42,6 +46,6 @@ public class PhaseManager {
     }
 
     public void endPhase() {
-        System.out.println("This turn ends.");//presenter
+        outputBoundary.displayInstruction("This turn ends.");
     }
 }
