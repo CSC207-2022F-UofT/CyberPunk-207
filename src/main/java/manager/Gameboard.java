@@ -1,13 +1,14 @@
 package manager;
 
 import entity.Card;
-import entity.Listener;
 import entity.PlayerModel;
+import entity.Status;
 import gateway.CardsHeap;
 
 import java.util.*;
 
 import static Controller.GameController.input;
+import static java.lang.Thread.sleep;
 import static java.util.Collections.swap;
 
 
@@ -18,8 +19,7 @@ public class Gameboard implements InputBoundary{
     private List<Identity> roles = new ArrayList<>();
     private static List<PlayerModel> seatMap = new ArrayList<>();
     private final OutputBoundary outputBoundary;
-    private PhaseManager phaseManager;
-    private List<Listener> listeners = new ArrayList<>();
+    private Status status;
 
     public Gameboard(OutputBoundary outputBoundary){
         this.outputBoundary = outputBoundary;
@@ -28,12 +28,14 @@ public class Gameboard implements InputBoundary{
     public void startGame(){
         gameInit();
         while (!checkEnd()) {  // can use game status
-            outputBoundary.output("Round " + round++);
+            outputBoundary.displayInstruction("Round " + round++);//可以加一个单独的ui显示回合
             for (PlayerManager p : players) {
                 //output("Your round begins");
+                outputBoundary.displayRole(p.getRole());
                 if(!checkDeath(p)){
-                    phaseManager.runPhase(p);
+                    runPhase(p);
                 }
+                status.turnChange();
             }
         }
         //game over
@@ -48,7 +50,7 @@ public class Gameboard implements InputBoundary{
         roleMap.put(Identity.CRIMINAL, new ArrayList<>());
         roleMap.put(Identity.CORPO, new ArrayList<>());
         for(int i = 0; i < numPlayers; i++){
-            PlayerManager player = new HumanPlayer(i + 1, this );// can choose the number of ai and human player
+            PlayerManager player = new HumanPlayer(i + 1, this, status );// can choose the number of ai and human player
             players.add(player);
             player.setRole(roles.get(i)); //can use to add gameHistory to the account
             roleMap.get(roles.get(i)).add(player);
@@ -56,7 +58,8 @@ public class Gameboard implements InputBoundary{
             player.drawCards(4);
         }
         roleMap.get(Identity.CAPTAIN).get(0).setHp(4);
-        phaseManager = new PhaseManager(this, outputBoundary);
+        Status status = new Status(this);
+        status.init(players);
         //can use strategy pattern to choose different phase logic afterwards
     }
 
@@ -72,6 +75,39 @@ public class Gameboard implements InputBoundary{
         System.exit(0);
     }
 
+    public void runPhase(PlayerManager player) {
+        drawPhase(player);
+        playPhase(player);
+        if(player.needThrow() < 0){
+            throwPhase(player);
+        }
+        endPhase();
+    }
+
+    public void drawPhase(PlayerManager player){
+        outputBoundary.displayInstruction("Draws 2 cards from cards heap");
+        player.drawCards(2);
+    }
+
+
+
+    public void playPhase(PlayerManager player){
+        player.playCard();
+    }
+
+
+    public void throwPhase(PlayerManager player){
+        int num = player.needThrow();
+        //output("You need to throw " + num + " cards" );
+        for(int i = 0; i < num; i++){
+            //output("choose a number");
+            player.throwCard();
+        }
+    }
+
+    public void endPhase() {
+        outputBoundary.displayInstruction("This turn ends.");
+    }
 
     public boolean checkEnd() {
         if (isExtinct(Identity.CAPTAIN) && isExtinct(Identity.CRIMINAL)){
@@ -101,12 +137,12 @@ public class Gameboard implements InputBoundary{
                 card.setTarget(players.get(target));
             }
             catch (Exception e){
-                outputBoundary.output("Target index outside range. Please enter again");
+                outputBoundary.displayInstruction("Target index outside range. Please enter again");
                 askTarget(card);
             }
             if (calDis(card.getSource(), card.getTarget()) > 1) {
                 //output("out of range, try again");
-                outputBoundary.output("Target out of distance range. Please enter again");// display out of range
+                outputBoundary.displayInstruction("Target out of distance range. Please enter again");// display out of range
                 askTarget(card);
             }
         }
@@ -121,10 +157,10 @@ public class Gameboard implements InputBoundary{
         int pos2 = players.indexOf(player2);
         int dis = Math.max(pos1 - pos2, pos2 - pos1);
         dis = Math.min(dis, 5 - dis);
-        if (player1.getEquipment().get("Minus") != null){
+        if (!Objects.equals(player1.getEquipment().get("Minus"), "")){
             dis -= 1;
         }
-        if (player2.getEquipment().get("Plus") != null){
+        if (!Objects.equals(player2.getEquipment().get("Plus"), "")){
             dis += 1;
         }
         return dis;
@@ -135,26 +171,27 @@ public class Gameboard implements InputBoundary{
             player.isDead();
             Identity role = player.getRole();
             roleMap.get(role).remove(player);
-            notifyAlivePeople(players);
-            notifyAlivePeopleSize(players);
+            outputBoundary.displayRoles();
             return true;
         } else return !player.isAlive();
     }
 
-    public void notifyAlivePeople(List<PlayerManager> players){
-        for (Listener listener : listeners) {
-            listener.updateAlivePeople(players);
-        }
-    }
 
-    public void notifyAlivePeopleSize(List<PlayerManager> players){
-        for (Listener listener : listeners) {
-            listener.updateAlivePeopleSize(players.size());
-        }
-    }
 
     public static List<PlayerManager> getPlayers(){
         return players;
     }
 
+    public void updateGlobal(LinkedList<List<String>> globalStatus) {
+        outputBoundary.displayGlobalStatus(globalStatus);
+    }
+
+    public void updateHand(ArrayList<String> hands) {
+        outputBoundary.displayHand(hands);
+    }
+
+
+    public void displayInstruction(String s) {
+        outputBoundary.displayInstruction(s);
+    }
 }

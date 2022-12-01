@@ -1,8 +1,11 @@
 package presenter;
 
+import manager.Identity;
 import manager.OutputBoundary;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class Presenter implements OutputBoundary {
@@ -11,45 +14,33 @@ public class Presenter implements OutputBoundary {
     public String displayInstruction(String s){
         return s;
     }
-    @Override
-    public int displayHp(int hp){
-        return hp;
+
+    public void displayRoles() {
+
     }
+
+
+    @Override
+    public void displayRound() {
+
+    }
+
+    @Override
+    public void displayGlobalStatus(LinkedList<List<String>> globalStatus) {
+
+    }
+
+    @Override
+    public void displayRole(Identity role) {
+
+    }
+
+
     @Override
     public ArrayList<String> displayHand(ArrayList<String> lc) {
         return lc;
     }
-    @Override
-    public Object displayEquipment(Object equipment) { return equipment;}
-    @Override
-    public String displayName(String name) {
-        return name;
-    }
-    @Override
-    public String displayRole(String role){
-        return role;
-    }
-
-    @Override
-    public boolean isPolice(boolean ispolice) {return ispolice;}
-    @Override
-    public ArrayList<Integer> displayOthersHp(ArrayList<Integer> lhp){
-        return lhp;
-    }
 
 
-    @Override
-    public String displayPhaseStage(String s) {
-        return s;
-    }
 
-    @Override
-    public String displayLog(String s) {
-        return s;
-    }
-
-    @Override
-    public void output(String output) {
-            System.out.println(output);
-    }
 }

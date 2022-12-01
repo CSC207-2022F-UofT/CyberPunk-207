@@ -8,7 +8,7 @@ public class Tesla extends equipment_card{
 
     @Override
     public void use() {
-        getSource().putOnEquipment("Minus", this);
+        getSource().putOnEquipment("Minus", this.toString());
     }
 
     @Override
