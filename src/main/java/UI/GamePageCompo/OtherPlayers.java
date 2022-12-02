@@ -11,11 +11,7 @@ import java.io.IOException;
 
 public class OtherPlayers extends JPanel{
 
-    private Presenter presenter;
-
-    public OtherPlayers(Presenter pr) {
-        presenter = pr;
-    }
+    private final JLabel name = new JLabel();
 
     private void addImageAt(String src, int x, int y, int width, int height) throws IOException {
         BufferedImage img = ImageIO.read(new File(src));
@@ -64,6 +60,8 @@ public class OtherPlayers extends JPanel{
         this.add(name);
 
     }
+
+    public void displayName(String name) {this.name.setText(name);}
 
 }
 

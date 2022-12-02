@@ -25,9 +25,11 @@ public class panel1 extends JPanel {
 
     private final JLabel message = new JLabel();
 
-    private final JLabel name = new JLabel("Player1");
+    private final JLabel name = new JLabel("Player 1");
 
     private final JLabel health = new JLabel();
+
+    private final JLabel round = new JLabel();
 
     public panel1() throws IOException{
 
@@ -154,6 +156,8 @@ public class panel1 extends JPanel {
         message.setFont(new Font("Calibri", Font.BOLD, 20));
         message.setBounds(420, 550, 70, 200);
 
+        round.setBounds(700, 800, 100, 100);
+
         this.add(message);
         this.add(logof);
         this.add(cards);
@@ -161,6 +165,7 @@ public class panel1 extends JPanel {
         this.add(yourd);
         this.add(choose);
         this.add(carddis2);
+        this.add(round);
 
 
 
@@ -184,5 +189,13 @@ public class panel1 extends JPanel {
 
     public void displayHP(String hp) {
         health.setText(hp);
+    }
+
+    public void displayRD(int rd) {
+        round.setText("Round " + rd);
+    }
+
+    public void displayName(String name) {
+        this.name.setText(name);
     }
 }

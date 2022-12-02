@@ -28,10 +28,9 @@ public class Gameboard implements InputBoundary{
     public void startGame(){
         gameInit();
         while (!checkEnd()) {  // can use game status
-            outputBoundary.displayInstruction("Round " + round++);//可以加一个单独的ui显示回合
+            outputBoundary.displayRound(round++);
             for (PlayerManager p : players) {
                 //output("Your round begins");
-                outputBoundary.displayRole(p.getRole());
                 if(!checkDeath(p)){
                     runPhase(p);
                 }
@@ -42,6 +41,8 @@ public class Gameboard implements InputBoundary{
     }
 
     public void gameInit(){
+        Status status = new Status(this);
+        this.status = status;
         CardsHeap.init();
         shuffleRoles();
         int numPlayers = 5;
@@ -50,7 +51,7 @@ public class Gameboard implements InputBoundary{
         roleMap.put(Identity.CRIMINAL, new ArrayList<>());
         roleMap.put(Identity.CORPO, new ArrayList<>());
         for(int i = 0; i < numPlayers; i++){
-            PlayerManager player = new HumanPlayer(i + 1, this, status );// can choose the number of ai and human player
+            PlayerManager player = new HumanPlayer(i + 1, this, status);// can choose the number of ai and human player
             players.add(player);
             player.setRole(roles.get(i)); //can use to add gameHistory to the account
             roleMap.get(roles.get(i)).add(player);
@@ -58,9 +59,10 @@ public class Gameboard implements InputBoundary{
             player.drawCards(4);
         }
         roleMap.get(Identity.CAPTAIN).get(0).setHp(4);
-        Status status = new Status(this);
         status.init(players);
         //can use strategy pattern to choose different phase logic afterwards
+        LinkedList<List<String>> gs = status.getGlobalStatus();
+        outputBoundary.displayGlobalStatus(gs);
     }
 
     public void shuffleRoles(){
@@ -171,12 +173,15 @@ public class Gameboard implements InputBoundary{
             player.isDead();
             Identity role = player.getRole();
             roleMap.get(role).remove(player);
-            outputBoundary.displayRoles();
+//            outputBoundary.displayRoles();
             return true;
         } else return !player.isAlive();
     }
 
 
+    public void displayRound() {
+        outputBoundary.displayRound(round);
+    }
 
     public static List<PlayerManager> getPlayers(){
         return players;
@@ -194,4 +199,5 @@ public class Gameboard implements InputBoundary{
     public void displayInstruction(String s) {
         outputBoundary.displayInstruction(s);
     }
+
 }

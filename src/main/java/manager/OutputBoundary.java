@@ -7,18 +7,18 @@ import java.util.List;
 public interface OutputBoundary {
 
 
-    String displayInstruction(String s);
+    void displayInstruction(String s);
 
-    ArrayList<String> displayHand(ArrayList<String> l);
-
-    void displayRound();
+   void displayHand(ArrayList<String> l);
 
     void displayGlobalStatus(LinkedList<List<String>> globalStatus);
 
-    void displayRole(Identity role);
+    void displayMainName(String name);
 
-    void displayRoles();
+    void displayOtherNames(List<String> names);
 
-    String displayPhaseStage(String s);
+    void displayRound(int round);
+
+    void showChief();
 
 }
