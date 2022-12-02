@@ -48,7 +48,6 @@ public class GameController {
 
     }
     public void playCard(int num) {
-        inputBoundary.getCurrPlayer().useCard(num);
     }
 
     public void discardCard() {

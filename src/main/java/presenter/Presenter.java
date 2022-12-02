@@ -29,9 +29,16 @@ public class Presenter implements OutputBoundary {
         displayHand(putPocketCards(globalStatus));
 
         //Display HP
+        displayHP(globalStatus);
+
+        //Display equipments
+        displayEqu(globalStatus);
 
     }
 
+    public void displayEqu(LinkedList<List<String>> globalStatus) {
+
+    }
 
 
     @Override

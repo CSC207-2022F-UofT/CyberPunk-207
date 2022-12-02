@@ -54,7 +54,13 @@ public class GamePage {
     }
 
     public void displayHP(List<String> hps) {
-
+        position1.displayHealth(hps.get(0));
+        position2.displayHealth(hps.get(1));
+        position3.displayHealth(hps.get(2));
+        position4.displayHealth(hps.get(3));
     }
+
+
+
     public static void main(String[] args) throws IOException {new GamePage();}
 }
