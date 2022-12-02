@@ -1,5 +1,4 @@
 import Controller.GameController;
-import login_system.usecase.AccountManager;
 import manager.Gameboard;
 import manager.InputBoundary;
 import manager.OutputBoundary;
@@ -12,7 +11,7 @@ public class GameLauncher {
 ////        accountManager.getAccounts(deserialization);
         OutputBoundary outputBoundary = new Presenter();
         InputBoundary inputBoundary = new Gameboard(outputBoundary);
-        GameController controller = new GameController(inputBoundary);
+        GameController controller = new GameController(inputBoundary, outputBoundary);
         controller.startGame();
     }
 }

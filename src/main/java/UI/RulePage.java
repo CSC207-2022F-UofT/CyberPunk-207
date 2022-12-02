@@ -37,7 +37,7 @@ public class RulePage {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 try {
-                    new GamePage().init();
+                    new GamePage();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

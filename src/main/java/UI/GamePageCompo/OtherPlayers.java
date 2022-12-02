@@ -11,11 +11,8 @@ import java.io.IOException;
 
 public class OtherPlayers extends JPanel{
 
-    private Presenter presenter;
-
-    public OtherPlayers(Presenter pr) {
-        presenter = pr;
-    }
+    private final JLabel name = new JLabel();
+    private final JLabel health = new JLabel();
 
     private void addImageAt(String src, int x, int y, int width, int height) throws IOException {
         BufferedImage img = ImageIO.read(new File(src));
@@ -51,7 +48,6 @@ public class OtherPlayers extends JPanel{
         mg.setBounds(220,120,50,50);
         this.add(mg);
 
-        JLabel health = new JLabel("4");
         health.setForeground(Color.black);
         health.setFont(new Font("Calibri", Font.BOLD, 20));
         health.setBounds(35, 50, 150, 40);
@@ -65,5 +61,8 @@ public class OtherPlayers extends JPanel{
 
     }
 
+    public void displayName(String name) {this.name.setText(name);}
+
+    public void displayHealth(String hp) {this.health.setText(hp);}
 }
 
