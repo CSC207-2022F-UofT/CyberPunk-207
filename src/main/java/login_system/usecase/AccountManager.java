@@ -18,21 +18,6 @@ public class AccountManager implements LoginInputBoundary {
         this.loginOutputBoundary = loginOutputBoundary;
     }
 
-    @Override
-    public boolean login(String username, String password) throws FileNotFoundException {
-        if (hasAccount(username)){
-            if(correctPassword(password)) {
-                //System.out.println("SUCCESSFUL LOG IN");
-                return true;
-            } else {
-                //System.out.println("WRONG PASSWORD");
-                return false;
-            }
-        }
-        //System.out.println("NO SUCH USER");
-        return false;
-    }
-
     public boolean hasAccount(String username) throws FileNotFoundException {
         for(Account account: accountDataManager.getAccounts()){
             if(Objects.equals(account.getUsername(), username)){
@@ -50,6 +35,27 @@ public class AccountManager implements LoginInputBoundary {
         }
         return false;
     }
+
+    @Override
+    public boolean login(String username, String password) throws FileNotFoundException {
+        if (hasAccount(username)){
+            if(correctPassword(password)) {
+                //System.out.println("SUCCESSFUL LOG IN");
+                return true;
+            } else {
+                //System.out.println("WRONG PASSWORD");
+                return false;
+            }
+        }
+        //System.out.println("NO SUCH USER");
+        return false;
+    }
+
+    @Override
+    public boolean check(String username) throws FileNotFoundException {
+        return hasAccount(username);
+    }
+
     @Override
     public void register(String username, String password) {
         Account account = new Account(username, password);
