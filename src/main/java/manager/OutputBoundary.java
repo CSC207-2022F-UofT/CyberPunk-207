@@ -1,32 +1,24 @@
 package manager;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public interface OutputBoundary {
 
 
-    void displayPocket(List<String> pc);
+    String displayInstruction(String s);
 
-    void displayInstruction(String s);
+    ArrayList<String> displayHand(ArrayList<String> l);
 
-    void displayHp(int hp);
+    void displayRound();
 
-    Object displayEquipment(Object equipment);
+    void displayGlobalStatus(LinkedList<List<String>> globalStatus);
 
-    void displayName(String name);
+    void displayRole(Identity role);
 
-    String displayRole(String role);
-
-    boolean isPolice(boolean ispolice);
-
-    ArrayList<Integer> displayOthersHp(ArrayList<Integer> lhp);
+    void displayRoles();
 
     String displayPhaseStage(String s);
-
-    String displayLog(String s);
-
-    void output(String s);
-
 
 }

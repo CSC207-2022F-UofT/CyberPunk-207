@@ -3,22 +3,23 @@ package manager;
 import entity.Card;
 import entity.PlayerModel;
 import entity.Shoot;
+import entity.Status;
 
 public class HumanPlayer extends PlayerManager{
-    public HumanPlayer(int playerNO, Gameboard gameboard) {
-        super(playerNO, gameboard);
+    public HumanPlayer(int playerNO, Gameboard gameboard, Status status) {
+        super(playerNO, gameboard, status);
     }
 
     public void playCard(){
         while(isAlive()){
-            outputBoundary.displayInstruction("Please choose card or end phase");
+            gameboard.displayInstruction("Please choose card or end phase");
             int order = gameboard.askOrder();
             if(order == -1){
-                outputBoundary.displayInstruction("You have chosen to end playing phase. Now start throwing card.");
+                gameboard.displayInstruction("You have chosen to end playing phase. Now start throwing card.");
                 return;
             }
-            else if (order + 1 > playerModel.getPocketcards().size()){
-                outputBoundary.displayInstruction("Input out of range. Please enter again.");
+            else if (order + 1 > getPocketcards().size()){
+                gameboard.displayInstruction("Input out of range. Please enter again.");
                     playCard();
                 }
             else{
@@ -33,17 +34,15 @@ public class HumanPlayer extends PlayerManager{
         card.setSource(this);
         gameboard.askTarget(card);
         if(card instanceof Shoot){
-            if(playerModel.isUseShoot() && playerModel.getEquipment().get("Weapon") == null){
-                outputBoundary.displayInstruction("shoot used, try another card");
+            if(playerModel.isUseShoot() && playerModel.getEquipment().get("Weapon") == ""){
+                gameboard.displayInstruction("shoot used, try another card");
                 return;
             } else{
                 playerModel.setUseShoot(true);
             }
         }
-//        outputBoundary.displayPocket(getPocketcardnames());
         card.use();
-        playerModel.loosCard(num);
-        outputBoundary.displayPocket(getPocketcardnames());
+        loosCard(num);
     }
 
     public void throwCard() {
@@ -52,7 +51,7 @@ public class HumanPlayer extends PlayerManager{
             loosCard(card);
         }
         catch (Exception e){
-            outputBoundary.displayInstruction("Index out of range. Please enter again.");
+            gameboard.displayInstruction("Index out of range. Please enter again.");
             throwCard();
         }
     }

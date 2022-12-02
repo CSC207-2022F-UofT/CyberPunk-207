@@ -8,7 +8,7 @@ public class Lambo extends equipment_card{
 
     @Override
     public void use() {
-        getSource().putOnEquipment("Plus", this);
+        getSource().putOnEquipment("Plus", this.toString());
     }
 
     @Override

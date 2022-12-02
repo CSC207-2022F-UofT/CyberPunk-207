@@ -2,11 +2,14 @@ package manager;
 
 import entity.Card;
 import entity.Shoot;
+import entity.Status;
+
+import static manager.Gameboard.getPlayers;
 
 
 public class AIPlayer extends PlayerManager{
-    public AIPlayer(int playerNO, Gameboard gameboard) {
-        super(playerNO, gameboard);
+    public AIPlayer(int playerNO, Gameboard gameboard, Status status) {
+        super(playerNO, gameboard, status);
     }
 
     @Override
@@ -21,7 +24,7 @@ public class AIPlayer extends PlayerManager{
         Card card = getPocketcards().get(num);
         card.setSource(this);
         if(card.needTarget()){
-            card.setTarget(Gameboard.getPlayers().get(playerNO));
+            card.setTarget(getPlayers().get(playerNO));
         }
         //System.out.println(player.getPocketcards());
         card.use();

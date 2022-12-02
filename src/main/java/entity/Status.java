@@ -1,93 +1,90 @@
 package entity;
 
+import manager.Gameboard;
 import manager.PlayerManager;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-public class Status implements Listener{
-    private int hp;
-    private ArrayList<Card> pocketcards;
-    private int round;
-    private int handSize;
-    private List<PlayerManager> players;
-    private int alivePeopleSize;
-    private int cardHeapSize;
-    private HashMap<String, equipment_card> equipment;
+public class Status{
+    private ArrayList<String> pocketcards;
+    private LinkedList<List<String>> GlobalStatus;
+    private Gameboard gameboard;
+    private int turns;
 
-    public Status() {
-        this.hp = 3;
+    public Status(Gameboard gameboard) {
+        this.gameboard = gameboard;
+        LinkedList<List<String>> GlobalStatus = new LinkedList<>();
         this.pocketcards = new ArrayList<>();
-        this.round = 0;
-        this.handSize = 0;
-        this.players = new ArrayList<>();
-        this.alivePeopleSize = 0;
-        this.equipment = new HashMap<>();
+        turns = 1;
     }
 
-    @Override
-    public void update() {}
-    @Override
-    public void updateHp(int hp) {
-        this.hp = hp;
-    }
-    @Override
-    public void updateHand(ArrayList<Card> cards) {
-        this.pocketcards = cards;
+
+
+    public void updateHp(int hp, int PlayerNo) {
+        int index = getIndex(PlayerNo);
+        GlobalStatus.get(index).set(2, String.valueOf(hp));
+        gameboard.updateGlobal(GlobalStatus);
     }
 
-    @Override
-    public void updateHandSize(int size) {
-        this.handSize = size;
+    public void updateHandSize(int size, int PlayerNo) {
+        int index = getIndex(PlayerNo);
+        GlobalStatus.get(index).set(1, String.valueOf(size));
+        gameboard.updateGlobal(GlobalStatus);
     }
 
-    @Override
-    public void updateAlivePeople(List<PlayerManager> players) {
-        this.players = players;
+    public void updateEquipment(String type, String card, int PlayerNo) {
+        int index = getIndex(PlayerNo);
+        if(Objects.equals(type, "Weapon")){
+            GlobalStatus.get(index).set(3, String.valueOf(card));
+        }else if(Objects.equals(type, "Plus")){
+            GlobalStatus.get(index).set(4, String.valueOf(card));
+        }else{
+        GlobalStatus.get(index).set(5, String.valueOf(card));
+        }
+        gameboard.updateGlobal(GlobalStatus);
     }
 
-    @Override
-    public void updateAlivePeopleSize(int size) {
-        this.alivePeopleSize = size;
+
+    public void updateHand(String cards, int PlayerNo) {
+        int index = getIndex(PlayerNo);
+        GlobalStatus.get(index).set(6, cards);
+        gameboard.updateHand(getHands());
     }
 
-    @Override
-    public void updateCardHeap(int size) {
-        this.cardHeapSize = size;
+    public int getIndex(int PlayerNo){
+        int current = turns%5;
+        int index = PlayerNo - current;
+        if(index < 0 ){
+            index = Math.abs(index);
+        }
+        return index;
     }
 
-    @Override
-    public void updateEquipment(String type, equipment_card card) {
-        this.equipment.put(type, card);
+    public void turnChange() {
+        GlobalStatus.addLast(GlobalStatus.removeFirst());
+        turns ++;
+        gameboard.updateGlobal(GlobalStatus);
     }
 
-    public int getHp() {
-        return hp;
+    public ArrayList<String> getHands(){
+        String[] handCard1 =  GlobalStatus.get(0).get(6).split(",");
+        ArrayList<String> handCard = new ArrayList<>();
+        Collections.addAll(handCard, handCard1);
+        return handCard;
     }
 
-    public ArrayList<Card> getPocketcards() {
-        return pocketcards;
-    }
-
-    public int getRound() {
-        return round;
-    }
-
-    public int getHandSize() {
-        return handSize;
-    }
-
-    public List<PlayerManager> getPlayers() {
-        return players;
-    }
-
-    public int getAlivePeopleSize() {
-        return alivePeopleSize;
-    }
-
-    public int getCardHeapSize() {
-        return cardHeapSize;
+    public void init(List<PlayerManager> players) {
+        for(PlayerManager player: players){
+            List<String> status = new ArrayList<>();
+            HashMap<String, String> equipment = player.getEquipment();
+            status.add("Player" + player.getPlayerNO());
+            status.add(String.valueOf(player.getPocketcards().size()));// handsize for index1
+            status.add(String.valueOf(player.getHp()));// hp for index2
+            status.add(equipment.get("Weapon"));
+            status.add(equipment.get("Plus"));
+            status.add(equipment.get("Minus"));
+            status.add(player.getPocketcardnames());
+            GlobalStatus.add(status);
+        }
     }
 }
