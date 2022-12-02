@@ -8,7 +8,7 @@ public class R99MachineGun extends equipment_card{
     }
 
     public void use(){
-        getSource().putOnEquipment("Weapon", this);
+        getSource().putOnEquipment("Weapon", this.toString());
     }
 
     @Override

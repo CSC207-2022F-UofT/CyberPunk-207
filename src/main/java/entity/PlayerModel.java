@@ -15,7 +15,7 @@ public class PlayerModel {
     private boolean status;
     private boolean alive;
     private boolean useShoot = false;
-    private HashMap<String, equipment_card> equipment = new HashMap<>();
+    private HashMap<String, String> equipment = new HashMap<>();
 
     public boolean Status() {
         return status;
@@ -36,9 +36,9 @@ public class PlayerModel {
     }
 
     private void equipmentInit(){
-        this.equipment.put("Minus", null);
-        this.equipment.put("Plus", null);
-        this.equipment.put("Weapon", null);
+        this.equipment.put("Minus", "");
+        this.equipment.put("Plus", "");
+        this.equipment.put("Weapon", "");
     }
 
     public String getRole() {
@@ -91,27 +91,8 @@ public class PlayerModel {
         this.hp += 1;
     }
 
-    public boolean whether_has_dodge(){
-        for (Card card : this.pocketcards) {
-            if (card instanceof Dodge) {
-                pocketcards.remove(card);
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public boolean whether_has_shoot(){
-        for (Card card : this.pocketcards) {
-            if (card instanceof Shoot) {
-                pocketcards.remove(card);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void putOnEquipment(String type, equipment_card card){
+    public void putOnEquipment(String type, String card){
         equipment.put(type, card);
     }
 
@@ -119,7 +100,7 @@ public class PlayerModel {
         return this.maxhp;
     }
 
-    public HashMap<String, equipment_card> getEquipment() {
+    public HashMap<String, String> getEquipment() {
         return equipment;
     }
 
