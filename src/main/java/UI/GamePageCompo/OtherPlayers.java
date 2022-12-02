@@ -1,5 +1,7 @@
 package UI.GamePageCompo;
 
+import presenter.Presenter;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +11,11 @@ import java.io.IOException;
 
 public class OtherPlayers extends JPanel{
 
+    private Presenter presenter;
+
+    public OtherPlayers(Presenter pr) {
+        presenter = pr;
+    }
 
     private void addImageAt(String src, int x, int y, int width, int height) throws IOException {
         BufferedImage img = ImageIO.read(new File(src));
