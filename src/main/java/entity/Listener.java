@@ -20,5 +20,5 @@ public interface Listener {
 
     void updateCardHeap(int size);
 
-    void updateEquipment(String type, equipment_card card);
+    void updateEquipment(String type, EquipmentCard card);
 }

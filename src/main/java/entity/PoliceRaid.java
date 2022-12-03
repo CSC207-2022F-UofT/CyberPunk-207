@@ -3,7 +3,7 @@ package entity;
 import manager.Gameboard;
 import manager.PlayerManager;
 
-public class Policeraid extends strategy_card{
+public class PoliceRaid extends StrategyCard {
     @Override
     public boolean needTarget() {
         return false;
@@ -11,7 +11,7 @@ public class Policeraid extends strategy_card{
 
     public void use(){
         for (PlayerManager p : Gameboard.getPlayers()) {
-            if (p != getSource() && !p.whether_has_shoot() ) {
+            if (p != getSource() && !p.whetherHasShoot() ) {
                 p.hurt(1);
             }
         }

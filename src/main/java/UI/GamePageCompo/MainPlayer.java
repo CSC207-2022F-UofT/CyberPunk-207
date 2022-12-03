@@ -6,8 +6,6 @@ import presenter.Presenter;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class panel1 extends JPanel {
+public class MainPlayer extends JPanel {
 
     private Presenter ps;
     private GameController gc;
@@ -31,7 +29,7 @@ public class panel1 extends JPanel {
 
     private final JLabel round = new JLabel();
 
-    public panel1() throws IOException{
+    public MainPlayer() throws IOException{
 
 //        Presenter presenter = new
         this.setLayout(null);
@@ -114,18 +112,18 @@ public class panel1 extends JPanel {
             gc.playCard(indx);
         });
 
-        discard.addActionListener(e -> actionHandlers.handleDiscard());
+        discard.addActionListener(e -> ActionHandlers.handleDiscard());
 
-        end.addActionListener(e -> actionHandlers.handleEnd());
-
-
+        end.addActionListener(e -> ActionHandlers.handleEnd());
 
 
 
-        JLabel yourd = new JLabel("Your Deck:");
-        yourd.setForeground(Color.white);
-        yourd.setFont(new Font("Calibri", Font.BOLD, 20));
-        yourd.setBounds(400, 540, 200, 40);
+
+
+        JLabel yours = new JLabel("Your Deck:");
+        yours.setForeground(Color.white);
+        yours.setFont(new Font("Calibri", Font.BOLD, 20));
+        yours.setBounds(400, 540, 200, 40);
 
         JComboBox<String> players = new JComboBox<>();
         ArrayList<String> plist = new ArrayList<>();
@@ -162,7 +160,7 @@ public class panel1 extends JPanel {
         this.add(logof);
         this.add(cards);
         this.add(players);
-        this.add(yourd);
+        this.add(yours);
         this.add(choose);
         this.add(carddis2);
         this.add(round);

@@ -1,6 +1,6 @@
 package entity;
 
-public class Dodge extends basic_card{
+public class Dodge extends BasicCard {
     @Override
     public boolean needTarget() {
         return false;

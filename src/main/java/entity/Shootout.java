@@ -3,7 +3,7 @@ package entity;
 import manager.Gameboard;
 import manager.PlayerManager;
 
-public class Shootout extends strategy_card{
+public class Shootout extends StrategyCard {
     @Override
     public boolean needTarget() {
         return false;
@@ -11,7 +11,7 @@ public class Shootout extends strategy_card{
 
     public void use(){
         for (PlayerManager p : Gameboard.getPlayers()) {
-            if (p != getSource() && p.whether_has_dodge()){
+            if (p != getSource() && p.whetherHasDodge()){
                 p.hurt(1);
             }
         }

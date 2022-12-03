@@ -2,13 +2,13 @@ package login_system;
 
 public interface LoginOutputBoundary {
 
-    void noAcc();
+    void noAccount();
 
-    void wrongPass();
+    void wrongPassword();
 
-    void registerSucc();
+    void registerSuccess();
 
-    void loginSucc();
+    void loginSuccess();
 
 
 }

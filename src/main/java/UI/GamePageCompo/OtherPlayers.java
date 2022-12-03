@@ -30,11 +30,11 @@ public class OtherPlayers extends JPanel{
         addImageAt( "src/main/resource/default.png", 50, 60, 90, 90);
         addImageAt("src/main/resource/health.png", -10, 60, 50,40);
 
-        BufferedImage carddis = ImageIO.read(new File("src/main/resource/car50.png"));
-        Image carddis1 = carddis.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        JLabel carddis2 = new JLabel(new ImageIcon(carddis1));
-        carddis2.setBounds(160,120,50,50);
-        this.add(carddis2);
+        BufferedImage car1 = ImageIO.read(new File("src/main/resource/car50.png"));
+        Image car2 = car1.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        JLabel car3 = new JLabel(new ImageIcon(car2));
+        car3.setBounds(160,120,50,50);
+        this.add(car3);
 
         BufferedImage ch = ImageIO.read(new File("src/main/resource/chief.png"));
         Image ch1 = ch.getScaledInstance(50, 50, Image.SCALE_SMOOTH);

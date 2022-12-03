@@ -2,7 +2,7 @@ package presenter;
 
 import UI.GamePage;
 import UI.GamePageCompo.OtherPlayers;
-import UI.GamePageCompo.panel1;
+import UI.GamePageCompo.MainPlayer;
 import manager.OutputBoundary;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 public class Presenter implements OutputBoundary {
 
     OtherPlayers op;
-    panel1 p1;
+    MainPlayer p1;
 
     GamePage gp;
 

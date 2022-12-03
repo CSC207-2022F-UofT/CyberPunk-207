@@ -7,7 +7,6 @@ import login_system.LoginPresenter;
 import login_system.usecase.AccountDataManager;
 import login_system.usecase.AccountManager;
 import login_system.usecase.IAccountDataManager;
-import manager.OutputBoundary;
 
 
 import javax.imageio.ImageIO;
@@ -17,20 +16,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class LoginPage {
     public void init() throws IOException{
-        JFrame lpage = new JFrame("Login Page");
-        lpage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        lpage.setSize(1920,1080);
-        lpage.setLocationRelativeTo(null);
+        JFrame loginPage = new JFrame("Login Page");
+        loginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginPage.setSize(1920,1080);
+        loginPage.setLocationRelativeTo(null);
 
         JPanel container = new JPanel();
         container.setLayout(null);
-        lpage.setContentPane(container);
+        loginPage.setContentPane(container);
 
         JLabel username = new JLabel("Username");
         username.setForeground(Color.WHITE);
@@ -72,7 +70,7 @@ public class LoginPage {
                 String user = usnm.getText();
                 String pass = pswd.getText();
                 controller.register(user, pass);
-                loginOutputBoundary.registerSucc();
+                loginOutputBoundary.registerSuccess();
             }
         });
 
@@ -82,17 +80,17 @@ public class LoginPage {
                 String user = usnm.getText();
                 String pass = pswd.getText();
                 try {
-                    if(!controller.check(user)){loginOutputBoundary.noAcc();
+                    if(!controller.check(user)){loginOutputBoundary.noAccount();
                     }
-                    else if (!controller.login(user,pass)) {loginOutputBoundary.wrongPass();
+                    else if (!controller.login(user,pass)) {loginOutputBoundary.wrongPassword();
                     }
-                    else{loginOutputBoundary.loginSucc();
+                    else{loginOutputBoundary.loginSuccess();
                         try {
                             TimeUnit.SECONDS.sleep(5);
                         } catch (InterruptedException ex) {
                             throw new RuntimeException(ex);
                         }
-                        lpage.setVisible(false);
+                        loginPage.setVisible(false);
                         new RulePage().init();
                     }
                 } catch (IOException ex) {
@@ -117,7 +115,7 @@ public class LoginPage {
         container.add(register);
         container.add(login);
         container.add(myLabel);
-        lpage.setVisible(true);
+        loginPage.setVisible(true);
     }
 
     public static void main(String[] args) throws IOException{ new LoginPage().init();}

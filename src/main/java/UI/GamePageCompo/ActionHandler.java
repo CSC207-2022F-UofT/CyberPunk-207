@@ -1,6 +1,6 @@
 package UI.GamePageCompo;
 
-class actionHandlers {
+class ActionHandlers {
 
     public static void handleUse() {
 

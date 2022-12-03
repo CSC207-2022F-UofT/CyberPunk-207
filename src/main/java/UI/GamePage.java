@@ -1,7 +1,7 @@
 package UI;
 
 import UI.GamePageCompo.OtherPlayers;
-import UI.GamePageCompo.panel1;
+import UI.GamePageCompo.MainPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +37,7 @@ public class GamePage {
         frame.add(position4);
         position4.setBounds(1120,250,300, 200);
 
-        JPanel us = new panel1();
+        JPanel us = new MainPlayer();
         us.setBackground(new Color(59, 96, 228));
         frame.add(us);
         us.setBounds(0,400,1080,480);
