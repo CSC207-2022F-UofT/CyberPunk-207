@@ -1,8 +1,6 @@
 package gateway;
 
-import entity.*;
-
-import java.util.Objects;
+import entity.Card.*;
 
 public class CardFactory {
     public Card getCard(String cardName){
@@ -18,15 +16,18 @@ public class CardFactory {
             return new Robbery();
         }else if(cardName.equals("Lottery")){
             return new Lottery();
-//        }else if(cardName.equals("Policeraid")){
-//            return new Policeraid();
-//        }else if(cardName.equals("Shootout")){
-//            return new Shootout();
-//        }else if(cardName.equals("Traumateam")){
-//            return new Traumateam();
-//        }else if(cardName.equals("R99MachineGun")){
-//            return new R99MachineGun();
-        }
-        return null;
+        }else if(cardName.equals("Policeraid")){
+            return new PoliceRaid();
+        }else if(cardName.equals("Shootout")){
+            return new Shootout();
+        }else if(cardName.equals("Traumateam")){
+            return new Traumateam();
+        }else if(cardName.equals("R99MachineGun")){
+            return new R99MachineGun();
+        }else if(cardName.equals("Tesla")){
+            return new R99MachineGun();
+        }else if(cardName.equals("Lambo")){
+            return new R99MachineGun();
+        }return null;
     }
 }

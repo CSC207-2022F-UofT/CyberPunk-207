@@ -1,8 +1,7 @@
 package manager;
 
-import entity.Card;
-import entity.Shoot;
-import entity.Status;
+import entity.Card.Card;
+import entity.Card.Shoot;
 
 public class HumanStrategy implements playStrategy{
     Gameboard gameboard;

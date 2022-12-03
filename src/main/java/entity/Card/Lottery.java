@@ -1,8 +1,10 @@
-package entity;
+package entity.Card;
+
+import entity.Card.Card;
 
 import static gateway.CardsHeap.draw;
 
-public class Lottery extends StrategyCard {
+public class Lottery extends Card {
     @Override
     public boolean needTarget() {
         return false;

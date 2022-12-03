@@ -21,4 +21,7 @@ public interface OutputBoundary {
 
     void showChief();
 
+    void displayRoles();
+
+    void displayRole(Identity role);
 }

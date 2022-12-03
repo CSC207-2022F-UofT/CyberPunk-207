@@ -1,4 +1,4 @@
-package entity;
+package entity.Card;
 
 import manager.PlayerManager;
 

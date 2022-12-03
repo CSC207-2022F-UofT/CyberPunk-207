@@ -1,10 +1,6 @@
 package manager;
 
-import entity.Card;
-import entity.Shoot;
-import entity.Status;
-
-import static manager.Gameboard.getPlayers;
+import entity.Card.Card;
 
 
 public class AIStrategy implements playStrategy{

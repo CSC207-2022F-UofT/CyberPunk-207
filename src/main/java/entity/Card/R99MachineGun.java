@@ -1,6 +1,8 @@
-package entity;
+package entity.Card;
 
-public class R99MachineGun extends EquipmentCard {
+import entity.Card.Card;
+
+public class R99MachineGun extends Card {
 
     @Override
     public boolean needTarget() {

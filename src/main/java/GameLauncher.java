@@ -11,7 +11,7 @@ public class GameLauncher {
 //        accountManager.getAccounts(deserialization);
         OutputBoundary outputBoundary = new Presenter();
         InputBoundary inputBoundary = new Gameboard(outputBoundary);
-        GameController controller = new GameController(inputBoundary, outputBoundary);
+        GameController controller = new GameController(inputBoundary);
         controller.startGame();
     }
 }

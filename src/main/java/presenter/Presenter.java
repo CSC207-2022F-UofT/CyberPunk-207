@@ -3,6 +3,7 @@ package presenter;
 import UI.GamePage;
 import UI.GamePageCompo.OtherPlayers;
 import UI.GamePageCompo.MainPlayer;
+import manager.Identity;
 import manager.OutputBoundary;
 
 import java.util.ArrayList;
@@ -74,6 +75,16 @@ public class Presenter implements OutputBoundary {
     }
     @Override
     public void showChief() {
+
+    }
+
+    @Override
+    public void displayRoles() {
+
+    }
+
+    @Override
+    public void displayRole(Identity role) {
 
     }
 
