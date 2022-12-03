@@ -1,8 +1,6 @@
 package Controller;
 
 import manager.InputBoundary;
-import manager.OutputBoundary;
-
 import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
@@ -10,14 +8,12 @@ import static java.lang.Thread.sleep;
 public class GameController {
     private final InputBoundary inputBoundary;
     //private static final Scanner scan = new Scanner(System.in);
-    private final OutputBoundary outputBoundary;
-    public GameController(InputBoundary inputBoundary, OutputBoundary outputBoundary){
+
+    public GameController(InputBoundary inputBoundary){
         this.inputBoundary = inputBoundary;
-        this.outputBoundary = outputBoundary;
     }
     // trigger by ui add actionListener
     public void startGame(){
-        outputBoundary.displayInstruction("Initiating Game");
         inputBoundary.startGame();
     }
     // trigger by ui
@@ -48,6 +44,7 @@ public class GameController {
 
     }
     public void playCard(int num) {
+
     }
 
     public void discardCard() {

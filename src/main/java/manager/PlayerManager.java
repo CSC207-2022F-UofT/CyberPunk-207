@@ -7,12 +7,13 @@ import java.util.HashMap;
 
 import static gateway.CardsHeap.draw;
 
-public abstract class PlayerManager {
+public class PlayerManager {
     protected PlayerModel playerModel;
     protected int playerNO;
     protected Gameboard gameboard;
     protected Identity role;
     protected Status status;
+    private playStrategy playStrategy;
 
     public PlayerManager(int playerNO, Gameboard gameboard, Status status) {
         this.playerModel = new PlayerModel();
@@ -21,11 +22,28 @@ public abstract class PlayerManager {
         this.status = status;
     }
 
-    public abstract void playCard();
+    public void setStrategy(String strategy) {
+        if(strategy.equals("Human")){
+            this.playStrategy = new HumanStrategy(gameboard, this);
+        }else if (strategy.equals("AI")){
+            this.playStrategy = new AIStrategy(gameboard, this);
+        }
 
-    public abstract void useCard(int num);
+    }
 
-    public abstract void throwCard();
+    public void playCard(){
+        try{playStrategy.playCard();
+        } catch (NullPointerException e) {
+            gameboard.displayInstruction("No strategy set");
+        }
+    }
+
+    public void throwCard(){
+        try{playStrategy.throwCard();
+        } catch (NullPointerException e) {
+            gameboard.displayInstruction("No strategy set");
+        }
+    }
 
     public void drawCards( int num) {
         addToHand(draw(num));
@@ -165,4 +183,6 @@ public abstract class PlayerManager {
     public HashMap<String, String> getEquipment() {
         return playerModel.getEquipment();
     }
+
+
 }
