@@ -6,8 +6,6 @@ import presenter.Presenter;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,12 +13,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class panel1 extends JPanel {
+public class MainPlayer extends JPanel {
 
     private Presenter ps;
     private GameController gc;
     private List<String> pcards;
-    public panel1() throws IOException{
+
+    private final JComboBox<String> cards = new JComboBox<>();
+
+    private final JLabel message = new JLabel();
+
+    private final JLabel name = new JLabel("Player 1");
+
+    private final JLabel health = new JLabel();
+
+    private final JLabel round = new JLabel();
+
+    public MainPlayer() throws IOException{
 
 //        Presenter presenter = new
         this.setLayout(null);
@@ -40,7 +49,7 @@ public class panel1 extends JPanel {
         JLabel chief = new JLabel(new ImageIcon(ch1));
         chief.setBounds(230,540,70,70);
 
-        JLabel health = new JLabel("4");
+
         health.setForeground(Color.black);
         health.setFont(new Font("Calibri", Font.BOLD, 30));
         health.setBounds(130, 480, 150, 40);
@@ -50,7 +59,6 @@ public class panel1 extends JPanel {
         side.setFont(new Font("Calibri", Font.BOLD, 20));
         side.setBounds(230, 620, 150, 40);
 
-        JLabel name = new JLabel("Player1");
         name.setForeground(Color.black);
         name.setFont(new Font("Calibri", Font.BOLD, 20));
         name.setBounds(80, 700, 150, 40);
@@ -92,35 +100,30 @@ public class panel1 extends JPanel {
         this.add(car);
         this.add(show);
 
-        use.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                actionHandlers.handleUse();
-            }
+
+//        for (String pcard : pcards) {
+//            cards.addItem(pcard);
+//        }
+        cards.setBounds(400, 500,200,200);
+
+        use.addActionListener(e -> {
+            String selected = (String) cards.getSelectedItem();
+            int indx = pcards.indexOf(selected);
+            gc.playCard(indx);
         });
 
-        discard.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                actionHandlers.handleDiscard();
-            }
-        });
+        discard.addActionListener(e -> ActionHandlers.handleDiscard());
 
-        end.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                actionHandlers.handleEnd();
-            }
-        });
+        end.addActionListener(e -> ActionHandlers.handleEnd());
 
 
-        JComboBox<String> cards = new JComboBox<>();
 
 
-        JLabel yourd = new JLabel("Your Deck:");
-        yourd.setForeground(Color.white);
-        yourd.setFont(new Font("Calibri", Font.BOLD, 20));
-        yourd.setBounds(400, 540, 200, 40);
+
+        JLabel yours = new JLabel("Your Deck:");
+        yours.setForeground(Color.white);
+        yours.setFont(new Font("Calibri", Font.BOLD, 20));
+        yours.setBounds(400, 540, 200, 40);
 
         JComboBox<String> players = new JComboBox<>();
         ArrayList<String> plist = new ArrayList<>();
@@ -146,17 +149,51 @@ public class panel1 extends JPanel {
         Image logo1 = logo.getScaledInstance(300, 150, Image.SCALE_SMOOTH);
         JLabel logof = new JLabel(new ImageIcon(logo1));
         logof.setBounds(0,0,300,150);
-        this.add(logof);
 
+        message.setBackground(Color.YELLOW);
+        message.setFont(new Font("Calibri", Font.BOLD, 20));
+        message.setBounds(420, 550, 70, 200);
+
+        round.setBounds(700, 800, 100, 100);
+
+        this.add(message);
+        this.add(logof);
         this.add(cards);
         this.add(players);
-        this.add(yourd);
+        this.add(yours);
         this.add(choose);
         this.add(carddis2);
+        this.add(round);
+
+
 
     }
 
     public void displayPc(List<String> pc) {
         pcards = pc;
+        cards.removeAllItems();
+        for (String pcard : pcards) {
+            cards.addItem(pcard);
+        }
+    }
+
+    public void displayIns(String instruction) {
+        message.setText(instruction);
+    }
+
+    public void displayPlayerNum(String pn) {
+        name.setText(pn);
+    }
+
+    public void displayHP(String hp) {
+        health.setText(hp);
+    }
+
+    public void displayRD(int rd) {
+        round.setText("Round " + rd);
+    }
+
+    public void displayName(String name) {
+        this.name.setText(name);
     }
 }

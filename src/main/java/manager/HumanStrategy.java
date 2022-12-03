@@ -1,7 +1,6 @@
 package manager;
 
 import entity.Card;
-import entity.PlayerModel;
 import entity.Shoot;
 import entity.Status;
 

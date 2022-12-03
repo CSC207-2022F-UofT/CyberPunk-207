@@ -14,6 +14,10 @@ public class LoginController {
         public boolean login(String username, String password) throws FileNotFoundException {
             return loginInputBoundary.login(username, password);
         }
+
+        public boolean check(String username) throws FileNotFoundException {return loginInputBoundary.check(username);
+        }
+
         public void register(String username, String password){
             loginInputBoundary.register(username, password);
         }

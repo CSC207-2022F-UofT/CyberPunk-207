@@ -6,19 +6,20 @@ import manager.PlayerManager;
 import java.util.*;
 
 public class Status{
-    private ArrayList<String> pocketcards;
+
     private LinkedList<List<String>> GlobalStatus;
-    private Gameboard gameboard;
+    private final Gameboard gameboard;
     private int turns;
 
     public Status(Gameboard gameboard) {
         this.gameboard = gameboard;
         LinkedList<List<String>> GlobalStatus = new LinkedList<>();
-        this.pocketcards = new ArrayList<>();
         turns = 1;
     }
 
-
+    public LinkedList<List<String>> getGlobalStatus() {
+        return GlobalStatus;
+    }
 
     public void updateHp(int hp, int PlayerNo) {
         int index = getIndex(PlayerNo);

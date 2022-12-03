@@ -1,8 +1,6 @@
 package entity;
 
-import manager.PlayerManager;
-
-public class Shoot extends basic_card{
+public class Shoot extends BasicCard {
 
     @Override
     public boolean needTarget() {
@@ -10,7 +8,7 @@ public class Shoot extends basic_card{
     }
 
     public void use(){
-        if (getTarget().whether_has_dodge()){
+        if (getTarget().whetherHasDodge()){
                 getTarget().hurt(1);
             }
     }

@@ -1,6 +1,6 @@
 package entity;
 
-public class Tesla extends equipment_card{
+public class Tesla extends EquipmentCard {
     @Override
     public boolean needTarget() {
         return false;

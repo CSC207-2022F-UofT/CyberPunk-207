@@ -1,6 +1,6 @@
 package entity;
 
-public class Robbery extends strategy_card {
+public class Robbery extends StrategyCard {
     @Override
     public boolean needTarget() {
         return true;

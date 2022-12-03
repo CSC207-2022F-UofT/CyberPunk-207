@@ -7,7 +7,6 @@ import login_system.LoginPresenter;
 import login_system.usecase.AccountDataManager;
 import login_system.usecase.AccountManager;
 import login_system.usecase.IAccountDataManager;
-import manager.OutputBoundary;
 
 
 import javax.imageio.ImageIO;
@@ -17,19 +16,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class LoginPage {
     public void init() throws IOException{
-        JFrame lpage = new JFrame("Login Page");
-        lpage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        lpage.setSize(1920,1080);
-        lpage.setLocationRelativeTo(null);
+        JFrame loginPage = new JFrame("Login Page");
+        loginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginPage.setSize(1920,1080);
+        loginPage.setLocationRelativeTo(null);
 
         JPanel container = new JPanel();
         container.setLayout(null);
-        lpage.setContentPane(container);
+        loginPage.setContentPane(container);
 
         JLabel username = new JLabel("Username");
         username.setForeground(Color.WHITE);
@@ -55,35 +54,48 @@ public class LoginPage {
         error.setVisible(false);
 
         JButton login = new JButton("Login");
-        login.setBounds(650,600,200,40);
+        login.setBounds(800,600,200,40);
+
+        JButton register = new JButton("Register");
+        register.setBounds(500,600,200,40);
 
         LoginOutputBoundary loginOutputBoundary = new LoginPresenter();
         IAccountDataManager accountDataManager = new AccountDataManager();
         LoginInputBoundary loginInputBoundary = new AccountManager(accountDataManager, loginOutputBoundary);
         LoginController controller = new LoginController(loginInputBoundary);
 
+        register.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String user = usnm.getText();
+                String pass = pswd.getText();
+                controller.register(user, pass);
+                loginOutputBoundary.registerSuccess();
+            }
+        });
+
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String user = usnm.getText();
                 String pass = pswd.getText();
-                boolean login = false;
                 try {
-                    login = controller.login(user, pass);
-                } catch (FileNotFoundException ex) {
-                    throw new RuntimeException(ex);// how to handle?
+                    if(!controller.check(user)){loginOutputBoundary.noAccount();
+                    }
+                    else if (!controller.login(user,pass)) {loginOutputBoundary.wrongPassword();
+                    }
+                    else{loginOutputBoundary.loginSuccess();
+                        try {
+                            TimeUnit.SECONDS.sleep(5);
+                        } catch (InterruptedException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        loginPage.setVisible(false);
+                        new RulePage().init();
+                    }
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
                 }
-
-                if(login){
-                    lpage.setVisible(false);
-                    try {new RulePage().init();} catch (IOException ex) {
-                        throw new RuntimeException(ex);}
-                } else if (!login) {
-                   lpage.setVisible(false);
-                    try {new RulePage().init();
-                    } catch (IOException ex) {throw new RuntimeException(ex);}
-                }
-               else{error.setVisible(true);}
             }
         });
 
@@ -100,9 +112,10 @@ public class LoginPage {
         container.add(usnm);
         container.add(password);
         container.add(pswd);
+        container.add(register);
         container.add(login);
         container.add(myLabel);
-        lpage.setVisible(true);
+        loginPage.setVisible(true);
     }
 
     public static void main(String[] args) throws IOException{ new LoginPage().init();}

@@ -4,7 +4,6 @@ import entity.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static gateway.CardsHeap.draw;
 
@@ -95,7 +94,7 @@ public class PlayerManager {
     }
 
     public int needThrow() {
-        return playerModel.getPocketcards().size() - playerModel.getHp();
+        return playerModel.getPocketCards().size() - playerModel.getHp();
     }
 
     public int getPlayerNO() {
@@ -121,7 +120,7 @@ public class PlayerManager {
         status.updateEquipment(type, card, playerNO);
     }
     public ArrayList<Card> getPocketcards(){
-        return playerModel.getPocketcards();
+        return playerModel.getPocketCards();
     }
 
     public String getPocketcardnames(){
@@ -157,7 +156,7 @@ public class PlayerManager {
         notifyEquipment(type, card);
     }
 
-    public boolean whether_has_dodge(){
+    public boolean whetherHasDodge(){
         for (Card card : getPocketcards()) {
             if (card instanceof Dodge) {
                 removeCard(card);
@@ -167,7 +166,7 @@ public class PlayerManager {
         return false;
     }
 
-    public boolean whether_has_shoot(){
+    public boolean whetherHasShoot(){
         for (Card card : getPocketcards()) {
             if (card instanceof Shoot) {
                 removeCard(card);
@@ -177,8 +176,8 @@ public class PlayerManager {
         return false;
     }
 
-    public int getmaxhp(){
-        return playerModel.getmaxhp();
+    public int getMaxHp(){
+        return playerModel.getMaxHp();
     }
 
     public HashMap<String, String> getEquipment() {
