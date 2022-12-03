@@ -1,6 +1,9 @@
 package manager;
 
 import entity.*;
+import entity.Card.Card;
+import entity.Card.Dodge;
+import entity.Card.Shoot;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,6 +1,8 @@
-package entity;
+package entity.Card;
 
-public class Medkit extends BasicCard {
+import entity.Card.Card;
+
+public class Medkit extends Card {
     @Override
     public boolean needTarget() {
         return false;

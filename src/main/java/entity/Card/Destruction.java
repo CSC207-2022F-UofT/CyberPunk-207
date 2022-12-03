@@ -1,6 +1,8 @@
-package entity;
+package entity.Card;
 
-public class Destruction extends StrategyCard {
+import entity.Card.Card;
+
+public class Destruction extends Card {
     @Override
     public boolean needTarget() {
         return true;

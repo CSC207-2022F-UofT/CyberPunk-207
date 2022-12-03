@@ -1,9 +1,10 @@
-package entity;
+package entity.Card;
 
+import entity.Card.Card;
 import manager.Gameboard;
 import manager.PlayerManager;
 
-public class Traumateam extends StrategyCard {
+public class Shootout extends Card {
     @Override
     public boolean needTarget() {
         return false;
@@ -11,14 +12,14 @@ public class Traumateam extends StrategyCard {
 
     public void use(){
         for (PlayerManager p : Gameboard.getPlayers()) {
-            if (p.getHp() < p.getMaxHp()){
-                p.heal(1);
+            if (p != getSource() && p.whetherHasDodge()){
+                p.hurt(1);
             }
         }
     }
 
     @Override
     public String toString() {
-        return "Traumateam";
+        return "Shootout";
     }
 }

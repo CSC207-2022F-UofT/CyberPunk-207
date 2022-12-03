@@ -1,6 +1,8 @@
 package entity;
 
 
+import entity.Card.Card;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

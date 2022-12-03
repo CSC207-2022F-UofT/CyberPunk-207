@@ -1,6 +1,8 @@
-package entity;
+package entity.Card;
 
-public class Dodge extends BasicCard {
+import entity.Card.Card;
+
+public class Dodge extends Card {
     @Override
     public boolean needTarget() {
         return false;

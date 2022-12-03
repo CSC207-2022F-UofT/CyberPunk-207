@@ -1,6 +1,8 @@
-package entity;
+package entity.Card;
 
-public class Shoot extends BasicCard {
+import entity.Card.Card;
+
+public class Shoot extends Card {
 
     @Override
     public boolean needTarget() {

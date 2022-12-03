@@ -1,6 +1,6 @@
 package manager;
 
-import entity.Card;
+import entity.Card.Card;
 import entity.PlayerModel;
 import entity.Status;
 import gateway.CardsHeap;
