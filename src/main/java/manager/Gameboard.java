@@ -49,13 +49,20 @@ public class Gameboard implements InputBoundary{
         roleMap.put(Identity.POLICE, new ArrayList<>());
         roleMap.put(Identity.CRIMINAL, new ArrayList<>());
         roleMap.put(Identity.CORPO, new ArrayList<>());
+        outputBoundary.displayInstruction("choose the number of Human Player:");
+        int numOfHuman = askOrder();
         for(int i = 0; i < numPlayers; i++){
-            PlayerManager player = new HumanPlayer(i + 1, this, status );// can choose the number of ai and human player
+            PlayerManager player = new PlayerManager(i + 1, this, status);
             players.add(player);
             player.setRole(roles.get(i)); //can use to add gameHistory to the account
             roleMap.get(roles.get(i)).add(player);
             seatMap.add(player.getPlayer());
             player.drawCards(4);
+            if(i < numOfHuman){
+                player.setStrategy("Human");
+            }else{
+                player.setStrategy("AI");
+            }
         }
         roleMap.get(Identity.CAPTAIN).get(0).setHp(4);
         Status status = new Status(this);
@@ -157,10 +164,10 @@ public class Gameboard implements InputBoundary{
         int pos2 = players.indexOf(player2);
         int dis = Math.max(pos1 - pos2, pos2 - pos1);
         dis = Math.min(dis, 5 - dis);
-        if (!Objects.equals(player1.getEquipment().get("Minus"), "")){
+        if (player1.getEquipment().get("Minus").equals("")){
             dis -= 1;
         }
-        if (!Objects.equals(player2.getEquipment().get("Plus"), "")){
+        if (player2.getEquipment().get("Plus").equals("")){
             dis += 1;
         }
         return dis;

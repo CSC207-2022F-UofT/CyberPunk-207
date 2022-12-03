@@ -2,8 +2,7 @@ package manager;
 
 public interface InputBoundary {
 
-    PlayerManager getCurrPlayer();
-    void endGame();
 
+    void endGame();
     void startGame();
 }

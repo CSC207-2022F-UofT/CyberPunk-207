@@ -5,20 +5,24 @@ import entity.PlayerModel;
 import entity.Shoot;
 import entity.Status;
 
-public class HumanPlayer extends PlayerManager{
-    public HumanPlayer(int playerNO, Gameboard gameboard, Status status) {
-        super(playerNO, gameboard, status);
+public class HumanStrategy implements playStrategy{
+    Gameboard gameboard;
+    PlayerManager player;
+
+    public HumanStrategy(Gameboard gameboard, PlayerManager player) {
+        this.gameboard = gameboard;
+        this.player = player;
     }
 
     public void playCard(){
-        while(isAlive()){
+        while(player.isAlive()){
             gameboard.displayInstruction("Please choose card or end phase");
             int order = gameboard.askOrder();
             if(order == -1){
                 gameboard.displayInstruction("You have chosen to end playing phase. Now start throwing card.");
                 return;
             }
-            else if (order + 1 > getPocketcards().size()){
+            else if (order + 1 > player.getPocketcards().size()){
                 gameboard.displayInstruction("Input out of range. Please enter again.");
                     playCard();
                 }
@@ -30,25 +34,25 @@ public class HumanPlayer extends PlayerManager{
     }
 
     public void useCard(int num) {
-        Card card = getPocketcards().get(num);
-        card.setSource(this);
+        Card card = player.getPocketcards().get(num);
+        card.setSource(player);
         gameboard.askTarget(card);
         if(card instanceof Shoot){
-            if(playerModel.isUseShoot() && playerModel.getEquipment().get("Weapon") == ""){
+            if(player.getPlayer().isUseShoot() && player.getEquipment().get("Weapon").equals("")){
                 gameboard.displayInstruction("shoot used, try another card");
                 return;
             } else{
-                playerModel.setUseShoot(true);
+                player.getPlayer().setUseShoot(true);
             }
         }
         card.use();
-        loosCard(num);
+        player.loosCard(num);
     }
 
     public void throwCard() {
         int card = gameboard.askOrder() - 1;
         try {
-            loosCard(card);
+            player.loosCard(card);
         }
         catch (Exception e){
             gameboard.displayInstruction("Index out of range. Please enter again.");
