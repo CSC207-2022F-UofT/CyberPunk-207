@@ -2,6 +2,9 @@ package login_system;
 
 import javax.swing.*;
 
+/**
+ * The presenter of the login system, Implements the LoginOutputBoundary
+ */
 public class LoginPresenter implements LoginOutputBoundary{
     @Override
     public void noAccount() {
