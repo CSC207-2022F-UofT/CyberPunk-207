@@ -4,6 +4,9 @@ import entity.Card.Card;
 import manager.Gameboard;
 import manager.PlayerManager;
 
+/**
+ * Implementation of card Traumateam that adds one health to all the players on the Gameboard
+ */
 public class Traumateam extends Card {
     @Override
     public boolean needTarget() {
