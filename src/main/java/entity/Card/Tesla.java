@@ -2,6 +2,10 @@ package entity.Card;
 
 import entity.Card.Card;
 
+/**
+ * Implementation of equipment card Car that when equipped by the source player
+ * minus one distance when calculating the source player's playing distance against target players
+ */
 public class Tesla extends Card {
     @Override
     public boolean needTarget() {

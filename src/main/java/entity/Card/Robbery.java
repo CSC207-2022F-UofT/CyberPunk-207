@@ -2,6 +2,9 @@ package entity.Card;
 
 import entity.Card.Card;
 
+/**
+ * Implementation of card Robbery that allows the source player to steal a card from the target player's deck
+ */
 public class Robbery extends Card {
     @Override
     public boolean needTarget() {
