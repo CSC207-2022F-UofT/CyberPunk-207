@@ -6,6 +6,9 @@ import entity.Player;
 
 import static UseCase.GameBoard.GameboardInteractor.getPlayers;
 
+/**
+ * Implementation of card PoliceRaid that forces all players on the Gameboard to play Shoot or lose one health
+ */
 public class PoliceRaid extends Card {
     @Override
     public boolean needTarget() {

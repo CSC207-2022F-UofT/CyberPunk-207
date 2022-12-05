@@ -2,6 +2,9 @@ package entity.Card;
 
 import entity.Card.Card;
 
+/**
+ * Implementation of card shoot that requires the target player to play dodge or lose one health
+ */
 public class Shoot extends Card {
 
     @Override

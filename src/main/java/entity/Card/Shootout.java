@@ -4,6 +4,9 @@ import entity.Player;
 
 import static UseCase.GameBoard.GameboardInteractor.getPlayers;
 
+/**
+ * Implementation of card Shootout that requires all player on the Gameboard to play dodge or lose one health
+ */
 public class Shootout extends Card {
     @Override
     public boolean needTarget() {

@@ -2,6 +2,9 @@ package entity.Card;
 
 import static entity.CardsHeap.draw;
 
+/**
+ * Implementation of card lottery that adds two cards to the source player's deck
+ */
 public class Lottery extends Card {
     @Override
     public boolean needTarget() {
