@@ -55,7 +55,6 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         gamePanel.add(position1);
         position1.setBounds(30,250,300, 200);
 
-
         gamePanel.add(position2);
         position2.setBounds(360,20,300, 200);
 

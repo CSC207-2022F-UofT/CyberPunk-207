@@ -27,6 +27,8 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     private final JComboBox<String> cards = new JComboBox<>();
     JComboBox<String> players = new JComboBox<>();
 
+    private final JLabel roleInfo = new JLabel("Captain: \nPolice: \nCorpo: \nCriminal \n");
+
     private final JLabel message = new JLabel();
 
     private final JLabel name = new JLabel("PlayerJoin 1");
@@ -92,6 +94,9 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         name.setFont(new Font("Calibri", Font.BOLD, 20));
         name.setBounds(80, 700, 150, 40);
 
+        roleInfo.setBounds(100, 100, 40, 100);
+
+        this.add(roleInfo);
         this.add(hp);
         this.add(player);
         this.add(chief);
