@@ -13,7 +13,7 @@ public class AccountDataBase implements AccountDatabaseGateway {
     @Override
     public List<Account> getAccounts(){
         try {
-            FileInputStream f = new FileInputStream("Accounts.sav");
+            FileInputStream f = new FileInputStream("src/main/resource/Accounts.txt");
             ObjectInputStream inputStream = new ObjectInputStream(f);
             accounts = new ArrayList<>();
             accounts.addAll((List<Account>) inputStream.readObject());//zhelianghuang
