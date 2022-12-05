@@ -6,6 +6,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The gateway to interact with the database
+ */
 public class AccountDataManager implements IAccountDataManager {
     private List<Account> accounts;
 

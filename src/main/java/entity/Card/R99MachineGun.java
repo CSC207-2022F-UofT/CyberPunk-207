@@ -2,6 +2,10 @@ package entity.Card;
 
 import entity.Card.Card;
 
+/**
+ * Implementation of equipment card R99MachineGun when equipped
+ * allows the source player to use unlimited shoots in their round
+ */
 public class R99MachineGun extends Card {
 
     @Override
