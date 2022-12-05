@@ -9,6 +9,6 @@ public class UseCardPresenter implements UseCardOutputBoundary{
 
     @Override
     public void displayInstruction(UseCardResponseModel useCardResponseModel) {
-        UI.view(useCardResponseModel);
+        UI.viewCard(useCardResponseModel);
     }
 }

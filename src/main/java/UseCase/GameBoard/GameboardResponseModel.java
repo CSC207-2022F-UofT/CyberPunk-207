@@ -10,13 +10,15 @@ public class GameboardResponseModel {
     HashMap<String, Integer> roleExist;
     private String isEnd;
     private boolean isDead;
+    private Player currentPlayer;
 
 
-    public GameboardResponseModel(List<String> targetList, String isEnd, boolean isDead, HashMap<String, Integer> roleExist) {
+    public GameboardResponseModel(List<String> targetList, String isEnd, boolean isDead, HashMap<String, Integer> roleExist, Player currentPlayer) {
         this.targetList = targetList;
         this.isEnd = isEnd;
         this.isDead = isDead;
         this.roleExist = roleExist;
+        this.currentPlayer = currentPlayer;
     }
 
     public List<String> getTargetList() {
@@ -33,5 +35,9 @@ public class GameboardResponseModel {
 
     public HashMap<String, Integer> getRoleExist() {
         return roleExist;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 }

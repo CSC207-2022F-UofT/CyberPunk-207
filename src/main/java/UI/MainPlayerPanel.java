@@ -1,7 +1,12 @@
-package UI.GamePageCompo;
+package UI;
 
-import UseCase.EndTurn.GameController;
-import UseCase.EndTurn.Presenter;
+import UseCase.EndTurn.EndTurnController;
+import UseCase.EndTurn.EndTurnResponseModel;
+import UseCase.EndTurn.EndTurnUpdatable;
+import UseCase.GameBoard.GameboardController;
+import UseCase.ThrowCard.ThrowCardController;
+import UseCase.UseCard.UseCardController;
+import entity.Player;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,16 +15,17 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
-public class MainPlayer extends JPanel {
+public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
-    private Presenter ps;
-    private GameController gc;
-    private List<String> pcards;
 
+    private List<String> pcards = new ArrayList<>();
+    private List<String> plist = new ArrayList<>();
     private final JComboBox<String> cards = new JComboBox<>();
+    JComboBox<String> players = new JComboBox<>();
 
     private final JLabel message = new JLabel();
 
@@ -29,22 +35,45 @@ public class MainPlayer extends JPanel {
 
     private final JLabel round = new JLabel();
 
-    public MainPlayer() throws IOException{
+    private GameboardController gameboardController;
+    private UseCardController useCardController;
 
-//        Presenter presenter = new
+    private ThrowCardController throwCardController;
+
+    private EndTurnController endTurnController;
+    private Player player;
+
+    public MainPlayerPanel(){
+
         this.setLayout(null);
 
-        BufferedImage hp1 = ImageIO.read(new File("src/main/resource/health.png"));
+        BufferedImage hp1 = null;
+        try {
+            hp1 = ImageIO.read(new File("src/main/resource/health.png"));
+        } catch (IOException e) {
+            System.out.println("An exception occurred: " + e.getMessage());
+        }
+        assert hp1 != null;
         Image hp2 = hp1.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
         JLabel hp = new JLabel(new ImageIcon(hp2));
         hp.setBounds(50,460,70,70);
 
-        BufferedImage p1 = ImageIO.read(new File("src/main/resource/default.png"));
+        BufferedImage p1 = null;
+        try {
+            p1 = ImageIO.read(new File("src/main/resource/default.png"));
+        } catch (IOException e) {
+            System.out.println("An exception occurred: " + e.getMessage());
+        }
         Image p2 = p1.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         JLabel player = new JLabel(new ImageIcon(p2));
         player.setBounds(50,540,150,150);
 
-        BufferedImage ch = ImageIO.read(new File("src/main/resource/chief.png"));
+        BufferedImage ch = null;
+        try {
+            ch = ImageIO.read(new File("src/main/resource/chief.png"));
+        } catch (IOException e) {
+            System.out.println("An exception occurred: " + e.getMessage());
+        }
         Image ch1 = ch.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
         JLabel chief = new JLabel(new ImageIcon(ch1));
         chief.setBounds(230,540,70,70);
@@ -82,13 +111,24 @@ public class MainPlayer extends JPanel {
         JButton show = new JButton("see card");
         show.setBounds(830,710,80,40);
 
-        BufferedImage car1 = ImageIO.read(new File("src/main/resource/car50.png"));
+        BufferedImage car1 = null;
+        try {
+            car1 = ImageIO.read(new File("src/main/resource/car50.png"));
+        } catch (IOException e) {
+            System.out.println("An exception occurred: " + e.getMessage());
+        }
+        assert car1 != null;
         Image car2 = car1.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel car = new JLabel(new ImageIcon(car2));
         car.setBounds(1170,550,150,150);
 
 
-        BufferedImage mg1 = ImageIO.read(new File("src/main/resource/mg50.png"));
+        BufferedImage mg1 = null;
+        try {
+            mg1 = ImageIO.read(new File("src/main/resource/mg50.png"));
+        } catch (IOException e) {
+            System.out.println("An exception occurred: " + e.getMessage());
+        }
         Image mg2 = mg1.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel mg = new JLabel(new ImageIcon(mg2));
         mg.setBounds(1300,550,150,150);
@@ -101,9 +141,8 @@ public class MainPlayer extends JPanel {
         this.add(show);
 
 
-//        for (String pcard : pcards) {
-//            cards.addItem(pcard);
-//        }
+
+        players.setBounds(620, 500,200,200);
         cards.setBounds(400, 500,200,200);
 
         use.addActionListener(e -> {
@@ -140,12 +179,24 @@ public class MainPlayer extends JPanel {
         choose.setFont(new Font("Calibri", Font.BOLD, 20));
         choose.setBounds(620, 540, 200, 40);
 
-        BufferedImage carddis = ImageIO.read(new File("src/main/resource/shoot.png"));
+        BufferedImage carddis = null;
+        try {
+            carddis = ImageIO.read(new File("src/main/resource/shoot.png"));
+        } catch (IOException e) {
+            System.out.println("An exception occurred: " + e.getMessage());
+        }
+        assert carddis != null;
         Image carddis1 = carddis.getScaledInstance(200, 270, Image.SCALE_SMOOTH);
         JLabel carddis2 = new JLabel(new ImageIcon(carddis1));
         carddis2.setBounds(850,400,200,270);
 
-        BufferedImage logo = ImageIO.read(new File("src/main/resource/logo.png"));
+        BufferedImage logo = null;
+        try {
+            logo = ImageIO.read(new File("src/main/resource/logo.png"));
+        } catch (IOException e) {
+            System.out.println("An exception occurred: " + e.getMessage());
+        }
+        assert logo != null;
         Image logo1 = logo.getScaledInstance(300, 150, Image.SCALE_SMOOTH);
         JLabel logof = new JLabel(new ImageIcon(logo1));
         logof.setBounds(0,0,300,150);
@@ -169,13 +220,6 @@ public class MainPlayer extends JPanel {
 
     }
 
-    public void displayPc(List<String> pc) {
-        pcards = pc;
-        cards.removeAllItems();
-        for (String pcard : pcards) {
-            cards.addItem(pcard);
-        }
-    }
 
     public void displayIns(String instruction) {
         message.setText(instruction);
@@ -196,4 +240,61 @@ public class MainPlayer extends JPanel {
     public void displayName(String name) {
         this.name.setText(name);
     }
+
+    public void displayRole(String captain, HashMap<String, Integer> roleExist){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Captain: ").append(captain).append("\nPolice: ").append(roleExist.get("POLICE")).
+                append("\nCriminal: ").append(roleExist.get("CRIMINAL")).append("\nCorpo: ").
+                append(roleExist.get("CORPO"));
+        roleInfo.setText(sb.toString());
+    }
+
+    @Override
+    public void throwView(EndTurnResponseModel endTurnResponseModel) {
+        if(endTurnResponseModel.getNextTurn()){
+            //设置use显示，discard消失
+            gameboardController.turnChange();
+        }else {
+            String msg = endTurnResponseModel.getMessage();
+            //display这条信息，
+            //设置use 按钮消失， discard按钮显示
+        }
+
+    }
+
+    public void setGameboardController(GameboardController gameboardController) {
+        this.gameboardController = gameboardController;
+    }
+
+    public void setUseCardController(UseCardController useCardController) {
+        this.useCardController = useCardController;
+    }
+
+    public void setThrowCardController(ThrowCardController throwCardController) {
+        this.throwCardController = throwCardController;
+    }
+
+    public void setEndTurnController(EndTurnController endTurnController) {
+        this.endTurnController = endTurnController;
+    }
+
+    public void setPcards(List<String> pcards) {
+        this.pcards = pcards;
+        cards.removeAllItems();
+        for (String pcard : pcards) {
+            cards.addItem(pcard);
+        }
+    }
+
+    public void setPlist(List<String> plist) {
+        this.plist = plist;
+        players.removeAllItems();
+        for (String s : plist) {
+            players.addItem(s);}
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
 }

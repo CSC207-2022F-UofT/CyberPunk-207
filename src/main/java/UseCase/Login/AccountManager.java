@@ -40,10 +40,10 @@ public class AccountManager implements LoginInputBoundary {
             if(correctPassword(password)) {
                 loginOutputBoundary.displayLogin(new LoginResponseModel(true, "SUCCESSFUL LOG IN"));
             } else {
-                loginOutputBoundary.displayLogin(new LoginResponseModel(true, "WRONG PASSWORD"));
+                loginOutputBoundary.displayLogin(new LoginResponseModel(false, "WRONG PASSWORD"));
             }
         }else{
-        loginOutputBoundary.displayLogin(new LoginResponseModel(true, "NO SUCH USER"));
+        loginOutputBoundary.displayLogin(new LoginResponseModel(false, "NO SUCH USER"));
         }
     }
 
@@ -54,6 +54,8 @@ public class AccountManager implements LoginInputBoundary {
         String password = loginRequestModel.getPassword();
         if(register){
             register(username, password);
+            loginOutputBoundary.displayLogin(new LoginResponseModel(true, "REGISTER SUCCESSFUL"));
+            return;
         }
         login(username, password);
     }

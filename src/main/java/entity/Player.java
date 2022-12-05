@@ -149,10 +149,10 @@ public class Player {
     }
 
     public String getPocketCardNames(){
-        StringBuilder handCard = new StringBuilder(pocketCards.get(0).toString());
-        for (int i = 1; i < pocketCards.size(); i++) {
+        StringBuilder handCard = new StringBuilder();
+        for (Card card: pocketCards) {
+            handCard.append(card.toString());
             handCard.append(",");
-            handCard.append(pocketCards.get(i).toString());
         }
         return handCard.toString();
     }

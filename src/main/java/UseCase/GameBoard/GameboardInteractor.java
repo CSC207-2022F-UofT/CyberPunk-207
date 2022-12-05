@@ -24,7 +24,7 @@ public class GameboardInteractor implements GameboardInputBoundary{
         int current = (players.indexOf(currentPlayer) + 1) % players.size();
         currentPlayer = players.get(current);
         GameboardResponseModel responseModel = new GameboardResponseModel(getTargetList(currentPlayer), checkEnd(),
-                checkDeath(currentPlayer), roleExist());
+                checkDeath(currentPlayer), roleExist(), currentPlayer);
         gameboardOutputBoundary.displayTurnChange(responseModel);
     }
 
@@ -32,10 +32,13 @@ public class GameboardInteractor implements GameboardInputBoundary{
         CardsHeap.init();
         players = gameboardRequestModel.getPlayers();
         roleMap = gameboardRequestModel.getRoleMap();
+        for(Player player: players){
+            player.drawCards(4);
+        }
         roleMap.get(Identity.CAPTAIN).get(0).setHp(4);
         currentPlayer = players.get(0);
         GameboardResponseModel responseModel = new GameboardResponseModel(getTargetList(currentPlayer), checkEnd(),
-                checkDeath(currentPlayer), roleExist());
+                checkDeath(currentPlayer), roleExist(), currentPlayer);
         gameboardOutputBoundary.displayTurnChange(responseModel);
     }
 

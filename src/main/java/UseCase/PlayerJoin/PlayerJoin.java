@@ -34,9 +34,7 @@ public class PlayerJoin implements PlayerJoinInputBoundary {
             players.add(player);
             player.setRole(roles.get(i));
             roleMap.get(roles.get(i)).add(player);
-            player.drawCards(4);// 给gameboard初始化
         }
-        roleMap.get(Identity.CAPTAIN).get(0).setHp(4);// kaolvshanjian
     }
 
     public void shuffleRoles(){
