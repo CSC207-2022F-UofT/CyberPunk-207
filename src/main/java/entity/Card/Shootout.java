@@ -1,8 +1,8 @@
 package entity.Card;
 
-import entity.Card.Card;
-import manager.Gameboard;
-import manager.PlayerManager;
+import entity.Player;
+
+import static UseCase.GameBoard.GameboardInteractor.getPlayers;
 
 /**
  * Implementation of card Shootout that requires all player on the Gameboard to play dodge or lose one health
@@ -14,7 +14,7 @@ public class Shootout extends Card {
     }
 
     public void use(){
-        for (PlayerManager p : Gameboard.getPlayers()) {
+        for (Player p : getPlayers()) {
             if (p != getSource() && p.whetherHasDodge()){
                 p.hurt(1);
             }

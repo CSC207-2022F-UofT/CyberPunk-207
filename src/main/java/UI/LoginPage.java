@@ -1,11 +1,6 @@
 package UI;
 
-import login_system.LoginController;
-import login_system.LoginInputBoundary;
-import login_system.LoginOutputBoundary;
-import login_system.LoginPresenter;
-import login_system.usecase.AccountDataManager;
-import login_system.usecase.AccountManager;
+import UseCase.Login.*;
 import login_system.usecase.IAccountDataManager;
 
 
@@ -60,8 +55,8 @@ public class LoginPage {
         register.setBounds(500,600,200,40);
 
         LoginOutputBoundary loginOutputBoundary = new LoginPresenter();
-        IAccountDataManager accountDataManager = new AccountDataManager();
-        LoginInputBoundary loginInputBoundary = new AccountManager(accountDataManager, loginOutputBoundary);
+        AccountDatabaseGateway accountDatabaseGateway = new AccountDataBase();
+        LoginInputBoundary loginInputBoundary = new AccountManager(accountDatabaseGateway, loginOutputBoundary);
         LoginController controller = new LoginController(loginInputBoundary);
 
         register.addActionListener(new ActionListener() {

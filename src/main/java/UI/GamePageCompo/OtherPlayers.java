@@ -1,7 +1,5 @@
 package UI.GamePageCompo;
 
-import presenter.Presenter;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +51,7 @@ public class OtherPlayers extends JPanel{
         health.setBounds(35, 50, 150, 40);
         this.add(health);
 
-        JLabel name = new JLabel("Player");
+        JLabel name = new JLabel("PlayerJoin");
         name.setForeground(Color.black);
         name.setFont(new Font("Calibri", Font.BOLD, 20));
         name.setBounds(70, 150, 150, 40);

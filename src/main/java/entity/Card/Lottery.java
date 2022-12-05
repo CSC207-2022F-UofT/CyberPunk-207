@@ -1,8 +1,6 @@
 package entity.Card;
 
-import entity.Card.Card;
-
-import static gateway.CardsHeap.draw;
+import static entity.CardsHeap.draw;
 
 /**
  * Implementation of card lottery that adds two cards to the source player's deck

@@ -1,8 +1,10 @@
 package entity.Card;
 
-import entity.Card.Card;
-import manager.Gameboard;
-import manager.PlayerManager;
+
+
+import entity.Player;
+
+import static UseCase.GameBoard.GameboardInteractor.getPlayers;
 
 /**
  * Implementation of card PoliceRaid that forces all players on the Gameboard to play Shoot or lose one health
@@ -14,7 +16,7 @@ public class PoliceRaid extends Card {
     }
 
     public void use(){
-        for (PlayerManager p : Gameboard.getPlayers()) {
+        for (Player p : getPlayers()) {
             if (p != getSource() && !p.whetherHasShoot() ) {
                 p.hurt(1);
             }
