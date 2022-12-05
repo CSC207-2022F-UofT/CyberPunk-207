@@ -23,7 +23,7 @@ public class LoginPage {
 
         JPanel container = new JPanel();
         container.setLayout(null);
-        loginPage.setContentPane(container);
+        setContentPane(container);
 
         JLabel username = new JLabel("Username");
         username.setForeground(Color.WHITE);
@@ -54,51 +54,38 @@ public class LoginPage {
         JButton register = new JButton("Register");
         register.setBounds(500,600,200,40);
 
-        LoginOutputBoundary loginOutputBoundary = new LoginPresenter();
-        AccountDatabaseGateway accountDatabaseGateway = new AccountDataBase();
-        LoginInputBoundary loginInputBoundary = new AccountManager(accountDatabaseGateway, loginOutputBoundary);
-        LoginController controller = new LoginController(loginInputBoundary);
 
-        register.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String user = usnm.getText();
-                String pass = pswd.getText();
-                controller.register(user, pass);
-                loginOutputBoundary.registerSuccess();
-            }
+        register.addActionListener(e -> {
+            String user = usnm.getText();
+            String pass = pswd.getText();
+            loginController.userJoin(true, user, pass);
+
         });
 
-        login.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String user = usnm.getText();
-                String pass = pswd.getText();
-                try {
-                    if(!controller.check(user)){loginOutputBoundary.noAccount();
-                    }
-                    else if (!controller.login(user,pass)) {loginOutputBoundary.wrongPassword();
-                    }
-                    else{loginOutputBoundary.loginSuccess();
-                        try {
-                            TimeUnit.SECONDS.sleep(5);
-                        } catch (InterruptedException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        loginPage.setVisible(false);
-                        new RulePage().init();
-                    }
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
+        login.addActionListener(e -> {
+            String user = usnm.getText();
+            String pass = pswd.getText();
+            loginController.userJoin(false, user, pass);
         });
 
-        BufferedImage bg = ImageIO.read(new File("src/main/resource/rulesbg.jpg"));
-        JLabel myLabel = new JLabel(new ImageIcon(bg));
+        BufferedImage background = null;
+        try {
+            background = ImageIO.read(new File("src/main/resource/rulesbg.jpg"));
+        } catch (IOException e) {
+            System.out.println("An exception occurred: " + e.getMessage());
+        }
+        assert background != null;
+        JLabel myLabel = new JLabel(new ImageIcon(background));
         myLabel.setSize(1920,1080);
 
-        BufferedImage bg1 = ImageIO.read(new File("src/main/resource/logo.png"));
+
+        BufferedImage bg1 = null;
+        try {
+            bg1 = ImageIO.read(new File("src/main/resource/logo.png"));
+        } catch (IOException e) {
+            System.out.println("An exception occurred: " + e.getMessage());
+        }
+        assert bg1 != null;
         JLabel myLabel1 = new JLabel(new ImageIcon(bg1));
         myLabel1.setBounds(350,0,750,390);
         myLabel.add(myLabel1);
@@ -110,7 +97,7 @@ public class LoginPage {
         container.add(register);
         container.add(login);
         container.add(myLabel);
-        loginPage.setVisible(true);
+        setVisible(true);
     }
 
     public static void main(String[] args) throws IOException{ new LoginPage().init();}
