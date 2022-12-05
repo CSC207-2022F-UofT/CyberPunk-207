@@ -1,7 +1,7 @@
 package UI;
 
 import UseCase.Login.*;
-import login_system.usecase.IAccountDataManager;
+
 
 
 import javax.imageio.ImageIO;
@@ -14,12 +14,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class LoginPage {
-    public void init() throws IOException{
-        JFrame loginPage = new JFrame("Login Page");
-        loginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        loginPage.setSize(1920,1080);
-        loginPage.setLocationRelativeTo(null);
+public class LoginFrame extends JFrame implements LoginUpdatable{
+
+    private LoginController loginController;
+
+
+    public LoginFrame(){
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1920,1080);
+        setLocationRelativeTo(null);
 
         JPanel container = new JPanel();
         container.setLayout(null);
@@ -100,5 +103,18 @@ public class LoginPage {
         setVisible(true);
     }
 
-    public static void main(String[] args) throws IOException{ new LoginPage().init();}
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
+    }
+
+
+
+    @Override
+    public void viewLogin(LoginResponseModel loginResponseModel) {
+        String msg = loginResponseModel.getMessage();
+        JOptionPane.showMessageDialog(null, msg);
+        if(loginResponseModel.getLogin()){
+            setVisible(false);
+        }
+    }
 }

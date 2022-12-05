@@ -147,16 +147,26 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
         use.addActionListener(e -> {
             String selected = (String) cards.getSelectedItem();
-            int indx = pcards.indexOf(selected);
-            gc.playCard(indx);
+            String target = (String) players.getSelectedItem();
+            assert target != null;
+            target = target.replaceAll("[^0-9]", "");
+            int index = pcards.indexOf(selected);
+            useCardController.useCard(this.player, index, Integer.parseInt(target));
         });
 
-        discard.addActionListener(e -> ActionHandlers.handleDiscard());
+        discard.addActionListener(e -> {
+            String selected = (String) cards.getSelectedItem();
+            int card = pcards.indexOf(selected);
+            throwCardController.throwCard(this.player, card);
+        });
 
-        end.addActionListener(e -> ActionHandlers.handleEnd());
+        end.addActionListener(e -> {
+            endTurnController.endTurn(this.player);
+        });
 
-
-
+        show.addActionListener(e -> {
+            //todo
+        });
 
 
         JLabel yours = new JLabel("Your Deck:");
@@ -164,20 +174,15 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         yours.setFont(new Font("Calibri", Font.BOLD, 20));
         yours.setBounds(400, 540, 200, 40);
 
-        JComboBox<String> players = new JComboBox<>();
-        ArrayList<String> plist = new ArrayList<>();
-        plist.add("Player2");
-        plist.add("Player3");
-        plist.add("Player4");
-        plist.add("Player5");
-        for (String s : plist) {
-            players.addItem(s);}
-        players.setBounds(620, 500,200,200);
+        JLabel notify = new JLabel("You need to discard:");
+        notify.setForeground(Color.white);
+        notify.setFont(new Font("Calibri", Font.BOLD, 20));
+        notify.setBounds(400, 540, 200, 40);
 
         JLabel choose = new JLabel("Play on:");
         choose.setForeground(Color.white);
         choose.setFont(new Font("Calibri", Font.BOLD, 20));
-        choose.setBounds(620, 540, 200, 40);
+        choose.setBounds(620, 640, 200, 40);
 
         BufferedImage carddis = null;
         try {
@@ -216,8 +221,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         this.add(carddis2);
         this.add(round);
 
-
-
+        setVisible(true);
     }
 
 
