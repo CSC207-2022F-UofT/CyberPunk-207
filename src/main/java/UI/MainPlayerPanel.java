@@ -148,12 +148,12 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         use.addActionListener(e -> {
             String selected = (String) cards.getSelectedItem();
             int indx = pcards.indexOf(selected);
-            gc.playCard(indx);
+            //gc.playCard(indx);
         });
 
-        discard.addActionListener(e -> ActionHandlers.handleDiscard());
+        //discard.addActionListener(e -> ActionHandlers.handleDiscard());
 
-        end.addActionListener(e -> ActionHandlers.handleEnd());
+        //end.addActionListener(e -> ActionHandlers.handleEnd());
 
 
 
@@ -246,7 +246,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         sb.append("Captain: ").append(captain).append("\nPolice: ").append(roleExist.get("POLICE")).
                 append("\nCriminal: ").append(roleExist.get("CRIMINAL")).append("\nCorpo: ").
                 append(roleExist.get("CORPO"));
-        roleInfo.setText(sb.toString());
+        //roleInfo.setText(sb.toString());
     }
 
     @Override
