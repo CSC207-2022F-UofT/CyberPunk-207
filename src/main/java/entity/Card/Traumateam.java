@@ -1,8 +1,8 @@
 package entity.Card;
 
-import entity.Card.Card;
-import manager.Gameboard;
-import manager.PlayerManager;
+import entity.Player;
+
+import static UseCase.GameBoard.GameboardInteractor.getPlayers;
 
 public class Traumateam extends Card {
     @Override
@@ -11,7 +11,7 @@ public class Traumateam extends Card {
     }
 
     public void use(){
-        for (PlayerManager p : Gameboard.getPlayers()) {
+        for (Player p : getPlayers()) {
             if (p.getHp() < p.getMaxHp()){
                 p.heal(1);
             }

@@ -1,7 +1,5 @@
 package entity.Card;
 
-import entity.Card.Card;
-
 public class Robbery extends Card {
     @Override
     public boolean needTarget() {
@@ -9,10 +7,10 @@ public class Robbery extends Card {
     }
 
     public void use() {
-        if (getTarget().getPocketcards().size() > 0){
-            Card card = getTarget().getPocketcards().get(0);
+        if (getTarget().getPocketCards().size() > 0){
+            Card card = getTarget().getPocketCards().get(0);
             getSource().addToHand(card);
-            getTarget().removeCard(card);
+            getTarget().looseCard(card);
         }
     }
 

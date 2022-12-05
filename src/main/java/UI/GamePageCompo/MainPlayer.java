@@ -1,7 +1,7 @@
 package UI.GamePageCompo;
 
-import Controller.GameController;
-import presenter.Presenter;
+import UseCase.EndTurn.GameController;
+import UseCase.EndTurn.Presenter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,7 +23,7 @@ public class MainPlayer extends JPanel {
 
     private final JLabel message = new JLabel();
 
-    private final JLabel name = new JLabel("Player 1");
+    private final JLabel name = new JLabel("PlayerJoin 1");
 
     private final JLabel health = new JLabel();
 

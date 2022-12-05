@@ -1,8 +1,10 @@
 package entity.Card;
 
-import entity.Card.Card;
-import manager.Gameboard;
-import manager.PlayerManager;
+
+
+import entity.Player;
+
+import static UseCase.GameBoard.GameboardInteractor.getPlayers;
 
 public class PoliceRaid extends Card {
     @Override
@@ -11,7 +13,7 @@ public class PoliceRaid extends Card {
     }
 
     public void use(){
-        for (PlayerManager p : Gameboard.getPlayers()) {
+        for (Player p : getPlayers()) {
             if (p != getSource() && !p.whetherHasShoot() ) {
                 p.hurt(1);
             }
