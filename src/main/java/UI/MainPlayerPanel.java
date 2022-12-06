@@ -27,15 +27,23 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     private final JComboBox<String> cards = new JComboBox<>();
     JComboBox<String> players = new JComboBox<>();
 
-    private final JLabel roleInfo = new JLabel("Captain: \nPolice: \nCorpo: \nCriminal \n");
+    private final JLabel roleInfo = new JLabel();
 
     private final JLabel message = new JLabel();
 
-    private final JLabel name = new JLabel("PlayerJoin 1");
+    private final JLabel name = new JLabel();
 
     private final JLabel health = new JLabel();
 
+    private final JLabel side = new JLabel();
+
     private final JLabel round = new JLabel();
+
+    private JLabel carPlus = new JLabel();
+
+    private JLabel mg = new JLabel();
+
+    private JLabel carMinus = new JLabel();
 
     private GameboardController gameboardController;
     private UseCardController useCardController;
@@ -48,6 +56,8 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     public MainPlayerPanel(){
 
         this.setLayout(null);
+
+        this.setBackground(new Color(173,216,230));
 
         BufferedImage hp1 = null;
         try {
@@ -66,26 +76,15 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         } catch (IOException e) {
             System.out.println("An exception occurred: " + e.getMessage());
         }
+        assert p1 != null;
         Image p2 = p1.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         JLabel player = new JLabel(new ImageIcon(p2));
         player.setBounds(50,540,150,150);
-
-        BufferedImage ch = null;
-        try {
-            ch = ImageIO.read(new File("src/main/resource/chief.png"));
-        } catch (IOException e) {
-            System.out.println("An exception occurred: " + e.getMessage());
-        }
-        Image ch1 = ch.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-        JLabel chief = new JLabel(new ImageIcon(ch1));
-        chief.setBounds(230,540,70,70);
-
 
         health.setForeground(Color.black);
         health.setFont(new Font("Calibri", Font.BOLD, 30));
         health.setBounds(130, 480, 150, 40);
 
-        JLabel side = new JLabel("Criminal");
         side.setForeground(Color.black);
         side.setFont(new Font("Calibri", Font.BOLD, 20));
         side.setBounds(230, 620, 150, 40);
@@ -94,12 +93,13 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         name.setFont(new Font("Calibri", Font.BOLD, 20));
         name.setBounds(80, 700, 150, 40);
 
-        roleInfo.setBounds(100, 100, 40, 100);
+        roleInfo.setForeground(Color.black);
+        roleInfo.setFont(new Font("Calibri", Font.BOLD, 15));
+        roleInfo.setBounds(1150, 0, 200, 200);
 
         this.add(roleInfo);
         this.add(hp);
         this.add(player);
-        this.add(chief);
         this.add(health);
         this.add(side);
         this.add(name);
@@ -124,8 +124,19 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         }
         assert car1 != null;
         Image car2 = car1.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
-        JLabel car = new JLabel(new ImageIcon(car2));
-        car.setBounds(1170,550,150,150);
+        carPlus = new JLabel(new ImageIcon(car2));
+        carPlus.setBounds(1150,580,150,150);
+
+        BufferedImage car3 = null;
+        try {
+            car3 = ImageIO.read(new File("src/main/resource/car502.png"));
+        } catch (IOException e) {
+            System.out.println("An exception occurred: " + e.getMessage());
+        }
+        assert car3 != null;
+        Image car4 = car3.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+        carMinus = new JLabel(new ImageIcon(car4));
+        carMinus.setBounds(1150,450,150,150);
 
 
         BufferedImage mg1 = null;
@@ -134,18 +145,18 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         } catch (IOException e) {
             System.out.println("An exception occurred: " + e.getMessage());
         }
+        assert mg1 != null;
         Image mg2 = mg1.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
-        JLabel mg = new JLabel(new ImageIcon(mg2));
-        mg.setBounds(1300,550,150,150);
+        mg = new JLabel(new ImageIcon(mg2));
+        mg.setBounds(1280,550,150,150);
 
         this.add(use);
         this.add(discard);
         this.add(end);
         this.add(mg);
-        this.add(car);
+        this.add(carPlus);
         this.add(show);
-
-
+        this.add(carMinus);
 
         players.setBounds(620, 500,200,200);
         cards.setBounds(400, 500,200,200);
@@ -182,12 +193,12 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         JLabel notify = new JLabel("You need to discard:");
         notify.setForeground(Color.white);
         notify.setFont(new Font("Calibri", Font.BOLD, 20));
-        notify.setBounds(400, 540, 200, 40);
+        notify.setBounds(400, 640, 300, 40);
 
         JLabel choose = new JLabel("Play on:");
         choose.setForeground(Color.white);
         choose.setFont(new Font("Calibri", Font.BOLD, 20));
-        choose.setBounds(620, 640, 200, 40);
+        choose.setBounds(620, 540, 200, 40);
 
         BufferedImage carddis = null;
         try {
@@ -224,9 +235,10 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         this.add(yours);
         this.add(choose);
         this.add(carddis2);
+        this.add(notify);
         this.add(round);
 
-        setVisible(true);
+        this.setVisible(true);
     }
 
 
@@ -250,12 +262,19 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         this.name.setText(name);
     }
 
+    public void displaySide(String name) {this.side.setText(name);}
+
+    public void displayCarPlus(boolean check) {this.carPlus.setVisible(check);}
+
+    public void displayCarMinus(boolean check) {this.carMinus.setVisible(check);}
+
+    public void displayMG(boolean check) {this.mg.setVisible(check);}
+
+
     public void displayRole(String captain, HashMap<String, Integer> roleExist){
-        StringBuilder sb = new StringBuilder();
-        sb.append("Captain: ").append(captain).append("\nPolice: ").append(roleExist.get("POLICE")).
-                append("\nCriminal: ").append(roleExist.get("CRIMINAL")).append("\nCorpo: ").
-                append(roleExist.get("CORPO"));
-        roleInfo.setText(sb.toString());
+        String sb = "<html>Captain: " + captain + "<br/>Police: " + roleExist.get("POLICE") + "<br/>Criminal: " +
+                roleExist.get("CRIMINAL") + "<br/>Corpo: " + roleExist.get("CORPO");
+        roleInfo.setText(sb);
     }
 
     @Override

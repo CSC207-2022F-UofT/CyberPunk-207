@@ -23,6 +23,7 @@ public class GameboardInteractor implements GameboardInputBoundary{
     public void turnChange(){
         int current = (players.indexOf(currentPlayer) + 1) % players.size();
         currentPlayer = players.get(current);
+        currentPlayer.drawCards(2);
         GameboardResponseModel responseModel = new GameboardResponseModel(getTargetList(currentPlayer), checkEnd(),
                 checkDeath(currentPlayer), roleExist(), currentPlayer);
         gameboardOutputBoundary.displayTurnChange(responseModel);
@@ -35,6 +36,7 @@ public class GameboardInteractor implements GameboardInputBoundary{
         for(Player player: players){
             player.drawCards(4);
         }
+        players.get(0).drawCards(2);
         roleMap.get(Identity.CAPTAIN).get(0).setHp(4);
         currentPlayer = players.get(0);
         GameboardResponseModel responseModel = new GameboardResponseModel(getTargetList(currentPlayer), checkEnd(),

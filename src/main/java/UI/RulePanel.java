@@ -25,6 +25,7 @@ public class RulePanel extends JPanel{
 //        this.ruleFrame = new JFrame("Rule");
 //        ruleFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1920, 1080);
+        this.setBackground(new Color(173,216,230));
 
         this.setLayout(null);
         Image bg = null;

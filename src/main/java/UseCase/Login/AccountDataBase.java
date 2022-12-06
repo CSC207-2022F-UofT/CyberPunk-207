@@ -23,6 +23,7 @@ public class AccountDataBase implements AccountDatabaseGateway {
             new File("/src/main/resource/Accounts.sav");
             accounts = new ArrayList<>();
         } catch (IOException | ClassNotFoundException e) {
+            accounts = new ArrayList<>();
             System.out.println("An exception occurred: " + e.getMessage());
         }
         return accounts;

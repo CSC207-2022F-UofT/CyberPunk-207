@@ -24,7 +24,6 @@ public class GameLauncher {
         PlayerJoinController playerJoinController = new PlayerJoinController(playerJoin);
         gameFrame.getRulePanel().setPlayerJoinController(playerJoinController);
 
-
         EndTurnOutputBoundary endTurnPresenter = new EndTurnPresenter(gameFrame.getCurrentPanel());
         EndTurnInputBoundary endTurn = new EndTurn(endTurnPresenter);
         EndTurnController endTurnController = new EndTurnController(endTurn);
