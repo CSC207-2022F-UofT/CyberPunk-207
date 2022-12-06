@@ -46,6 +46,10 @@ public class Player {
         this.status = status;
     }
 
+    public void setPocketCards(ArrayList<Card> pocketCards) {
+        this.pocketCards = pocketCards;
+    }
+
     public void setStrategy(String strategy) {
         this.strategy = strategy;
     }

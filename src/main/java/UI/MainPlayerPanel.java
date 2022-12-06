@@ -226,7 +226,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
         message.setBackground(Color.YELLOW);
         message.setFont(new Font("Calibri", Font.BOLD, 20));
-        message.setBounds(420, 550, 70, 200);
+        message.setBounds(420, 550, 200, 200);
 
         round.setBounds(700, 800, 100, 100);
 
