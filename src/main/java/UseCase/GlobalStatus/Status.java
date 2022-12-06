@@ -50,6 +50,9 @@ public class Status implements StatusInputBoundary{
 
     public int getIndex(int PlayerNo){
         int current = turns%5;
+        if(current == 0){
+            current = 5;
+        }
         int index = PlayerNo - current;
         if(index < 0 ){
             index = Math.abs(index);

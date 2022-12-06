@@ -4,6 +4,7 @@ import UseCase.EndTurn.EndTurnController;
 import UseCase.EndTurn.EndTurnResponseModel;
 import UseCase.EndTurn.EndTurnUpdatable;
 import UseCase.GameBoard.GameboardController;
+import UseCase.GlobalStatus.StatusController;
 import UseCase.ThrowCard.ThrowCardController;
 import UseCase.UseCard.UseCardController;
 import entity.Player;
@@ -52,6 +53,8 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     private ThrowCardController throwCardController;
 
     private EndTurnController endTurnController;
+
+    private StatusController statusController;
     private Player player;
 
     private final JLabel carddis2 = new JLabel();
@@ -238,6 +241,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         this.add(round);
 
         this.setVisible(true);
+        discard.setVisible(false);
     }
 
 
@@ -282,6 +286,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
             use.setVisible(true);
             discard.setVisible(false);
             gameboardController.turnChange();
+            statusController.turnChange();
         }else {
             String msg = endTurnResponseModel.getMessage();
             displayIns(msg);
@@ -305,6 +310,10 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
     public void setEndTurnController(EndTurnController endTurnController) {
         this.endTurnController = endTurnController;
+    }
+
+    public void setStatusController(StatusController statusController) {
+        this.statusController = statusController;
     }
 
     public void setPcards(List<String> pcards) {

@@ -116,15 +116,18 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
 
     public void setEndTurnController(EndTurnController endTurnController) {
         this.endTurnController = endTurnController;
+        current.setEndTurnController(endTurnController);
     }
 
     public void setGameboardController(GameboardController gameboardController) {
         this.gameboardController = gameboardController;
+        current.setGameboardController(gameboardController);
 
     }
 
     public void setStatusController(StatusController statusController) {
         this.statusController = statusController;
+        current.setStatusController(statusController);
     }
 
 
@@ -146,6 +149,7 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         }
         if(gameboardResponseModel.isDead()){
             gameboardController.turnChange();
+            statusController.turnChange();
         }
         //可在此设置ai
         current.setPlayer(currentPlayer);

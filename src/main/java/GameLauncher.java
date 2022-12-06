@@ -5,6 +5,8 @@ import UseCase.GameBoard.*;
 import UseCase.GlobalStatus.*;
 import UseCase.Login.*;
 import UseCase.PlayerJoin.*;
+import UseCase.ThrowCard.ThrowCard;
+import UseCase.ThrowCard.ThrowCardController;
 import UseCase.UseCard.*;
 
 public class GameLauncher {
@@ -43,6 +45,10 @@ public class GameLauncher {
         UseCardInputBoundary useCard = new UseCard(useCardPresenter);
         UseCardController useCardController = new UseCardController(useCard);
         gameFrame.getCurrentPanel().setUseCardController(useCardController);
+
+        ThrowCard throwCard = new ThrowCard();
+        ThrowCardController throwCardController = new ThrowCardController(throwCard);
+        gameFrame.getCurrentPanel().setThrowCardController(throwCardController);
 
         gameFrame.setVisible(true);
         loginFrame.setVisible(true);
