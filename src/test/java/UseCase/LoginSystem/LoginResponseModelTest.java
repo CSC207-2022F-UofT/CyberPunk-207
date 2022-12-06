@@ -1,4 +1,4 @@
-package LoginSystem;
+package UseCase.LoginSystem;
 
 import UseCase.Login.LoginResponseModel;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package LoginSystem;
+package UseCase.LoginSystem;
 
 import entity.Account;
 import org.junit.Test;

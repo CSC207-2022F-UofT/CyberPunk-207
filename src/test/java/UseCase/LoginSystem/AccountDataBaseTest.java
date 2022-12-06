@@ -1,4 +1,4 @@
-package LoginSystem;
+package UseCase.LoginSystem;
 
 import UseCase.Login.AccountDataBase;
 import entity.Account;
