@@ -35,12 +35,9 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
 
     MainPlayerPanel current = new MainPlayerPanel();
 
-    private EndTurnController endTurnController;
     private StatusController statusController;
 
     private GameboardController gameboardController;
-
-    private Player currentPlayer;
 
     private RulePanel rulePanel = new RulePanel();
     private String captain;
@@ -110,14 +107,7 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         position4.displayMG(MG.get(0));
     }
 
-    public void setPosition1(OtherPlayersPanel position1) {
-        this.position1 = position1;
-    }
 
-    public void setEndTurnController(EndTurnController endTurnController) {
-        this.endTurnController = endTurnController;
-        current.setEndTurnController(endTurnController);
-    }
 
     public void setGameboardController(GameboardController gameboardController) {
         this.gameboardController = gameboardController;
@@ -134,7 +124,7 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
 
     @Override
     public void viewGameboard(GameboardResponseModel gameboardResponseModel) {
-        currentPlayer = gameboardResponseModel.getCurrentPlayer();
+        Player currentPlayer = gameboardResponseModel.getCurrentPlayer();
         String isEnd = gameboardResponseModel.isEnd();
         if(!isEnd.equals("")){
             JOptionPane.showMessageDialog(null, isEnd);
@@ -164,9 +154,9 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         current.displayHP(statusResponseModel.getGlobalStatus().get(0).get(2));
         current.displayName(statusResponseModel.getGlobalStatus().get(0).get(0));
         current.displaySide(statusResponseModel.getGlobalStatus().get(0).get(7));
-        current.displayMG(Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(3), "Weapon"));
-        current.displayCarPlus(Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(4), "Plus"));
-        current.displayCarMinus(Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(5), "Minus"));
+        current.displayMG(!Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(3), ""));
+        current.displayCarPlus(!Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(4), ""));
+        current.displayCarMinus(!Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(5), ""));
 
         List<String> othersHP = new ArrayList<>();
         for(int i = 1; i < 5;i++){othersHP.add(statusResponseModel.getGlobalStatus().get(i).get(2));}
@@ -177,18 +167,18 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         this.displayOtherNames(othersName);
 
         List<Boolean> carPlus = new ArrayList<>();
-        for(int i = 1; i < 5;i++){carPlus.add(Objects.equals(statusResponseModel.getGlobalStatus().get(i).get(4)
-                , "Plus"));}
+        for(int i = 1; i < 5;i++){carPlus.add(!Objects.equals(statusResponseModel.getGlobalStatus().get(i).get(4)
+                , ""));}
         this.displayCarPlus(carPlus);
 
         List<Boolean> carMinus = new ArrayList<>();
-        for(int i = 1; i < 5;i++){carMinus.add(Objects.equals(statusResponseModel.getGlobalStatus().get(i).get(5)
-                , "Minus"));}
+        for(int i = 1; i < 5;i++){carMinus.add(!Objects.equals(statusResponseModel.getGlobalStatus().get(i).get(5)
+                , ""));}
         this.displayCarMinus(carMinus);
 
         List<Boolean> mg = new ArrayList<>();
-        for(int i = 1; i < 5;i++){mg.add(Objects.equals(statusResponseModel.getGlobalStatus().get(i).get(3)
-                , "Weapon"));}
+        for(int i = 1; i < 5;i++){mg.add(!Objects.equals(statusResponseModel.getGlobalStatus().get(i).get(3)
+                , ""));}
         this.displayMG(mg);
 
 
@@ -199,7 +189,7 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
     @Override
     public void viewCard(UseCardResponseModel useCardResponseModel) {
         String msg = useCardResponseModel.getMessage();
-        //display这条信息
+        current.displayIns(msg);
     }
 
     @Override

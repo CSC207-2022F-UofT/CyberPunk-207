@@ -25,7 +25,6 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
 
     private List<String> pcards = new ArrayList<>();
-    private List<String> plist = new ArrayList<>();
     private final JComboBox<String> cards = new JComboBox<>();
     JComboBox<String> players = new JComboBox<>();
 
@@ -48,6 +47,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     private JLabel carMinus = new JLabel();
 
     private GameboardController gameboardController;
+
     private UseCardController useCardController;
 
     private ThrowCardController throwCardController;
@@ -55,6 +55,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     private EndTurnController endTurnController;
 
     private StatusController statusController;
+
     private Player player;
 
     private final JLabel carddis2 = new JLabel();
@@ -123,7 +124,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         JButton end = new JButton("end");
         end.setBounds(680,710,80,40);
 
-        JButton show = new JButton("see card");
+        JButton show = new JButton("show card");
         show.setBounds(830,710,80,40);
 
         BufferedImage car1 = null;
@@ -226,7 +227,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
         message.setBackground(Color.YELLOW);
         message.setFont(new Font("Calibri", Font.BOLD, 20));
-        message.setBounds(420, 550, 200, 200);
+        message.setBounds(420, 550, 400, 200);
 
         round.setBounds(700, 800, 100, 100);
 
@@ -257,9 +258,6 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         health.setText(hp);
     }
 
-    public void displayRD(int rd) {
-        round.setText("Round " + rd);
-    }
 
     public void displayName(String name) {
         this.name.setText(name);
@@ -325,7 +323,6 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     }
 
     public void setPlist(List<String> plist) {
-        this.plist = plist;
         players.removeAllItems();
         for (String s : plist) {
             players.addItem(s);}

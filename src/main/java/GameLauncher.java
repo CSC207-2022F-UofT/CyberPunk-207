@@ -29,7 +29,7 @@ public class GameLauncher {
         EndTurnOutputBoundary endTurnPresenter = new EndTurnPresenter(gameFrame.getCurrentPanel());
         EndTurnInputBoundary endTurn = new EndTurn(endTurnPresenter);
         EndTurnController endTurnController = new EndTurnController(endTurn);
-        gameFrame.setEndTurnController(endTurnController);
+        gameFrame.getCurrentPanel().setEndTurnController(endTurnController);
 
         GameboardOutputBoundary gameboardPresenter = new GameboardPresenter(gameFrame);
         GameboardInputBoundary gameboard = new GameboardInteractor(gameboardPresenter);
