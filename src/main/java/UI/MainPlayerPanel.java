@@ -202,11 +202,6 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         yours.setFont(new Font("Calibri", Font.BOLD, 20));
         yours.setBounds(400, 540, 200, 40);
 
-        JLabel notify = new JLabel("You need to discard:");
-        notify.setForeground(Color.white);
-        notify.setFont(new Font("Calibri", Font.BOLD, 20));
-        notify.setBounds(400, 640, 300, 40);
-
         JLabel choose = new JLabel("Play on:");
         choose.setForeground(Color.white);
         choose.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -227,7 +222,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
         message.setBackground(Color.YELLOW);
         message.setFont(new Font("Calibri", Font.BOLD, 20));
-        message.setBounds(420, 550, 400, 200);
+        message.setBounds(420, 550, 600, 200);
 
         round.setBounds(700, 800, 100, 100);
 
@@ -238,7 +233,6 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         this.add(yours);
         this.add(choose);
         this.add(carddis2);
-        this.add(notify);
         this.add(round);
 
         this.setVisible(true);
