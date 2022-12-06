@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 
 public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
@@ -52,6 +53,12 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
     private EndTurnController endTurnController;
     private Player player;
+
+    private final JLabel carddis2 = new JLabel();
+
+    private final JButton use = new JButton("use");
+
+    private final JButton discard = new JButton("discard");
 
     public MainPlayerPanel(){
 
@@ -104,10 +111,10 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         this.add(side);
         this.add(name);
 
-        JButton use = new JButton("use");
+//        JButton use = new JButton("use");
         use.setBounds(380,710,80,40);
 
-        JButton discard = new JButton("discard");
+
         discard.setBounds(530,710,80,40);
 
         JButton end = new JButton("end");
@@ -181,7 +188,8 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         });
 
         show.addActionListener(e -> {
-            //todo
+            String cn = (String) cards.getSelectedItem();
+            displayCard(cn);
         });
 
 
@@ -200,16 +208,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         choose.setFont(new Font("Calibri", Font.BOLD, 20));
         choose.setBounds(620, 540, 200, 40);
 
-        BufferedImage carddis = null;
-        try {
-            carddis = ImageIO.read(new File("src/main/resource/shoot.png"));
-        } catch (IOException e) {
-            System.out.println("An exception occurred: " + e.getMessage());
-        }
-        assert carddis != null;
-        Image carddis1 = carddis.getScaledInstance(200, 270, Image.SCALE_SMOOTH);
-        JLabel carddis2 = new JLabel(new ImageIcon(carddis1));
-        carddis2.setBounds(850,400,200,270);
+
 
         BufferedImage logo = null;
         try {
@@ -280,12 +279,14 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     @Override
     public void throwView(EndTurnResponseModel endTurnResponseModel) {
         if(endTurnResponseModel.getNextTurn()){
-            //设置use显示，discard消失
+            use.setVisible(true);
+            discard.setVisible(false);
             gameboardController.turnChange();
         }else {
             String msg = endTurnResponseModel.getMessage();
-            //display这条信息，
-            //设置use 按钮消失， discard按钮显示
+            displayIns(msg);
+            use.setVisible(false);
+            discard.setVisible(true);
         }
 
     }
@@ -323,6 +324,61 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void displayCard(String cardName) {
+//        String cardName = (String) cards.getSelectedItem();
+        String fileSource;
+        fileSource = null;
+        switch (Objects.requireNonNull(cardName)) {
+            case "Destruction":
+                fileSource = "src/main/resource/destruction.png";
+                break;
+            case "Dodge":
+                fileSource = "src/main/resource/dodge.png";
+                break;
+            case "Lambo":
+                fileSource = "src/main/resource/car1.png";
+                break;
+            case "Lottery":
+                fileSource = "src/main/resource/lottery.png";
+                break;
+            case "Medkit":
+                fileSource = "src/main/resource/medkit.png";
+                break;
+            case "Policeraid":
+                fileSource = "src/main/resource/policeraid.png";
+                break;
+            case "R99 Machine Gun":
+                fileSource = "src/main/resource/mg.png";
+                break;
+            case "Robbery":
+                fileSource = "src/main/resource/robbery.png";
+                break;
+            case "Shoot":
+                fileSource = "src/main/resource/shoot.png";
+                break;
+            case "Shootout":
+                fileSource = "src/main/resource/shootout.png";
+                break;
+            case "Tesla":
+                fileSource = "src/main/resource/car2.png";
+                break;
+            case "Traumateam":
+                fileSource = "src/main/resource/trauma team.png";
+                break;
+        }
+        assert fileSource != null;
+        BufferedImage carddis = null;
+        try {
+            carddis = ImageIO.read(new File(fileSource));
+        } catch (IOException e) {
+            System.out.println("An exception occurred: " + e.getMessage());
+        }
+        assert carddis != null;
+        Image carddis1 = carddis.getScaledInstance(200, 270, Image.SCALE_SMOOTH);
+        carddis2.setIcon(new ImageIcon(carddis1));
+        carddis2.setBounds(850,400,200,270);
     }
 
 }
