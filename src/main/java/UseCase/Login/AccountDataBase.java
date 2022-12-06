@@ -41,5 +41,5 @@ public class AccountDataBase implements AccountDatabaseGateway {
             newAccount(account);
         }
     }
-
 }
+
