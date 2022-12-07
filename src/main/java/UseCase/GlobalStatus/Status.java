@@ -50,6 +50,9 @@ public class Status implements StatusInputBoundary{
 
     public int getIndex(int PlayerNo){
         int current = turns%5;
+        if(current == 0){
+            current = 5;
+        }
         int index = PlayerNo - current;
         if(index < 0 ){
             index = Math.abs(index);
@@ -80,10 +83,11 @@ public class Status implements StatusInputBoundary{
             status.add("Player" + player.getPlayerNO());
             status.add(String.valueOf(player.getPocketCards().size()));// handsize for index1
             status.add(String.valueOf(player.getHp()));// hp for index2
-            status.add(equipment.get("Weapon"));
-            status.add(equipment.get("Plus"));
-            status.add(equipment.get("Minus"));
-            status.add(player.getPocketCardNames());
+            status.add(equipment.get("Weapon"));//3
+            status.add(equipment.get("Plus"));//4
+            status.add(equipment.get("Minus"));//5
+            status.add(player.getPocketCardNames());//6
+            status.add(String.valueOf(player.getRole()));//7
             globalStatus.add(status);
         }
     }

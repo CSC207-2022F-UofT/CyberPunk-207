@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDataBase implements AccountDatabaseGateway {
-    private List<Account> accounts;
+    private List<Account> accounts = new ArrayList<>();
 
 
     @Override
@@ -15,14 +15,13 @@ public class AccountDataBase implements AccountDatabaseGateway {
         try {
             FileInputStream f = new FileInputStream("src/main/resource/Accounts.txt");
             ObjectInputStream inputStream = new ObjectInputStream(f);
-            accounts = new ArrayList<>();
-            accounts.addAll((List<Account>) inputStream.readObject());//zhelianghuang
+            accounts = (List<Account>) inputStream.readObject();//zhelianghuang
             f.close();
             inputStream.close();
         } catch (FileNotFoundException e) {
-            new File("/src/main/resource/Accounts.sav");
             accounts = new ArrayList<>();
         } catch (IOException | ClassNotFoundException e) {
+            accounts = new ArrayList<>();
             System.out.println("An exception occurred: " + e.getMessage());
         }
         return accounts;
@@ -31,15 +30,16 @@ public class AccountDataBase implements AccountDatabaseGateway {
 
     @Override
     public void newAccount(Account account){
-        getAccounts().add(account);
         try {
-            FileOutputStream f = new FileOutputStream("Accounts.sav");
+            FileOutputStream f = new FileOutputStream("src/main/resource/Accounts.txt");
             ObjectOutputStream outputStream = new ObjectOutputStream(f);
-            outputStream.writeObject(account);
+            accounts.add(account);
+            outputStream.writeObject(accounts);
+            f.close();
+            outputStream.close();
         } catch (IOException e) {
-            File f = new File("/src/main/resource/Accounts.sav");
-            newAccount(account);
+            System.out.println("An exception occurred: " + e.getMessage());
         }
     }
-
 }
+

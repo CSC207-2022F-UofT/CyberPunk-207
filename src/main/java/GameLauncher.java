@@ -5,6 +5,8 @@ import UseCase.GameBoard.*;
 import UseCase.GlobalStatus.*;
 import UseCase.Login.*;
 import UseCase.PlayerJoin.*;
+import UseCase.ThrowCard.ThrowCard;
+import UseCase.ThrowCard.ThrowCardController;
 import UseCase.UseCard.*;
 
 public class GameLauncher {
@@ -24,11 +26,10 @@ public class GameLauncher {
         PlayerJoinController playerJoinController = new PlayerJoinController(playerJoin);
         gameFrame.getRulePanel().setPlayerJoinController(playerJoinController);
 
-
         EndTurnOutputBoundary endTurnPresenter = new EndTurnPresenter(gameFrame.getCurrentPanel());
         EndTurnInputBoundary endTurn = new EndTurn(endTurnPresenter);
         EndTurnController endTurnController = new EndTurnController(endTurn);
-        gameFrame.setEndTurnController(endTurnController);
+        gameFrame.getCurrentPanel().setEndTurnController(endTurnController);
 
         GameboardOutputBoundary gameboardPresenter = new GameboardPresenter(gameFrame);
         GameboardInputBoundary gameboard = new GameboardInteractor(gameboardPresenter);
@@ -44,6 +45,10 @@ public class GameLauncher {
         UseCardInputBoundary useCard = new UseCard(useCardPresenter);
         UseCardController useCardController = new UseCardController(useCard);
         gameFrame.getCurrentPanel().setUseCardController(useCardController);
+
+        ThrowCard throwCard = new ThrowCard();
+        ThrowCardController throwCardController = new ThrowCardController(throwCard);
+        gameFrame.getCurrentPanel().setThrowCardController(throwCardController);
 
         gameFrame.setVisible(true);
         loginFrame.setVisible(true);

@@ -12,6 +12,12 @@ public class OtherPlayersPanel extends JPanel{
     private final JLabel name = new JLabel();
     private final JLabel health = new JLabel();
 
+    private JLabel mg = new JLabel();
+
+    private JLabel carPlus = new JLabel();
+
+    private JLabel carMinus = new JLabel();
+
     private void addImageAt(String src, int x, int y, int width, int height){
         BufferedImage img = null;
         try {
@@ -39,21 +45,23 @@ public class OtherPlayersPanel extends JPanel{
         } catch (IOException e) {
             System.out.println("An exception occurred: " + e.getMessage());
         }
+        assert car1 != null;
         Image car2 = car1.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        JLabel car3 = new JLabel(new ImageIcon(car2));
-        car3.setBounds(160,120,50,50);
-        this.add(car3);
+        carPlus = new JLabel(new ImageIcon(car2));
+        carPlus.setBounds(160,120,50,50);
+        this.add(carPlus);
 
-        BufferedImage ch = null;
+        BufferedImage car4 = null;
         try {
-            ch = ImageIO.read(new File("src/main/resource/chief.png"));
+            car4 = ImageIO.read(new File("src/main/resource/car502.png"));
         } catch (IOException e) {
             System.out.println("An exception occurred: " + e.getMessage());
         }
-        Image ch1 = ch.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        JLabel chief = new JLabel(new ImageIcon(ch1));
-        chief.setBounds(160,60,50,50);
-        this.add(chief);
+        assert car4 != null;
+        Image car5 = car4.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        carMinus = new JLabel(new ImageIcon(car5));
+        carMinus.setBounds(160,60,50,50);
+        this.add(carMinus);
 
         BufferedImage mg1 = null;
         try {
@@ -61,8 +69,9 @@ public class OtherPlayersPanel extends JPanel{
         } catch (IOException e) {
             System.out.println("An exception occurred: " + e.getMessage());
         }
+        assert mg1 != null;
         Image mg2 = mg1.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        JLabel mg = new JLabel(new ImageIcon(mg2));
+        mg = new JLabel(new ImageIcon(mg2));
         mg.setBounds(220,120,50,50);
         this.add(mg);
 
@@ -71,10 +80,9 @@ public class OtherPlayersPanel extends JPanel{
         health.setBounds(35, 50, 150, 40);
         this.add(health);
 
-        JLabel name = new JLabel("PlayerJoin");
         name.setForeground(Color.black);
         name.setFont(new Font("Calibri", Font.BOLD, 20));
-        name.setBounds(70, 150, 150, 40);
+        name.setBounds(40, 150, 150, 40);
         this.add(name);
 
         setVisible(true);
@@ -83,5 +91,11 @@ public class OtherPlayersPanel extends JPanel{
     public void displayName(String name) {this.name.setText(name);}
 
     public void displayHealth(String hp) {this.health.setText(hp);}
+
+    public void displayCarPlus(boolean check) {this.carPlus.setVisible(check);}
+
+    public void displayCarMinus(boolean check) {this.carMinus.setVisible(check);}
+
+    public void displayMG(boolean check) {this.mg.setVisible(check);}
 }
 
