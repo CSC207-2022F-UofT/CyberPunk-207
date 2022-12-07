@@ -6,8 +6,10 @@ import java.io.Serializable;
  * Class Account, represents accounts in the database
  */
 public class Account implements Serializable {
+
     private String username;
     private String password;
+    /** Integer attribute representing the account's total times of win */
     private int win;
 
     /**

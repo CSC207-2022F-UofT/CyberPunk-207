@@ -13,6 +13,10 @@ public class Shootout extends Card {
         return false;
     }
 
+    /**
+     * For all players in game, if the player is not source player and the player has no dodge, the player lose one hp.
+     */
+    @Override
     public void use(){
         for (Player p : getPlayers()) {
             if (p != getSource() && p.whetherHasDodge()){

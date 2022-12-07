@@ -13,6 +13,10 @@ public class Traumateam extends Card {
         return false;
     }
 
+    /**
+     * For all players in game, if the player's hp is smaller than maximum hp, add one hp.
+     */
+    @Override
     public void use(){
         for (Player p : getPlayers()) {
             if (p.getHp() < p.getMaxHp()){
