@@ -37,3 +37,12 @@ Each character has 4 life points, the police chief has 5 life points, and the ch
 * 
 
 ## Testing coverage
+
+### Documentations
+- [CRC cards](https://docs.google.com/presentation/d/1NDSY8ECLeGjmG_CDGjaI0u4tHIRhg0pL5_blFVvRGxs/edit#slide=id.g14c536dc64b_0_40)
+- [Help Guide](https://docs.google.com/document/d/1plI87RyJ0jCMYeijyiLynWOV64fhWfKZ8fg5gIbjFcQ/edit?usp=sharing)
+- [Progress report]()
+- [Specification](https://docs.google.com/document/d/1RyoYvM5jh8z5xX-V-DCh5hZdcybpxFl1AdSeoPYMer8/edit?usp=sharing)
+- [Scenario Walk-Through](https://docs.google.com/presentation/d/1NDSY8ECLeGjmG_CDGjaI0u4tHIRhg0pL5_blFVvRGxs/edit#slide=id.g14c1f896a82_0_0)
+- [Design document]()
+

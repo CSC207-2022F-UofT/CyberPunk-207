@@ -4,6 +4,7 @@ import UseCase.GlobalStatus.Status;
 import entity.Card.Card;
 import entity.Card.Dodge;
 import entity.Card.Shoot;
+import UseCase.Identity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -126,10 +127,6 @@ public class Player {
      */
     public int getPlayerNO() {
         return playerNO;
-    }
-
-    public String getStrategy() {
-        return strategy;
     }
 
     /**
