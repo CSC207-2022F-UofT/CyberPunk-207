@@ -5,6 +5,7 @@ import UseCase.GlobalStatus.StatusOutputBoundary;
 import entity.Card.Dodge;
 import entity.Card.Shoot;
 import entity.Player;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -54,5 +55,9 @@ class ThrowCardTest {
         throwCardUnderTest.throwCard(throwCardRequestModel);
 
         // Verify the results
+        p1.setHp(1);
+        Assertions.assertEquals(p1.getPocketCards().size(), 1);
+
+
     }
 }

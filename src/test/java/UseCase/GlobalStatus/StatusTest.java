@@ -2,6 +2,7 @@ package UseCase.GlobalStatus;
 
 import entity.Player;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -119,5 +120,6 @@ class StatusTest {
         statusUnderTest.init(players);
 
         // Verify the results
+        Assertions.assertEquals("3", statusUnderTest.getStatus().get(0).get(2));
     }
 }

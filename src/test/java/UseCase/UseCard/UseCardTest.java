@@ -6,6 +6,7 @@ import entity.Card.Dodge;
 import entity.Card.Shoot;
 import entity.Player;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -72,5 +73,6 @@ class UseCardTest {
         final Player result = useCardUnderTest.findTarget(0);
 
         // Verify the results
+        Assertions.assertEquals(useCardUnderTest.findTarget(2), null);
     }
 }
