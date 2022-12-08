@@ -87,7 +87,6 @@ public class Status implements StatusInputBoundary{
             status.add(equipment.get("Plus"));//4
             status.add(equipment.get("Minus"));//5
             status.add(player.getPocketCardNames());//6
-            status.add(String.valueOf(player.getRole()));//7
             globalStatus.add(status);
         }
     }

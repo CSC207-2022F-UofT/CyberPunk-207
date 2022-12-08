@@ -6,7 +6,7 @@ import UseCase.GameBoard.GameboardUpdatable;
 import UseCase.GlobalStatus.StatusController;
 import UseCase.GlobalStatus.StatusResponseModel;
 import UseCase.GlobalStatus.StatusUpdatable;
-import UseCase.Identity;
+import entity.Identity;
 import UseCase.PlayerJoin.PlayerJoinResponseModel;
 import UseCase.PlayerJoin.PlayerJoinUpdatable;
 import UseCase.UseCard.UseCardResponseModel;
@@ -135,11 +135,14 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
             gameboardController.turnChange();
             statusController.turnChange();
         }
-        //可在此设置ai
         current.setPlayer(currentPlayer);
         current.setPlist(gameboardResponseModel.getTargetList());
         HashMap<String, Integer> roleExist = gameboardResponseModel.getRoleExist();
         current.displayRole(captain, roleExist);
+        current.displaySide(gameboardResponseModel.getPlayerRole());
+        if(gameboardResponseModel.getStrategy().equals("AI")){
+            current.AIPlayStrategy();
+        }
     }
 
     @Override
@@ -147,7 +150,6 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         current.setPcards(statusResponseModel.getHands());
         current.displayHP(statusResponseModel.getGlobalStatus().get(0).get(2));
         current.displayName(statusResponseModel.getGlobalStatus().get(0).get(0));
-        current.displaySide(statusResponseModel.getGlobalStatus().get(0).get(7));
         current.displayMG(!Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(3), ""));
         current.displayCarPlus(!Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(4), ""));
         current.displayCarMinus(!Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(5), ""));

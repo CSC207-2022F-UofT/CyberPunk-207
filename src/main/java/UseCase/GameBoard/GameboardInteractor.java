@@ -1,6 +1,6 @@
 package UseCase.GameBoard;
 
-import UseCase.Identity;
+import entity.Identity;
 import entity.Player;
 import entity.CardsHeap;
 
@@ -15,11 +15,11 @@ public class GameboardInteractor implements GameboardInputBoundary{
     private final GameboardOutputBoundary gameboardOutputBoundary;
     private Player currentPlayer;
 
+
     public GameboardInteractor(GameboardOutputBoundary gameboardOutputBoundary) {
         this.gameboardOutputBoundary = gameboardOutputBoundary;
     }
 
-//可以考虑使用state design pattern
     public void turnChange(){
         int current = (players.indexOf(currentPlayer) + 1) % players.size();
         currentPlayer = players.get(current);

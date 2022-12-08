@@ -165,11 +165,10 @@ public class Player {
     }
 
     /**
-     * Heal the player with certain number of hp, and notify use case through notifyHp()
-     * @param num An integer representing the num of hp the player add
+     * Heal the player, and notify use case through notifyHp()
      */
-    public void heal(int num) {
-        this.hp += num;
+    public void heal() {
+        this.hp += 1;
         notifyHp(getHp());
     }
 

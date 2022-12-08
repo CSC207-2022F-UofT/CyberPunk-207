@@ -1,7 +1,7 @@
 package UseCase.PlayerJoin;
 
 import entity.Player;
-import UseCase.Identity;
+import entity.Identity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

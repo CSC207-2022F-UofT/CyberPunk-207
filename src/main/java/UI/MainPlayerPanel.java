@@ -3,6 +3,7 @@ package UI;
 import UseCase.EndTurn.EndTurnController;
 import UseCase.EndTurn.EndTurnResponseModel;
 import UseCase.EndTurn.EndTurnUpdatable;
+import UseCase.EndTurn.EndTurnViewModel;
 import UseCase.GameBoard.GameboardController;
 import UseCase.GlobalStatus.StatusController;
 import UseCase.ThrowCard.ThrowCardController;
@@ -11,14 +12,18 @@ import entity.Player;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import static java.lang.Thread.sleep;
 
 
 public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
@@ -61,6 +66,10 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     private final JButton use = new JButton("use");
 
     private final JButton discard = new JButton("discard");
+
+    private final JButton end;
+
+    private final JButton show;
 
     public MainPlayerPanel(){
 
@@ -113,16 +122,15 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         this.add(side);
         this.add(name);
 
-//        JButton use = new JButton("use");
         use.setBounds(380,710,80,40);
 
 
         discard.setBounds(530,710,80,40);
 
-        JButton end = new JButton("end");
+        end = new JButton("end");
         end.setBounds(680,710,80,40);
 
-        JButton show = new JButton("show card");
+        show = new JButton("show card");
         show.setBounds(830,710,80,40);
 
         BufferedImage car1 = null;
@@ -204,7 +212,6 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         choose.setBounds(620, 540, 200, 40);
 
 
-
         BufferedImage logo = null;
         try {
             logo = ImageIO.read(new File("src/main/resource/logo.png"));
@@ -267,20 +274,36 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     }
 
     @Override
-    public void throwView(EndTurnResponseModel endTurnResponseModel) {
-        if(endTurnResponseModel.getNextTurn()){
+    public void throwView(EndTurnViewModel endTurnViewModel) {
+        if(endTurnViewModel.getNextTurn()){
             use.setVisible(true);
             discard.setVisible(false);
             gameboardController.turnChange();
             statusController.turnChange();
         }else {
-            String msg = endTurnResponseModel.getMessage();
+            String msg = endTurnViewModel.getMessage();
             displayIns(msg);
             use.setVisible(false);
             discard.setVisible(true);
+            if(player.getStrategy().equals("AI")){
+                ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+                executor.schedule((Runnable) discard::doClick, 1, TimeUnit.SECONDS);
+                executor.schedule((Runnable) end::doClick, 2, TimeUnit.SECONDS);
+            }
         }
 
     }
+
+    public void AIPlayStrategy(){
+
+
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.schedule((Runnable) show::doClick, 1, TimeUnit.SECONDS);
+        executor.schedule((Runnable) use::doClick, 2, TimeUnit.SECONDS);
+        executor.schedule((Runnable) end::doClick, 3, TimeUnit.SECONDS);
+
+    }
+
 
     public void setGameboardController(GameboardController gameboardController) {
         this.gameboardController = gameboardController;
@@ -321,7 +344,6 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     }
 
     public void displayCard(String cardName) {
-//        String cardName = (String) cards.getSelectedItem();
         String fileSource;
         fileSource = null;
         switch (Objects.requireNonNull(cardName)) {

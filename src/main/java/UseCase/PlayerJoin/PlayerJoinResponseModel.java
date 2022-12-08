@@ -1,6 +1,6 @@
 package UseCase.PlayerJoin;
 
-import UseCase.Identity;
+import entity.Identity;
 import entity.Player;
 
 import java.util.HashMap;

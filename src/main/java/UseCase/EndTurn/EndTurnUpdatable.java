@@ -1,5 +1,5 @@
 package UseCase.EndTurn;
 
 public interface EndTurnUpdatable {
-    void throwView(EndTurnResponseModel endTurnResponseModel);
+    void throwView(EndTurnViewModel endTurnViewModel);
 }

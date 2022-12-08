@@ -1,4 +1,4 @@
-package UseCase;
+package entity;
 
 public enum Identity {
     CAPTAIN,

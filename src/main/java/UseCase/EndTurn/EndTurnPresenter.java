@@ -9,6 +9,7 @@ public class EndTurnPresenter implements EndTurnOutputBoundary{
 
     @Override
     public void displayInstruction(EndTurnResponseModel endTurnResponseModel) {
-        UI.throwView(endTurnResponseModel);
+        EndTurnViewModel.getInstance().updateView(endTurnResponseModel.getNextTurn(),endTurnResponseModel.getMessage());
+        UI.throwView(EndTurnViewModel.getInstance());
     }
 }
