@@ -10,7 +10,12 @@ public class Shoot extends Card {
     public boolean needTarget() {
         return true;
     }
-
+    
+   /**
+     * First identify if the target player has dodge. If so do nothing.
+     * Otherwise, reduce one hp of target player.
+     */
+    @Override
     public void use(){
         if (getTarget().whetherHasDodge()){
                 getTarget().hurt(1);
