@@ -12,22 +12,23 @@ public class OtherPlayersPanel extends JPanel{
     private final JLabel name = new JLabel();
     private final JLabel health = new JLabel();
 
-    private JLabel mg = new JLabel();
+    private JLabel mg;
 
-    private JLabel carPlus = new JLabel();
+    private JLabel carPlus;
 
-    private JLabel carMinus = new JLabel();
+    private JLabel carMinus;
 
-    private void addImageAt(String src, int x, int y, int width, int height){
+    private void addImageAt(String src, int x, int width, int height){
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File(src));
         } catch (IOException e) {
             System.out.println("An exception occurred: " + e.getMessage());
         }
+        assert img != null;
         Image scaleImage = img.getScaledInstance(width, height,Image.SCALE_DEFAULT);
         JLabel pic = new JLabel(new ImageIcon(scaleImage));
-        pic.setBounds(x,y, 100, 100);
+        pic.setBounds(x, 60, 100, 100);
         this.add(pic);
 
     }
@@ -36,8 +37,8 @@ public class OtherPlayersPanel extends JPanel{
         super();
         this.setLayout(null);
         this.setBackground(new Color(119, 101, 227));
-        addImageAt( "src/main/resource/default.png", 50, 60, 90, 90);
-        addImageAt("src/main/resource/health.png", -10, 60, 50,40);
+        addImageAt( "src/main/resource/default.png", 50, 90, 90);
+        addImageAt("src/main/resource/health.png", -10, 50,40);
 
         BufferedImage car1 = null;
         try {

@@ -15,7 +15,7 @@ public class AccountDataBase implements AccountDatabaseGateway {
         try {
             FileInputStream f = new FileInputStream("src/main/resource/Accounts.txt");
             ObjectInputStream inputStream = new ObjectInputStream(f);
-            accounts = (List<Account>) inputStream.readObject();//zhelianghuang
+            accounts = (List<Account>) inputStream.readObject();
             f.close();
             inputStream.close();
         } catch (FileNotFoundException e) {
