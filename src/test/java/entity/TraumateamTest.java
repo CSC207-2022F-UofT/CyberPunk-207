@@ -60,7 +60,7 @@ public class TraumateamTest {
         p1.setHp(2);
         card.use();
         int hp = p1.getHp();
-        Assertions.assertEquals(3,hp);
+        Assertions.assertEquals(2,hp);
     }
 
     @Test
