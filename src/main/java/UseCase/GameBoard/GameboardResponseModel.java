@@ -16,7 +16,6 @@ public class GameboardResponseModel {
     private boolean isDead;
     private Player currentPlayer;
     private String playeRole;
-    private String strategy;
 
     public GameboardResponseModel(List<String> targetList, String isEnd, boolean isDead, HashMap<String, Integer> roleExist, Player currentPlayer) {
         this.targetList = targetList;
@@ -25,7 +24,6 @@ public class GameboardResponseModel {
         this.roleExist = roleExist;
         this.currentPlayer = currentPlayer;
         this.playeRole = currentPlayer.getRole().toString();
-        this.strategy = currentPlayer.getStrategy();
     }
 
     public List<String> getTargetList() {
@@ -49,8 +47,4 @@ public class GameboardResponseModel {
     }
 
     public String getPlayerRole() {return playeRole;}
-
-    public String getStrategy() {
-        return strategy;
-    }
 }

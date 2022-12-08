@@ -6,7 +6,7 @@ package UseCase.GameBoard;
 public interface GameboardUpdatable {
     /**
      * A viewer displaying all information of current game board
-     * @param gameboardViewModel A view model containing all information of current game board
+     * @param gameboardResponseModel A response model containing all information of current game board
      **/
-    void viewGameboard(GameboardViewModel gameboardViewModel);
+    void viewGameboard(GameboardResponseModel gameboardResponseModel);
 }

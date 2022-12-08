@@ -1,13 +1,13 @@
 package UI;
 
 import UseCase.PlayerJoin.PlayerJoinController;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 
 public class RulePanel extends JPanel{
 
@@ -18,7 +18,9 @@ public class RulePanel extends JPanel{
         this.setBackground(new Color(173,216,230));
 
         this.setLayout(null);
+
         this.setBackground(Color.black);
+
 
 
         BufferedImage rules = null;
@@ -52,6 +54,7 @@ public class RulePanel extends JPanel{
 
 
         this.add(cont);
+//        this.add(myLabel);
         this.add(players);
         this.add(choose);
         this.setVisible(false);

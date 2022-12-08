@@ -1,6 +1,6 @@
 package UseCase.GameBoard;
 
-import entity.Identity;
+import UseCase.Identity;
 import entity.Player;
 
 import java.util.HashMap;
