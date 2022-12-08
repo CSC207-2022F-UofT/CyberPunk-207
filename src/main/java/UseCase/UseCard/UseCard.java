@@ -6,6 +6,9 @@ import entity.Player;
 
 import static UseCase.GameBoard.GameboardInteractor.getPlayers;
 
+/**
+ * UseCard use case, handling use card request
+ **/
 public class UseCard implements UseCardInputBoundary {
 
     private UseCardOutputBoundary useCardOutputBoundary;
@@ -14,7 +17,12 @@ public class UseCard implements UseCardInputBoundary {
         this.useCardOutputBoundary = useCardOutputBoundary;
     }
 
-
+    /**
+     * Handle card use request. Setup source and target of card based on input.
+     * Check whether the player used shoot before. If so, end and send message to output boundary
+     * Use the card and loose the card.
+     * @param useCardRequestModel A request model containing player, card to use and target player information
+     **/
     public void useCard(UseCardRequestModel useCardRequestModel) {
         Player player = useCardRequestModel.getPlayer();
         int cardNum = useCardRequestModel.getCard();
@@ -36,8 +44,11 @@ public class UseCard implements UseCardInputBoundary {
         player.looseCard(card);
     }
 
-
-
+    /**
+     * A helper function finding target player based on input target No.
+     * @param target An integer of No of intended target
+     * @return A corresponding target player if the input target is valid. Otherwise, return null.
+     **/
     public Player findTarget(int target){
         for(Player player: getPlayers()){
             if(player.getPlayerNO() == target){

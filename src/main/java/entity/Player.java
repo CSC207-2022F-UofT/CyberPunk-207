@@ -4,6 +4,7 @@ import UseCase.GlobalStatus.Status;
 import entity.Card.Card;
 import entity.Card.Dodge;
 import entity.Card.Shoot;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -96,14 +97,6 @@ public class Player {
     }
 
     /**
-     * Get strategy of player
-     * @return: Strategy indicate whether player is human or AI
-     */
-    public String getStrategy() {
-        return strategy;
-    }
-
-    /**
      * Get hp of player
      * @return: An integer which is player's hp
      */
@@ -133,6 +126,10 @@ public class Player {
      */
     public int getPlayerNO() {
         return playerNO;
+    }
+
+    public String getStrategy() {
+        return strategy;
     }
 
     /**
@@ -168,10 +165,11 @@ public class Player {
     }
 
     /**
-     * Heal the player, and notify use case through notifyHp()
+     * Heal the player with certain number of hp, and notify use case through notifyHp()
+     * @param num An integer representing the num of hp the player add
      */
-    public void heal() {
-        this.hp += 1;
+    public void heal(int num) {
+        this.hp += num;
         notifyHp(getHp());
     }
 
@@ -321,9 +319,5 @@ public class Player {
     @Override
     public String toString(){
         return "Player" + playerNO;
-    }
-
-    public void setPocketCards(ArrayList<Card> pocketCards) {
-        this.pocketCards = pocketCards;
     }
 }

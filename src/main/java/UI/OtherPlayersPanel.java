@@ -7,51 +7,38 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Class that sets up the other players' panel on the GameFrame
- */
 public class OtherPlayersPanel extends JPanel{
 
     private final JLabel name = new JLabel();
     private final JLabel health = new JLabel();
 
-    private JLabel mg = new JLabel();
+    private JLabel mg;
 
-    private JLabel carPlus = new JLabel();
+    private JLabel carPlus;
 
-    private JLabel carMinus = new JLabel();
+    private JLabel carMinus;
 
-    /**
-     * method to add an image on the panel
-     * @param src file path of the image
-     * @param x image position on x-axis of the panel in pixels
-     * @param y image position on y-axis of the panel in pixels
-     * @param width width of the image in pixels
-     * @param height length of the image in pixels
-     */
-    private void addImageAt(String src, int x, int y, int width, int height){
+    private void addImageAt(String src, int x, int width, int height){
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File(src));
         } catch (IOException e) {
             System.out.println("An exception occurred: " + e.getMessage());
         }
+        assert img != null;
         Image scaleImage = img.getScaledInstance(width, height,Image.SCALE_DEFAULT);
         JLabel pic = new JLabel(new ImageIcon(scaleImage));
-        pic.setBounds(x,y, 100, 100);
+        pic.setBounds(x, 60, 100, 100);
         this.add(pic);
 
     }
 
-    /**
-     * Main method that sets up all the gui elements for the other players' panel
-     */
     public OtherPlayersPanel(){
         super();
         this.setLayout(null);
         this.setBackground(new Color(119, 101, 227));
-        addImageAt( "src/main/resource/default.png", 50, 60, 90, 90);
-        addImageAt("src/main/resource/health.png", -10, 60, 50,40);
+        addImageAt( "src/main/resource/default.png", 50, 90, 90);
+        addImageAt("src/main/resource/health.png", -10, 50,40);
 
         BufferedImage car1 = null;
         try {
@@ -102,34 +89,14 @@ public class OtherPlayersPanel extends JPanel{
         setVisible(true);
     }
 
-    /**
-     * method used in GameFrame to display players' name
-     * @param name players' name
-     */
     public void displayName(String name) {this.name.setText(name);}
 
-    /**
-     * method used in GameFrame to display players' health
-     * @param hp players' health
-     */
     public void displayHealth(String hp) {this.health.setText(hp);}
 
-    /**
-     * method used in GameFrame to display players' +1 car equipment
-     * @param check boolean value showing whether the player is equipped with the equipment
-     */
     public void displayCarPlus(boolean check) {this.carPlus.setVisible(check);}
 
-    /**
-     * method used in GameFrame to display players' -1 car equipment
-     * @param check boolean value showing whether the player is equipped with the equipment
-     */
     public void displayCarMinus(boolean check) {this.carMinus.setVisible(check);}
 
-    /**
-     * method used in GameFrame to display players' machine gun equipment
-     * @param check boolean value showing whether the player is equipped with the equipment
-     */
     public void displayMG(boolean check) {this.mg.setVisible(check);}
 }
 
