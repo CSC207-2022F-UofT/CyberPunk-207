@@ -5,6 +5,7 @@ import entity.Card.Card;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.util.Collections.shuffle;
 import static java.util.Collections.swap;
 /**
  * Class CardsHeap stores all the cards within the deck.

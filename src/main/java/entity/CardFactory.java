@@ -4,43 +4,50 @@ import entity.Card.*;
     /**
      * Class CardFactory is able to produce all kinds of cards.
      */
-      
-public class CardFactory {
-
-    /**
-     * Construct cards with certain card type
-     *
-     * @param cardName: A string representing type of card.
-     * @return corresponding card attributes
-     */
-
-    public Card getCard(String cardName){
-        switch (cardName) {
-            case "Shoot":
+    public class CardFactory {
+        /**
+         * Construct cards with certain card type
+         *
+         * @param cardName: A string representing type of card.
+         * @return corresponding card attributes
+         */
+        public Card getCard(String cardName){
+            if(cardName.equals("Shoot")) {
                 return new Shoot();
-            case "Dodge":
+            }
+            else if(cardName.equals("Dodge")){
                 return new Dodge();
-            case "Medkit":
+            }
+            else if(cardName.equals("Medkit")){
                 return new Medkit();
-            case "Destruction":
+            }
+            else if(cardName.equals("Destruction")){
                 return new Destruction();
-            case "Robbery":
+            }
+            else if(cardName.equals("Robbery")){
                 return new Robbery();
-            case "Lottery":
+            }
+            else if(cardName.equals("Lottery")){
                 return new Lottery();
-            case "Policeraid":
+            }
+            else if(cardName.equals("Policeraid")){
                 return new PoliceRaid();
-            case "Shootout":
+            }
+            else if(cardName.equals("Shootout")){
                 return new Shootout();
-            case "Traumateam":
+            }
+            else if(cardName.equals("Traumateam")){
                 return new Traumateam();
-            case "R99MachineGun":
+            }
+            else if(cardName.equals("R99MachineGun")){
                 return new R99MachineGun();
-            case "Tesla":
-                return new Tesla();
-            case "Lambo":
-                return new Lambo();
-        }
-        return null;
+            }
+            else if(cardName.equals("Tesla")){
+                return new R99MachineGun();
+            }
+            else if(cardName.equals("Lambo")){
+                return new R99MachineGun();
+            }
+            return null;
     }
 }

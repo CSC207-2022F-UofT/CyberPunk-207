@@ -1,7 +1,6 @@
 package UI;
 
 import UseCase.PlayerJoin.PlayerJoinController;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,18 +8,22 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Class that sets up the second rule panel of the game
+ */
 public class RulePanel extends JPanel{
 
     private PlayerJoinController playerJoinController;
 
+    /**
+     * Main method that sets up all the gui elements on the rule frame
+     */
     public RulePanel(){
         this.setSize(1920, 1080);
         this.setBackground(new Color(173,216,230));
 
         this.setLayout(null);
-
         this.setBackground(Color.black);
-
 
 
         BufferedImage rules = null;
@@ -54,12 +57,15 @@ public class RulePanel extends JPanel{
 
 
         this.add(cont);
-//        this.add(myLabel);
         this.add(players);
         this.add(choose);
         this.setVisible(false);
     }
 
+    /**
+     * setter function to set the player join controller for the panel
+     * @param playerJoinController controller that connects with the player join use case
+     */
     public void setPlayerJoinController(PlayerJoinController playerJoinController) {
         this.playerJoinController = playerJoinController;
     }
