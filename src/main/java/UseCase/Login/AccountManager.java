@@ -2,9 +2,13 @@ package UseCase.Login;
 
 import entity.Account;
 
+import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class AccountManager implements LoginInputBoundary {
+    private HashMap<String, String> accounts = new HashMap<>();
+    private final String FILENAME = "src/main/resource/Accounts.txt";
     private AccountDatabaseGateway accountDataManager;
     private LoginOutputBoundary loginOutputBoundary;
     public AccountManager(AccountDatabaseGateway accountDataManager, LoginOutputBoundary loginOutputBoundary){

@@ -20,7 +20,7 @@ public class Traumateam extends Card {
     public void use(){
         for (Player p : getPlayers()) {
             if (p.getHp() < p.getMaxHp()){
-                p.heal();
+                p.heal(1);
             }
         }
     }
