@@ -9,6 +9,11 @@ public class Medkit extends Card {
     public boolean needTarget() {
         return false;
     }
+    
+    /**
+     * First identify if current hp of source player is smaller than the maximum hp.
+     * If so, add one hp to the source player.
+     */
 
     public void use(){
         if (getSource().getHp() < getSource().getMaxHp()){
