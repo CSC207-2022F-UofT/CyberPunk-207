@@ -14,11 +14,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class that sets up the login page
+ */
 public class LoginFrame extends JFrame implements LoginUpdatable{
 
     private LoginController loginController;
 
 
+    /**
+     * main method that adds all gui elements on the login frame
+     */
     public LoginFrame(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1920,1080);
@@ -103,12 +109,19 @@ public class LoginFrame extends JFrame implements LoginUpdatable{
         setVisible(true);
     }
 
+    /**
+     * setter function to setup the login controller for the login frame
+     * @param loginController login controller that connects the frame with the use case
+     */
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
     }
 
 
-
+    /**
+     * method that gets response message after logging in
+     * @param loginViewModel view model that provides the needed message after logging in
+     */
     @Override
     public void viewLogin(LoginViewModel loginViewModel) {
         String msg = loginViewModel.getMessage();

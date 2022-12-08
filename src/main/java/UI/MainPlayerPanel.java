@@ -22,6 +22,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 
+/**
+ * Class that sets up the panel that displays all information for the current playing player on GameFrame
+ */
 public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
 
@@ -69,6 +72,9 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
     private String strategy;
 
+    /**
+     * Main method that sets up all the gui elements for the MainPlayerPanel
+     */
     public MainPlayerPanel(){
 
         this.setLayout(null);
@@ -242,34 +248,71 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     }
 
 
+    /**
+     * method used in GameFrame to display corresponding instructions
+     * @param instruction String containing the needed instruction
+     */
     public void displayIns(String instruction) {
         message.setText(instruction);
     }
 
+    /**
+     * method used in GameFrame to display current player's health
+     * @param hp String representing current player's health
+     */
     public void displayHP(String hp) {
         health.setText(hp);
     }
 
 
+    /**
+     * method used in GameFrame to display current player's name
+     * @param name String representing current player's name
+     */
     public void displayName(String name) {
         this.name.setText(name);
     }
 
+    /**
+     * method used in GameFrame to display current player's faction
+     * @param name String representing current player's faction
+     */
     public void displaySide(String name) {this.side.setText(name);}
 
+    /**
+     * method used in GameFrame to display current player's +1 car equipment status
+     * @param check Boolean value representing whether the player equipped the equipment or not
+     */
     public void displayCarPlus(boolean check) {this.carPlus.setVisible(check);}
 
+    /**
+     * method used in GameFrame to display current player's -1 car equipment status
+     * @param check Boolean value representing whether the player equipped the equipment or not
+     */
     public void displayCarMinus(boolean check) {this.carMinus.setVisible(check);}
 
+    /**
+     * method used in GameFrame to display current player's machine gun equipment status
+     * @param check Boolean value representing whether the player equipped the equipment or not
+     */
     public void displayMG(boolean check) {this.mg.setVisible(check);}
 
 
+    /**
+     * method used to display current captain and remaining players in each faction on the GameFrame
+     * @param captain name of the captain player of the current game
+     * @param roleExist hashmap containing information of how many players remain in each faction
+     */
     public void displayRole(String captain, HashMap<String, Integer> roleExist){
         String sb = "<html>Captain: " + captain + "<br/>Police: " + roleExist.get("POLICE") + "<br/>Criminal: " +
                 roleExist.get("CRIMINAL") + "<br/>Corpo: " + roleExist.get("CORPO");
         roleInfo.setText(sb);
     }
 
+    /**
+     * method that implements discard card and end turn action in the game
+     * @param endTurnViewModel view model that connects with the end turn use case
+     */
     @Override
     public void throwView(EndTurnViewModel endTurnViewModel) {
         if(endTurnViewModel.getNextTurn()){
@@ -291,6 +334,9 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
     }
 
+    /**
+     * method that implements the ai player strategy of the game
+     */
     public void AIPlayStrategy(){
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         executor.schedule((Runnable) show::doClick, 1, TimeUnit.SECONDS);
@@ -299,30 +345,58 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     }
 
 
+    /**
+     * setter function for the game board controller of the panel
+     * @param gameboardController controller that connects the game board
+     */
     public void setGameboardController(GameboardController gameboardController) {
         this.gameboardController = gameboardController;
     }
 
+    /**
+     * setter function for the use card controller of the panel
+     * @param useCardController controller that connects the use card use case
+     */
     public void setUseCardController(UseCardController useCardController) {
         this.useCardController = useCardController;
     }
 
+    /**
+     * setter function for the throw card controller of the panel
+     * @param throwCardController controller that connects the throw card use case
+     */
     public void setThrowCardController(ThrowCardController throwCardController) {
         this.throwCardController = throwCardController;
     }
 
+    /**
+     * setter function for the end turn controller of the panel
+     * @param endTurnController controller that connects the end turn use case
+     */
     public void setEndTurnController(EndTurnController endTurnController) {
         this.endTurnController = endTurnController;
     }
 
+    /**
+     * setter function for the status controller of the panel
+     * @param statusController controller that connects the global status use case
+     */
     public void setStatusController(StatusController statusController) {
         this.statusController = statusController;
     }
 
+    /**
+     * setter function for the strategy of the panel
+     * @param strategy string that represents the input strategy
+     */
     public void setStrategy(String strategy) {
         this.strategy = strategy;
     }
 
+    /**
+     * setter function to set the cards in the current player's deck
+     * @param pcards list of cards that represents the deck
+     */
     public void setPcards(List<String> pcards) {
         this.pcards = pcards;
         cards.removeAllItems();
@@ -331,16 +405,28 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         }
     }
 
+    /**
+     * setter function to set the possible targets of the current player
+     * @param plist list of players that the current player can play cards on
+     */
     public void setPlist(List<String> plist) {
         players.removeAllItems();
         for (String s : plist) {
             players.addItem(s);}
     }
 
+    /**
+     * setter function to set the current playing player
+     * @param player current player in the panel
+     */
     public void setPlayer(Player player) {
         this.player = player;
     }
 
+    /**
+     * method that implements the see card function on the panel
+     * @param cardName input the name of the card being displayed
+     */
     public void displayCard(String cardName) {
         String fileSource;
         fileSource = null;

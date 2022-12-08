@@ -7,6 +7,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Class that sets up the other players' panel on the GameFrame
+ */
 public class OtherPlayersPanel extends JPanel{
 
     private final JLabel name = new JLabel();
@@ -18,6 +21,14 @@ public class OtherPlayersPanel extends JPanel{
 
     private JLabel carMinus = new JLabel();
 
+    /**
+     * method to add an image on the panel
+     * @param src file path of the image
+     * @param x image position on x-axis of the panel in pixels
+     * @param y image position on y-axis of the panel in pixels
+     * @param width width of the image in pixels
+     * @param height length of the image in pixels
+     */
     private void addImageAt(String src, int x, int y, int width, int height){
         BufferedImage img = null;
         try {
@@ -32,6 +43,9 @@ public class OtherPlayersPanel extends JPanel{
 
     }
 
+    /**
+     * Main method that sets up all the gui elements for the other players' panel
+     */
     public OtherPlayersPanel(){
         super();
         this.setLayout(null);
@@ -88,14 +102,34 @@ public class OtherPlayersPanel extends JPanel{
         setVisible(true);
     }
 
+    /**
+     * method used in GameFrame to display players' name
+     * @param name players' name
+     */
     public void displayName(String name) {this.name.setText(name);}
 
+    /**
+     * method used in GameFrame to display players' health
+     * @param hp players' health
+     */
     public void displayHealth(String hp) {this.health.setText(hp);}
 
+    /**
+     * method used in GameFrame to display players' +1 car equipment
+     * @param check boolean value showing whether the player is equipped with the equipment
+     */
     public void displayCarPlus(boolean check) {this.carPlus.setVisible(check);}
 
+    /**
+     * method used in GameFrame to display players' -1 car equipment
+     * @param check boolean value showing whether the player is equipped with the equipment
+     */
     public void displayCarMinus(boolean check) {this.carMinus.setVisible(check);}
 
+    /**
+     * method used in GameFrame to display players' machine gun equipment
+     * @param check boolean value showing whether the player is equipped with the equipment
+     */
     public void displayMG(boolean check) {this.mg.setVisible(check);}
 }
 
