@@ -12,6 +12,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     }
     @Override
     public void displayLogin(LoginResponseModel loginResponseModel) {
-        UI.viewLogin(loginResponseModel);
+        LoginViewModel.getInstance().updateView(loginResponseModel.getLogin(), loginResponseModel.getMessage());
+        UI.viewLogin(LoginViewModel.getInstance());
     }
 }

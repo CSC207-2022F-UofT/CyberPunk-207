@@ -9,6 +9,7 @@ public class StatusPresenter implements StatusOutputBoundary{
 
     @Override
     public void displayStatus(StatusResponseModel statusResponseModel) {
-        UI.viewStatus(statusResponseModel);
+        GlobalStatusViewModel.getInstance().updateView(statusResponseModel.getGlobalStatus(), statusResponseModel.getHands());
+        UI.viewStatus(GlobalStatusViewModel.getInstance());
     }
 }

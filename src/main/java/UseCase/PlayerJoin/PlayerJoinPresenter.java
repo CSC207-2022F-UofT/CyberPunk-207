@@ -10,6 +10,7 @@ public class PlayerJoinPresenter implements PlayerJoinOutputBoundary {
 
     @Override
     public void playersJoin(PlayerJoinResponseModel playerJoinResponseModel) {
-        UI.viewPlayers(playerJoinResponseModel);
+        PlayerJoinViewModel.getInstance().updateView(playerJoinResponseModel.getPlayersJoin(), playerJoinResponseModel.getRoleMap());
+        UI.viewPlayers(PlayerJoinViewModel.getInstance());
     }
 }

@@ -110,10 +110,10 @@ public class LoginFrame extends JFrame implements LoginUpdatable{
 
 
     @Override
-    public void viewLogin(LoginResponseModel loginResponseModel) {
-        String msg = loginResponseModel.getMessage();
+    public void viewLogin(LoginViewModel loginViewModel) {
+        String msg = loginViewModel.getMessage();
         JOptionPane.showMessageDialog(null, msg);
-        if(loginResponseModel.getLogin()){
+        if(loginViewModel.getLogin()){
             setVisible(false);
         }
     }

@@ -1,5 +1,5 @@
 package UseCase.GlobalStatus;
 
 public interface StatusUpdatable {
-    void viewStatus(StatusResponseModel statusResponseModel);
+    void viewStatus(GlobalStatusViewModel globalStatusViewModel);
 }

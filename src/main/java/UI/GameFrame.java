@@ -1,25 +1,17 @@
 package UI;
 
-import UseCase.EndTurn.EndTurnController;
-import UseCase.EndTurn.EndTurnResponseModel;
-import UseCase.EndTurn.EndTurnUpdatable;
 import UseCase.GameBoard.GameboardController;
-import UseCase.GameBoard.GameboardResponseModel;
 import UseCase.GameBoard.GameboardUpdatable;
-import UseCase.GlobalStatus.Status;
-import UseCase.GlobalStatus.StatusController;
-import UseCase.GlobalStatus.StatusResponseModel;
-import UseCase.GlobalStatus.StatusUpdatable;
+import UseCase.GameBoard.GameboardViewModel;
+import UseCase.GlobalStatus.*;
+import UseCase.PlayerJoin.PlayerJoinViewModel;
+import UseCase.UseCard.UseCardViewModel;
 import entity.Identity;
-import UseCase.PlayerJoin.PlayerJoinResponseModel;
 import UseCase.PlayerJoin.PlayerJoinUpdatable;
-import UseCase.UseCard.UseCardController;
-import UseCase.UseCard.UseCardResponseModel;
 import UseCase.UseCard.UseCardUpdatable;
 import entity.Player;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,9 +115,9 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
 
 
     @Override
-    public void viewGameboard(GameboardResponseModel gameboardResponseModel) {
-        Player currentPlayer = gameboardResponseModel.getCurrentPlayer();
-        String isEnd = gameboardResponseModel.isEnd();
+    public void viewGameboard(GameboardViewModel gameboardViewModel) {
+        Player currentPlayer = gameboardViewModel.getCurrentPlayer();
+        String isEnd = gameboardViewModel.getIsEnd();
         if(!isEnd.equals("")){
             JOptionPane.showMessageDialog(null, isEnd);
             try {
@@ -137,50 +129,50 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
             gamePanel.setVisible(false);
             rulePanel.setVisible(true);
         }
-        if(gameboardResponseModel.isDead()){
+        if(gameboardViewModel.isDead()){
             gameboardController.turnChange();
             statusController.turnChange();
         }
         current.setPlayer(currentPlayer);
-        current.setPlist(gameboardResponseModel.getTargetList());
-        HashMap<String, Integer> roleExist = gameboardResponseModel.getRoleExist();
+        current.setPlist(gameboardViewModel.getTargetList());
+        HashMap<String, Integer> roleExist = gameboardViewModel.getRoleExist();
         current.displayRole(captain, roleExist);
-        current.displaySide(gameboardResponseModel.getPlayerRole());
-        if(gameboardResponseModel.getStrategy().equals("AI")){
+        current.displaySide(gameboardViewModel.getPlayerRole());
+        if(gameboardViewModel.getStrategy().equals("AI")){
             current.setStrategy("AI");
             current.AIPlayStrategy();
         }
     }
 
     @Override
-    public void viewStatus(StatusResponseModel statusResponseModel) {
-        current.setPcards(statusResponseModel.getHands());
-        current.displayHP(statusResponseModel.getGlobalStatus().get(0).get(2));
-        current.displayName(statusResponseModel.getGlobalStatus().get(0).get(0));
-        current.displayMG(!Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(3), ""));
-        current.displayCarPlus(!Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(4), ""));
-        current.displayCarMinus(!Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(5), ""));
+    public void viewStatus(GlobalStatusViewModel globalStatusViewModel) {
+        current.setPcards(globalStatusViewModel.getHands());
+        current.displayHP(globalStatusViewModel.getGlobalStatus().get(0).get(2));
+        current.displayName(globalStatusViewModel.getGlobalStatus().get(0).get(0));
+        current.displayMG(!Objects.equals(globalStatusViewModel.getGlobalStatus().get(0).get(3), ""));
+        current.displayCarPlus(!Objects.equals(globalStatusViewModel.getGlobalStatus().get(0).get(4), ""));
+        current.displayCarMinus(!Objects.equals(globalStatusViewModel.getGlobalStatus().get(0).get(5), ""));
 
         List<String> othersHP = new ArrayList<>();
-        for(int i = 1; i < 5;i++){othersHP.add(statusResponseModel.getGlobalStatus().get(i).get(2));}
+        for(int i = 1; i < 5;i++){othersHP.add(globalStatusViewModel.getGlobalStatus().get(i).get(2));}
         this.displayHP(othersHP);
 
         List<String> othersName = new ArrayList<>();
-        for(int i = 1; i < 5;i++){othersName.add(statusResponseModel.getGlobalStatus().get(i).get(0));}
+        for(int i = 1; i < 5;i++){othersName.add(globalStatusViewModel.getGlobalStatus().get(i).get(0));}
         this.displayOtherNames(othersName);
 
         List<Boolean> carPlus = new ArrayList<>();
-        for(int i = 1; i < 5;i++){carPlus.add(!Objects.equals(statusResponseModel.getGlobalStatus().get(i).get(4)
+        for(int i = 1; i < 5;i++){carPlus.add(!Objects.equals(globalStatusViewModel.getGlobalStatus().get(i).get(4)
                 , ""));}
         this.displayCarPlus(carPlus);
 
         List<Boolean> carMinus = new ArrayList<>();
-        for(int i = 1; i < 5;i++){carMinus.add(!Objects.equals(statusResponseModel.getGlobalStatus().get(i).get(5)
+        for(int i = 1; i < 5;i++){carMinus.add(!Objects.equals(globalStatusViewModel.getGlobalStatus().get(i).get(5)
                 , ""));}
         this.displayCarMinus(carMinus);
 
         List<Boolean> mg = new ArrayList<>();
-        for(int i = 1; i < 5;i++){mg.add(!Objects.equals(statusResponseModel.getGlobalStatus().get(i).get(3)
+        for(int i = 1; i < 5;i++){mg.add(!Objects.equals(globalStatusViewModel.getGlobalStatus().get(i).get(3)
                 , ""));}
         this.displayMG(mg);
 
@@ -190,16 +182,16 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
 
 
     @Override
-    public void viewCard(UseCardResponseModel useCardResponseModel) {
-        String msg = useCardResponseModel.getMessage();
+    public void viewCard(UseCardViewModel useCardViewModel) {
+        String msg = useCardViewModel.getMessage();
         current.displayIns(msg);
     }
 
     @Override
-    public void viewPlayers(PlayerJoinResponseModel playerJoinResponseModel) {
-        captain = playerJoinResponseModel.getRoleMap().get(Identity.CAPTAIN).toString();
-        statusController.init(playerJoinResponseModel.getPlayersJoin());
-        gameboardController.startGame(playerJoinResponseModel.getPlayersJoin(), playerJoinResponseModel.getRoleMap());
+    public void viewPlayers(PlayerJoinViewModel playerjoinViewModel) {
+        captain = playerjoinViewModel.getRoleMap().get(Identity.CAPTAIN).toString();
+        statusController.init(playerjoinViewModel.getPlayersJoin());
+        gameboardController.startGame(playerjoinViewModel.getPlayersJoin(), playerjoinViewModel.getRoleMap());
         rulePanel.setVisible(false);
         gamePanel.setVisible(true);
         setContentPane(gamePanel);
