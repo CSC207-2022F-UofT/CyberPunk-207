@@ -38,11 +38,13 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
     private final JLabel side = new JLabel();
 
-    private JLabel carPlus;
+    private final JLabel round = new JLabel();
 
-    private JLabel mg;
+    private JLabel carPlus = new JLabel();
 
-    private JLabel carMinus;
+    private JLabel mg = new JLabel();
+
+    private JLabel carMinus = new JLabel();
 
     private GameboardController gameboardController;
 
@@ -185,7 +187,9 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
             throwCardController.throwCard(this.player, card);
         });
 
-        end.addActionListener(e -> endTurnController.endTurn(this.player));
+        end.addActionListener(e -> {
+            endTurnController.endTurn(this.player);
+        });
 
         show.addActionListener(e -> {
             String cn = (String) cards.getSelectedItem();
@@ -220,7 +224,6 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         message.setFont(new Font("Calibri", Font.BOLD, 20));
         message.setBounds(420, 550, 600, 200);
 
-        JLabel round = new JLabel();
         round.setBounds(700, 800, 100, 100);
 
         this.add(message);
@@ -241,6 +244,9 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         message.setText(instruction);
     }
 
+    public void displayPlayerNum(String pn) {
+        name.setText(pn);
+    }
 
     public void displayHP(String hp) {
         health.setText(hp);

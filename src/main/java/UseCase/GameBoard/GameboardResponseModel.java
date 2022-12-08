@@ -5,15 +5,17 @@ import entity.Player;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ *A response model of end turn, containing all information of current game board, including players, associating roles, alive status
+ * Serve as input for display instruction method of output boundary
+ **/
 public class GameboardResponseModel {
     private List<String> targetList;
     HashMap<String, Integer> roleExist;
     private String isEnd;
     private boolean isDead;
     private Player currentPlayer;
-
     private String playeRole;
-
 
     public GameboardResponseModel(List<String> targetList, String isEnd, boolean isDead, HashMap<String, Integer> roleExist, Player currentPlayer) {
         this.targetList = targetList;
