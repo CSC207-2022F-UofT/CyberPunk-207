@@ -1,7 +1,7 @@
 package UseCase.PlayerJoin;
 
 import entity.Player;
-import UseCase.Identity;
+import entity.Identity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,14 +10,10 @@ import java.util.Random;
 
 import static java.util.Collections.swap;
 
-/**
- * Playerjoin use case, assigning player's role and type (human or AI) based on how many players attend the game
- * After initialization, send role and player information to output boundary
- **/
 public class PlayerJoin implements PlayerJoinInputBoundary {
     private List<Player> players;
-    private List<Identity> roles;
     private HashMap<Identity, List<Player>> roleMap;
+    private List<Identity> roles;
     private PlayerJoinOutputBoundary playerJoinOutputBoundary;
 
     public PlayerJoin(PlayerJoinOutputBoundary playerJoinOutputBoundary) {
@@ -27,9 +23,6 @@ public class PlayerJoin implements PlayerJoinInputBoundary {
         roleMap = new HashMap<>();
     }
 
-    /**
-     * A helper function initializing five players and randomly assign roles for them
-     **/
     public void init() {
         shuffleRoles();
         roleMap.put(Identity.CAPTAIN, new ArrayList<>());
@@ -44,9 +37,6 @@ public class PlayerJoin implements PlayerJoinInputBoundary {
         }
     }
 
-    /**
-     * A helper function shuffling the role attribute (a list), to be assigned to players
-     **/
     public void shuffleRoles(){
         roles.addAll(List.of(Identity.CAPTAIN, Identity.POLICE, Identity.CRIMINAL, Identity.CRIMINAL, Identity.CORPO));
         Random r = new Random();
@@ -55,11 +45,6 @@ public class PlayerJoin implements PlayerJoinInputBoundary {
         }
     }
 
-    /**
-     * Assign player's role randomly. Based on input of request model, if number of players is smaller than 5 then add AI players.
-     * After initialization, create and send a new response model incorporating role and player information to output boundary.
-     * @param playerJoinRequestModel A request model input
-     **/
     public void playersJoin(PlayerJoinRequestModel playerJoinRequestModel){
         init();
         for (int i = 0; i < 5; i++) {
@@ -71,4 +56,5 @@ public class PlayerJoin implements PlayerJoinInputBoundary {
         }
         playerJoinOutputBoundary.playersJoin(new PlayerJoinResponseModel(players, roleMap));
     }
+
 }

@@ -1,9 +1,5 @@
 package UseCase.Login;
 
-/**
- * A response model of login, containing login results (two attributes: isLogin (boolean) and message(string)
- * To be transmitted and viewed by UI
- **/
 public class LoginResponseModel {
     private Boolean isLogin;
 

@@ -6,22 +6,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Account Database use case, containing methods including get accounts and add new accounts from and towards database
- **/
 public class AccountDataBase implements AccountDatabaseGateway {
     private List<Account> accounts = new ArrayList<>();
 
-    /**
-     * Get accounts from database
-     * @return list of accounts
-     **/
+
     @Override
     public List<Account> getAccounts(){
         try {
             FileInputStream f = new FileInputStream("src/main/resource/Accounts.txt");
             ObjectInputStream inputStream = new ObjectInputStream(f);
-            accounts = (List<Account>) inputStream.readObject();
+            accounts = (List<Account>) inputStream.readObject();//zhelianghuang
             f.close();
             inputStream.close();
         } catch (FileNotFoundException e) {
@@ -34,10 +28,6 @@ public class AccountDataBase implements AccountDatabaseGateway {
 
     }
 
-    /**
-     * Write new account into database
-     * @param account The new account to be added
-     **/
     @Override
     public void newAccount(Account account){
         try {

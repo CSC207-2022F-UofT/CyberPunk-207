@@ -1,15 +1,13 @@
 package UI;
 
 import UseCase.GameBoard.GameboardController;
-import UseCase.GameBoard.GameboardResponseModel;
 import UseCase.GameBoard.GameboardUpdatable;
-import UseCase.GlobalStatus.StatusController;
-import UseCase.GlobalStatus.StatusResponseModel;
-import UseCase.GlobalStatus.StatusUpdatable;
-import UseCase.Identity;
-import UseCase.PlayerJoin.PlayerJoinResponseModel;
+import UseCase.GameBoard.GameboardViewModel;
+import UseCase.GlobalStatus.*;
+import UseCase.PlayerJoin.PlayerJoinViewModel;
+import UseCase.UseCard.UseCardViewModel;
+import entity.Identity;
 import UseCase.PlayerJoin.PlayerJoinUpdatable;
-import UseCase.UseCard.UseCardResponseModel;
 import UseCase.UseCard.UseCardUpdatable;
 import entity.Player;
 
@@ -20,6 +18,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class that initiates the frame and game page for the game
+ */
 public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdatable, UseCardUpdatable, PlayerJoinUpdatable {
 
     OtherPlayersPanel position1 = new OtherPlayersPanel();
@@ -38,6 +39,9 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
 
     private JPanel gamePanel = new GamePanel();
 
+    /**
+     * Main method that adds all the panels for the GameFrame
+     */
     public GameFrame() {
         this.setTitle("Cyberpunk 207");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,7 +69,10 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         rulePanel.setVisible(true);
     }
 
-
+    /**
+     * Method used to display other players' name on GameFrame
+     * @param names List of strings representing other players' name
+     */
     public void displayOtherNames(List<String> names) {
         position1.displayName(names.get(3));
         position2.displayName(names.get(2));
@@ -73,6 +80,10 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         position4.displayName(names.get(0));
     }
 
+    /**
+     * Method used to display other players' health on GameFrame
+     * @param hps List of strings representing other players' health
+     */
     public void displayHP(List<String> hps) {
         position1.displayHealth(hps.get(3));
         position2.displayHealth(hps.get(2));
@@ -80,6 +91,10 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         position4.displayHealth(hps.get(0));
     }
 
+    /**
+     * Method used to display other players' +1 distance car equipment on GameFrame
+     * @param carP List of booleans representing other players' +1 distance car equipment
+     */
     public void displayCarPlus(List<Boolean> carP) {
         position1.displayCarPlus(carP.get(3));
         position2.displayCarPlus(carP.get(2));
@@ -87,6 +102,10 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         position4.displayCarPlus(carP.get(0));
     }
 
+    /**
+     * Method used to display other players' -1 distance car equipment on GameFrame
+     * @param carM List of booleans representing other players' -1 distance car equipment
+     */
     public void displayCarMinus(List<Boolean> carM) {
         position1.displayCarMinus(carM.get(3));
         position2.displayCarMinus(carM.get(2));
@@ -94,6 +113,10 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         position4.displayCarMinus(carM.get(0));
     }
 
+    /**
+     * Method used to display other players' machinegun equipment on GameFrame
+     * @param MG List of booleans representing other players' machinegun equipment
+     */
     public void displayMG(List<Boolean> MG) {
         position1.displayMG(MG.get(3));
         position2.displayMG(MG.get(2));
@@ -102,24 +125,34 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
     }
 
 
-
+    /**
+     * Setter method to set gameboardController for the GameFrame
+     * @param gameboardController input Gameboard controller
+     */
     public void setGameboardController(GameboardController gameboardController) {
         this.gameboardController = gameboardController;
         current.setGameboardController(gameboardController);
 
     }
 
+    /**
+     * Setter method to set setStatusController for the GameFrame
+     * @param statusController input setStatus controller
+     */
     public void setStatusController(StatusController statusController) {
         this.statusController = statusController;
         current.setStatusController(statusController);
     }
 
 
-
+    /**
+     * Implement viewGameboard method for the GameFrame
+     * @param gameboardViewModel A view model containing all information of current game board
+     */
     @Override
-    public void viewGameboard(GameboardResponseModel gameboardResponseModel) {
-        Player currentPlayer = gameboardResponseModel.getCurrentPlayer();
-        String isEnd = gameboardResponseModel.isEnd();
+    public void viewGameboard(GameboardViewModel gameboardViewModel) {
+        Player currentPlayer = gameboardViewModel.getCurrentPlayer();
+        String isEnd = gameboardViewModel.getIsEnd();
         if(!isEnd.equals("")){
             JOptionPane.showMessageDialog(null, isEnd);
             try {
@@ -131,75 +164,96 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
             gamePanel.setVisible(false);
             rulePanel.setVisible(true);
         }
-        if(gameboardResponseModel.isDead()){
+        if(gameboardViewModel.isDead()){
             gameboardController.turnChange();
             statusController.turnChange();
         }
-        //可在此设置ai
         current.setPlayer(currentPlayer);
-        current.setPlist(gameboardResponseModel.getTargetList());
-        HashMap<String, Integer> roleExist = gameboardResponseModel.getRoleExist();
+        current.setPlist(gameboardViewModel.getTargetList());
+        HashMap<String, Integer> roleExist = gameboardViewModel.getRoleExist();
         current.displayRole(captain, roleExist);
+        current.displaySide(gameboardViewModel.getPlayerRole());
+        if(gameboardViewModel.getStrategy().equals("AI")){
+            current.setStrategy("AI");
+            current.AIPlayStrategy();
+        }
     }
 
+    /**
+     * Method to update all players' status such as health and name
+     * @param globalStatusViewModel view model containing all information for the current and other players' status
+     */
     @Override
-    public void viewStatus(StatusResponseModel statusResponseModel) {
-        current.setPcards(statusResponseModel.getHands());
-        current.displayHP(statusResponseModel.getGlobalStatus().get(0).get(2));
-        current.displayName(statusResponseModel.getGlobalStatus().get(0).get(0));
-        current.displaySide(statusResponseModel.getGlobalStatus().get(0).get(7));
-        current.displayMG(!Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(3), ""));
-        current.displayCarPlus(!Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(4), ""));
-        current.displayCarMinus(!Objects.equals(statusResponseModel.getGlobalStatus().get(0).get(5), ""));
+    public void viewStatus(GlobalStatusViewModel globalStatusViewModel) {
+        current.setPcards(globalStatusViewModel.getHands());
+        current.displayHP(globalStatusViewModel.getGlobalStatus().get(0).get(2));
+        current.displayName(globalStatusViewModel.getGlobalStatus().get(0).get(0));
+        current.displayMG(!Objects.equals(globalStatusViewModel.getGlobalStatus().get(0).get(3), ""));
+        current.displayCarPlus(!Objects.equals(globalStatusViewModel.getGlobalStatus().get(0).get(4), ""));
+        current.displayCarMinus(!Objects.equals(globalStatusViewModel.getGlobalStatus().get(0).get(5), ""));
 
         List<String> othersHP = new ArrayList<>();
-        for(int i = 1; i < 5;i++){othersHP.add(statusResponseModel.getGlobalStatus().get(i).get(2));}
+        for(int i = 1; i < 5;i++){othersHP.add(globalStatusViewModel.getGlobalStatus().get(i).get(2));}
         this.displayHP(othersHP);
 
         List<String> othersName = new ArrayList<>();
-        for(int i = 1; i < 5;i++){othersName.add(statusResponseModel.getGlobalStatus().get(i).get(0));}
+        for(int i = 1; i < 5;i++){othersName.add(globalStatusViewModel.getGlobalStatus().get(i).get(0));}
         this.displayOtherNames(othersName);
 
         List<Boolean> carPlus = new ArrayList<>();
-        for(int i = 1; i < 5;i++){carPlus.add(!Objects.equals(statusResponseModel.getGlobalStatus().get(i).get(4)
+        for(int i = 1; i < 5;i++){carPlus.add(!Objects.equals(globalStatusViewModel.getGlobalStatus().get(i).get(4)
                 , ""));}
         this.displayCarPlus(carPlus);
 
         List<Boolean> carMinus = new ArrayList<>();
-        for(int i = 1; i < 5;i++){carMinus.add(!Objects.equals(statusResponseModel.getGlobalStatus().get(i).get(5)
+        for(int i = 1; i < 5;i++){carMinus.add(!Objects.equals(globalStatusViewModel.getGlobalStatus().get(i).get(5)
                 , ""));}
         this.displayCarMinus(carMinus);
 
         List<Boolean> mg = new ArrayList<>();
-        for(int i = 1; i < 5;i++){mg.add(!Objects.equals(statusResponseModel.getGlobalStatus().get(i).get(3)
+        for(int i = 1; i < 5;i++){mg.add(!Objects.equals(globalStatusViewModel.getGlobalStatus().get(i).get(3)
                 , ""));}
         this.displayMG(mg);
 
-
-
     }
 
 
+    /**
+     * method that allow users to see the card in their deck
+     * @param useCardViewModel view model that allows player to check their cards
+     */
     @Override
-    public void viewCard(UseCardResponseModel useCardResponseModel) {
-        String msg = useCardResponseModel.getMessage();
+    public void viewCard(UseCardViewModel useCardViewModel) {
+        String msg = useCardViewModel.getMessage();
         current.displayIns(msg);
     }
 
+    /**
+     * method that sets up the player and initiates the game
+     * @param playerjoinViewModel view model that allows player to join the game
+     */
     @Override
-    public void viewPlayers(PlayerJoinResponseModel playerJoinResponseModel) {
-        captain = playerJoinResponseModel.getRoleMap().get(Identity.CAPTAIN).toString();
-        statusController.init(playerJoinResponseModel.getPlayersJoin());
-        gameboardController.startGame(playerJoinResponseModel.getPlayersJoin(), playerJoinResponseModel.getRoleMap());
+    public void viewPlayers(PlayerJoinViewModel playerjoinViewModel) {
+        captain = playerjoinViewModel.getRoleMap().get(Identity.CAPTAIN).toString();
+        statusController.init(playerjoinViewModel.getPlayersJoin());
+        gameboardController.startGame(playerjoinViewModel.getPlayersJoin(), playerjoinViewModel.getRoleMap());
         rulePanel.setVisible(false);
         gamePanel.setVisible(true);
         setContentPane(gamePanel);
     }
 
+    /**
+     * getter method for rule panel
+     * @return rule panel of GameFrame
+     */
     public RulePanel getRulePanel() {
         return rulePanel;
     }
 
+    /**
+     * getter method for current main player panel
+     * @return main player panel
+     */
     public MainPlayerPanel getCurrentPanel() {
         return current;
     }
