@@ -12,7 +12,7 @@ public class GameboardPresenter implements GameboardOutputBoundary{
     }
 
     /**
-     * Transmit all information of current gameboard (represented by end turn response model) to UI.
+     * Transmit all information of current gameboard (represented by end turn response model).
      * @param gameboardResponseModel a response model
      **/
     @Override

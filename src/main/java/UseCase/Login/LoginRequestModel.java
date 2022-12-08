@@ -1,5 +1,9 @@
 package UseCase.Login;
 
+/**
+ * A request model of login, containing three attributes: username, password and a boolean type representing whether the user want to register a new account
+ * Serve as input for user join method within input boundary
+ **/
 public class LoginRequestModel {
     private Boolean register;
     private String userID;
