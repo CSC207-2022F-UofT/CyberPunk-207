@@ -34,12 +34,11 @@ class UseCardTest {
     private Player p2 = new Player(2);
     private Player p3 = new Player(3);
     private Player p4 = new Player(4);
-    private Status status;
 
     @BeforeEach
     void setUp() {
         mockitoCloseable = openMocks(this);
-        status = new Status(mockStatusOutputBoundary);
+        Status status = new Status(mockStatusOutputBoundary);
         players.add(p1);
         players.add(p2);
         players.add(p3);
