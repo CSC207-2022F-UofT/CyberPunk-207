@@ -1,7 +1,6 @@
 package UI;
 
 import UseCase.EndTurn.EndTurnController;
-import UseCase.EndTurn.EndTurnResponseModel;
 import UseCase.EndTurn.EndTurnUpdatable;
 import UseCase.EndTurn.EndTurnViewModel;
 import UseCase.GameBoard.GameboardController;
@@ -12,7 +11,6 @@ import entity.Player;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.Timer;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,8 +20,6 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import static java.lang.Thread.sleep;
 
 
 public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
@@ -43,13 +39,11 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
     private final JLabel side = new JLabel();
 
-    private final JLabel round = new JLabel();
+    private JLabel carPlus;
 
-    private JLabel carPlus = new JLabel();
+    private JLabel mg;
 
-    private JLabel mg = new JLabel();
-
-    private JLabel carMinus = new JLabel();
+    private JLabel carMinus;
 
     private GameboardController gameboardController;
 
@@ -72,6 +66,8 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     private final JButton end;
 
     private final JButton show;
+
+    private String strategy;
 
     public MainPlayerPanel(){
 
@@ -195,9 +191,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
             throwCardController.throwCard(this.player, card);
         });
 
-        end.addActionListener(e -> {
-            endTurnController.endTurn(this.player);
-        });
+        end.addActionListener(e -> endTurnController.endTurn(this.player));
 
         show.addActionListener(e -> {
             String cn = (String) cards.getSelectedItem();
@@ -231,6 +225,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
         message.setFont(new Font("Calibri", Font.BOLD, 20));
         message.setBounds(420, 550, 600, 200);
 
+        JLabel round = new JLabel();
         round.setBounds(700, 800, 100, 100);
 
         this.add(message);
@@ -249,10 +244,6 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
     public void displayIns(String instruction) {
         message.setText(instruction);
-    }
-
-    public void displayPlayerNum(String pn) {
-        name.setText(pn);
     }
 
     public void displayHP(String hp) {
@@ -291,7 +282,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
             displayIns(msg);
             use.setVisible(false);
             discard.setVisible(true);
-            if(player.getStrategy().equals("AI")){
+            if(strategy.equals("AI")){
                 ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
                 executor.schedule((Runnable) discard::doClick, 1, TimeUnit.SECONDS);
                 executor.schedule((Runnable) end::doClick, 2, TimeUnit.SECONDS);
@@ -301,13 +292,10 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
     }
 
     public void AIPlayStrategy(){
-
-
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         executor.schedule((Runnable) show::doClick, 1, TimeUnit.SECONDS);
         executor.schedule((Runnable) use::doClick, 2, TimeUnit.SECONDS);
         executor.schedule((Runnable) end::doClick, 3, TimeUnit.SECONDS);
-
     }
 
 
@@ -329,6 +317,10 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
     public void setStatusController(StatusController statusController) {
         this.statusController = statusController;
+    }
+
+    public void setStrategy(String strategy) {
+        this.strategy = strategy;
     }
 
     public void setPcards(List<String> pcards) {

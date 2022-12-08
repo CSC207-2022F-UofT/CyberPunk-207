@@ -4,8 +4,6 @@ import UseCase.GlobalStatus.Status;
 import entity.Card.Card;
 import entity.Card.Dodge;
 import entity.Card.Shoot;
-import UseCase.Identity;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -95,6 +93,14 @@ public class Player {
      */
     public Identity getRole() {
         return role;
+    }
+
+    /**
+     * Get strategy of player
+     * @return: Strategy indicate whether player is human or AI
+     */
+    public String getStrategy() {
+        return strategy;
     }
 
     /**
