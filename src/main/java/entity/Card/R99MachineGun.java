@@ -11,6 +11,11 @@ public class R99MachineGun extends Card {
     public boolean needTarget() {
         return false;
     }
+    
+    /**
+     * Put on equipment "Weapon" for source player.
+     * The program will automatically consider this equipment in the future movements.
+     */
 
     public void use(){
         getSource().putOnEquipment("Weapon", this.toString());
