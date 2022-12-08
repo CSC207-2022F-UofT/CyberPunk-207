@@ -6,10 +6,6 @@ import entity.Player;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * A request model of game board, containing player and role map attribute
- * Serve as input for start game and change turn methods of input boundary
- **/
 public class GameboardRequestModel {
     private List<Player> players;
     private HashMap<Identity, List<Player>> roleMap;
