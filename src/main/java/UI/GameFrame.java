@@ -147,6 +147,7 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         current.displayRole(captain, roleExist);
         current.displaySide(gameboardResponseModel.getPlayerRole());
         if(gameboardResponseModel.getStrategy().equals("AI")){
+            current.setStrategy("AI");
             current.AIPlayStrategy();
         }
     }

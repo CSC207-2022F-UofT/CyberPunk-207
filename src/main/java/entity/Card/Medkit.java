@@ -16,7 +16,7 @@ public class Medkit extends Card {
     @Override
     public void use(){
         if (getSource().getHp() < getSource().getMaxHp()){
-            getSource().heal(1);
+            getSource().heal();
         }
     }
 
