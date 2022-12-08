@@ -90,4 +90,8 @@ public class Status implements StatusInputBoundary{
             globalStatus.add(status);
         }
     }
+
+    public LinkedList<List<String>> getStatus(){
+        return globalStatus;
+    }
 }
