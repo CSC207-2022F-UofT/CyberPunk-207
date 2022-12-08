@@ -63,7 +63,7 @@ public class PoliceRaidTest {
         card.setSource(p1);
         card.use();
         int hp = p2.getHp();
-        Assertions.assertEquals(2,hp);
+        Assertions.assertEquals(3,hp);
     }
 
     @Test

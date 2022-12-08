@@ -60,7 +60,7 @@ public class ShootTest {
         card.setTarget(p2);
         card.use();
         int hp = p2.getHp();
-        Assertions.assertEquals(2,hp);
+        Assertions.assertEquals(3,hp);
     }
 
     @Test
