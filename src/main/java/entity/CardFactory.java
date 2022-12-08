@@ -1,8 +1,19 @@
 package entity;
 
 import entity.Card.*;
-
+    /**
+     * Class CardFactory is able to produce all kinds of cards.
+     */
+      
 public class CardFactory {
+
+    /**
+     * Construct cards with certain card type
+     *
+     * @param cardName: A string representing type of card.
+     * @return corresponding card attributes
+     */
+
     public Card getCard(String cardName){
         switch (cardName) {
             case "Shoot":
