@@ -20,6 +20,7 @@ public class EndTurn implements EndTurnInputBoundary {
     @Override
     public void endTurn(EndTurnRequestModel endTurnRequestModel) {
         int numOfThrow = endTurnRequestModel.getPlayer().needThrow();
+        endTurnRequestModel.getPlayer().setUseShoot(false);
         if(numOfThrow > 0){
             String message = String.format("You need to throw %d Card(s), then click end turn", numOfThrow);
             endTurnOutputBoundary.displayInstruction(new EndTurnResponseModel(false, message ));
