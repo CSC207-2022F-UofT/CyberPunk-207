@@ -43,10 +43,10 @@ import entity.Card.*;
                 return new R99MachineGun();
             }
             else if(cardName.equals("Tesla")){
-                return new R99MachineGun();
+                return new Tesla();
             }
             else if(cardName.equals("Lambo")){
-                return new R99MachineGun();
+                return new Lambo();
             }
             return null;
     }
