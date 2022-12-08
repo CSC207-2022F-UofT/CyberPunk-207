@@ -93,7 +93,7 @@ public class Player {
         notifyHp(getHp());
     }
 
-    public void heal(int i) {
+    public void heal() {
         this.hp += 1;
         notifyHp(getHp());
     }

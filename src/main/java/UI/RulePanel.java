@@ -1,44 +1,26 @@
 package UI;
 
-import UseCase.GameBoard.GameboardController;
-import UseCase.GlobalStatus.StatusController;
-import UseCase.Identity;
 import UseCase.PlayerJoin.PlayerJoinController;
-import UseCase.PlayerJoin.PlayerJoinResponseModel;
-import UseCase.PlayerJoin.PlayerJoinUpdatable;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class RulePanel extends JPanel{
 
     private PlayerJoinController playerJoinController;
 
     public RulePanel(){
-//        this.ruleFrame = new JFrame("Rule");
-//        ruleFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1920, 1080);
         this.setBackground(new Color(173,216,230));
 
         this.setLayout(null);
-        Image bg = null;
-        try {
-            bg = ImageIO.read(new File("src/main/resource/rulesbg.jpg"));
-        } catch (IOException e) {
-            System.out.println("An exception occurred: " + e.getMessage());
-        }
 
         this.setBackground(Color.black);
 
-//        JLabel myLabel = new JLabel(new ImageIcon(bg));
-//        myLabel.setSize(1920,1080);
 
 
         BufferedImage rules = null;

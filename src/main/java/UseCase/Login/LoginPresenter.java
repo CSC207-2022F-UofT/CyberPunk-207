@@ -1,8 +1,6 @@
 package UseCase.Login;
 
-import UseCase.Login.LoginOutputBoundary;
 
-import javax.swing.*;
 
 public class LoginPresenter implements LoginOutputBoundary {
     private LoginUpdatable UI;

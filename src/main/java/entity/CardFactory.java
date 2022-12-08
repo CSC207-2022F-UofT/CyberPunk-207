@@ -4,30 +4,32 @@ import entity.Card.*;
 
 public class CardFactory {
     public Card getCard(String cardName){
-        if(cardName.equals("Shoot")){
-            return new Shoot();
-        } else if(cardName.equals("Dodge")){
-            return new Dodge();
-        }else if(cardName.equals("Medkit")){
-            return new Medkit();
-        }else if(cardName.equals("Destruction")){
-            return new Destruction();
-        }else if(cardName.equals("Robbery")){
-            return new Robbery();
-        }else if(cardName.equals("Lottery")){
-            return new Lottery();
-        }else if(cardName.equals("Policeraid")){
-            return new PoliceRaid();
-        }else if(cardName.equals("Shootout")){
-            return new Shootout();
-        }else if(cardName.equals("Traumateam")){
-            return new Traumateam();
-        }else if(cardName.equals("R99MachineGun")){
-            return new R99MachineGun();
-        }else if(cardName.equals("Tesla")){
-            return new R99MachineGun();
-        }else if(cardName.equals("Lambo")){
-            return new R99MachineGun();
-        }return null;
+        switch (cardName) {
+            case "Shoot":
+                return new Shoot();
+            case "Dodge":
+                return new Dodge();
+            case "Medkit":
+                return new Medkit();
+            case "Destruction":
+                return new Destruction();
+            case "Robbery":
+                return new Robbery();
+            case "Lottery":
+                return new Lottery();
+            case "Policeraid":
+                return new PoliceRaid();
+            case "Shootout":
+                return new Shootout();
+            case "Traumateam":
+                return new Traumateam();
+            case "R99MachineGun":
+                return new R99MachineGun();
+            case "Tesla":
+                return new Tesla();
+            case "Lambo":
+                return new Lambo();
+        }
+        return null;
     }
 }

@@ -5,7 +5,6 @@ import entity.Card.Card;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static java.util.Collections.shuffle;
 import static java.util.Collections.swap;
 
 public class CardsHeap {

@@ -1,6 +1,5 @@
 package entity.Card;
 
-import entity.Card.Card;
 
 /**
  * Implementation of equipment card R99MachineGun when equipped
