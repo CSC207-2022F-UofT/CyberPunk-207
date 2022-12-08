@@ -1,36 +1,31 @@
-package entities;
+package entity;
 
-import entity.Card.Lottery;
-import entity.Player;
-import org.junit.Test;
+import entity.Card.Traumateam;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
-import java.util.ArrayList;
-
-public class LotteryTest {
-    Lottery card = new Lottery();
+public class TraumateamTest {
+    Traumateam card = new Traumateam();
     Player noOne = new Player(1);
-    ArrayList cards = new ArrayList<>();
 
     @Test
     @DisplayName("Test needTarget")
     public void testNeedTarget(){
         Assertions.assertFalse(card.needTarget());}
 
-
     @Test
     @DisplayName("Test use")
     public void testUse(){
         card.setSource(noOne);
-        noOne.setPocketCards(cards);
+        noOne.setHp(2);
         card.use();
-        int b = card.getTarget().getPocketCards().size();
-        Assertions.assertEquals(2,b);
+        int b = noOne.getHp();
+        Assertions.assertEquals(3,b);
     }
 
     @Test
     @DisplayName("Test toString")
     public void testToString(){
-        Assertions.assertEquals("Lottery",card.toString());}
+        Assertions.assertEquals("Traumateam",card.toString());}
 }

@@ -322,4 +322,8 @@ public class Player {
     public String toString(){
         return "Player" + playerNO;
     }
+
+    public void setPocketCards(ArrayList<Card> pocketCards) {
+        this.pocketCards = pocketCards;
+    }
 }

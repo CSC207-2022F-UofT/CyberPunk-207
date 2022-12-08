@@ -33,7 +33,7 @@ Each character has 4 life points, the police chief has 5 life points, and the ch
 - Connected use case with front end UI following clean architecture	rules
 - Updated GitHub usage with commenting and review for new pull requests
 - Updated readme file for the project
-- Updated testing for entities, use cases and UI
+- Updated testing for entity, use cases and UI
 - Updated documentation for all codes and corrected naming conventions for all classes
 - Corrected bugs and errors that effected functionality of the program
 
@@ -49,7 +49,7 @@ Each character has 4 life points, the police chief has 5 life points, and the ch
 * [Login system](https://github.com/CSC207-2022F-UofT/course-project-group-148/tree/main/src/main/java/UseCase/Login) also used serialization to interact with local database that stores login information
 
 ## Testing coverage
-* Test coverage includes most [card entities](https://github.com/CSC207-2022F-UofT/course-project-group-148/tree/main/src/test/java/entities) to ensure their individual functionality
+* Test coverage includes most [card entity](https://github.com/CSC207-2022F-UofT/course-project-group-148/tree/main/src/test/java/entities) to ensure their individual functionality
 * Also tested all seven [use cases](https://github.com/CSC207-2022F-UofT/course-project-group-148/tree/main/src/test/java/UseCase) to ensure their normal functionality within the game
 
 ## Documentations

@@ -1,13 +1,12 @@
-package entities;
+package entity;
 
-import entity.Card.Medkit;
-import entity.Player;
-import org.junit.Test;
+import entity.Card.Tesla;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
-public class MedkitTest {
-    Medkit card = new Medkit();
+public class TeslaTest {
+    Tesla card = new Tesla();
     Player noOne = new Player(1);
 
     @Test
@@ -19,14 +18,12 @@ public class MedkitTest {
     @DisplayName("Test use")
     public void testUse(){
         card.setSource(noOne);
-        noOne.setHp(2);
         card.use();
-        int b = noOne.getHp();
-        Assertions.assertEquals(3,b);
+        Assertions.assertTrue(noOne.getEquipment().containsValue(card.toString()));
     }
 
     @Test
     @DisplayName("Test toString")
     public void testToString(){
-        Assertions.assertEquals("Medkit",card.toString());}
+        Assertions.assertEquals("Tesla",card.toString());}
 }

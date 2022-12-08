@@ -1,13 +1,12 @@
-package entities;
+package entity;
 
-import entity.Card.R99MachineGun;
-import entity.Player;
-import org.junit.Test;
+import entity.Card.Lambo;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
-public class R99MachineGunTest {
-    R99MachineGun card = new R99MachineGun();
+public class LamboTest {
+    Lambo card = new Lambo();
     Player noOne = new Player(1);
 
     @Test
@@ -21,10 +20,10 @@ public class R99MachineGunTest {
         card.setSource(noOne);
         card.use();
         Assertions.assertTrue(noOne.getEquipment().containsValue(card.toString()));
-    }
+}
 
     @Test
     @DisplayName("Test toString")
     public void testToString(){
-        Assertions.assertEquals("R99MachineGun",card.toString());}
+        Assertions.assertEquals("Lambo",card.toString());}
 }
