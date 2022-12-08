@@ -1,9 +1,5 @@
 package entity.Card;
-
-
-
 import entity.Player;
-
 import static UseCase.GameBoard.GameboardInteractor.getPlayers;
 
 /**
@@ -15,6 +11,10 @@ public class PoliceRaid extends Card {
         return false;
     }
 
+    /**
+     * For all players in game, if the player is not source player and the player has no shoot card, the player lose one hp.
+     */
+    @Override
     public void use(){
         for (Player p : getPlayers()) {
             if (p != getSource() && !p.whetherHasShoot() ) {
