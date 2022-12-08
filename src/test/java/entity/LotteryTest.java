@@ -61,7 +61,7 @@ public class LotteryTest {
         card.setSource(p1);
         p1.setPocketCards(cards);
         card.use();
-        int size = card.getTarget().getPocketCards().size();
+        int size = p1.getPocketCards().size();
         Assertions.assertEquals(2,size);
     }
 

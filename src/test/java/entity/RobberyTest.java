@@ -17,6 +17,7 @@ import static org.mockito.MockitoAnnotations.openMocks;
 public class RobberyTest {
     Robbery card = new Robbery();
     ArrayList<Card> cards = new ArrayList<>();
+    ArrayList<Card> cards2 = new ArrayList<>();
     private AutoCloseable mockitoCloseable;
     private Shoot shoot = new Shoot();
     private Dodge dodge = new Dodge();
@@ -59,7 +60,8 @@ public class RobberyTest {
     public void testUse(){
         cards.add(card);
         cards.add(card);
-        p1.setPocketCards(cards);
+        p2.setPocketCards(cards);
+        p1.setPocketCards(cards2);
         card.setSource(p1);
         card.setTarget(p2);
         card.use();
