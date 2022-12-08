@@ -1,13 +1,52 @@
 package entity;
 
+import UseCase.GlobalStatus.Status;
+import UseCase.GlobalStatus.StatusOutputBoundary;
+import entity.Card.Dodge;
 import entity.Card.R99MachineGun;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
+import entity.Card.Shoot;
+import org.junit.jupiter.api.*;
+import org.mockito.Mock;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.MockitoAnnotations.openMocks;
 
 public class R99MachineGunTest {
     R99MachineGun card = new R99MachineGun();
-    Player noOne = new Player(1);
+    private AutoCloseable mockitoCloseable;
+    private Shoot shoot = new Shoot();
+    private Dodge dodge = new Dodge();
+    private List<Player> players = new ArrayList<>();
+    private Player p1 = new Player(1);
+    private Player p2 = new Player(2);
+    private Player p3 = new Player(3);
+    private Player p4 = new Player(4);
+
+
+    @Mock
+    private StatusOutputBoundary mockStatusOutputBoundary;
+
+    @BeforeEach
+    void setUp() {
+        mockitoCloseable = openMocks(this);
+        Status status = new Status(mockStatusOutputBoundary);
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+        status.init(players);
+        p1.addToHand(shoot);
+        p1.addToHand(dodge);
+        p1.addToHand(shoot);
+        p1.addToHand(dodge);
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        mockitoCloseable.close();
+    }
 
     @Test
     @DisplayName("Test needTarget")
@@ -17,13 +56,13 @@ public class R99MachineGunTest {
     @Test
     @DisplayName("Test use")
     public void testUse(){
-        card.setSource(noOne);
+        card.setSource(p1);
         card.use();
-        Assertions.assertTrue(noOne.getEquipment().containsValue(card.toString()));
+        Assertions.assertTrue(p1.getEquipment().containsValue(card.toString()));
     }
 
     @Test
     @DisplayName("Test toString")
     public void testToString(){
-        Assertions.assertEquals("R99MachineGun",card.toString());}
+        Assertions.assertEquals("R99 Machine Gun",card.toString());}
 }

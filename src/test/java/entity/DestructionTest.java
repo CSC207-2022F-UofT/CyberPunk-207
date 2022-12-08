@@ -65,8 +65,8 @@ public class DestructionTest {
         p1.setPocketCards(cards);
         card.setTarget(p1);
         card.use();
-        int b = card.getTarget().getPocketCards().size();
-        Assertions.assertEquals(1,b);
+        int size = card.getTarget().getPocketCards().size();
+        Assertions.assertEquals(1,size);
     }
 
     @Test
