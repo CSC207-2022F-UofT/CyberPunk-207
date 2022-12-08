@@ -10,6 +10,11 @@ public class Tesla extends Card {
     public boolean needTarget() {
         return false;
     }
+    
+    /**
+     * Put on equipment "Minus" for source player.
+     * The program will automatically consider this equipment in the future movements.
+     */
 
     @Override
     public void use() {
