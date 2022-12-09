@@ -21,7 +21,7 @@ public class Status implements StatusInputBoundary{
 
     public Status(StatusOutputBoundary statusOutputBoundary) {
         globalStatus = new LinkedList<>();
-        turns = 1;
+        turns = 0;
         this.statusOutputBoundary = statusOutputBoundary;
     }
 
@@ -84,12 +84,9 @@ public class Status implements StatusInputBoundary{
      **/
     public int getIndex(int PlayerNo){
         int current = turns%5;
-        if(current == 0){
-            current = 5;
-        }
-        int index = PlayerNo - current;
+        int index = PlayerNo - 1  - current;
         if(index < 0 ){
-            index = Math.abs(index);
+            index = 5 + index;
         }
         return index;
     }

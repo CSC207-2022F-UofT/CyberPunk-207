@@ -174,7 +174,9 @@ public class Player {
      * Heal the player, and notify use case through notifyHp()
      */
     public void heal() {
-        this.hp += 1;
+        if(hp < maxHp){
+            this.hp += 1;
+        }
         notifyHp(getHp());
     }
 

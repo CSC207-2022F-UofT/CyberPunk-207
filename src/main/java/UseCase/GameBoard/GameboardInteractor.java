@@ -30,8 +30,8 @@ public class GameboardInteractor implements GameboardInputBoundary{
      * Call display method in output boundary to display the current gameboard information
      **/
     public void turnChange(){
-        int current = (seats.indexOf(currentPlayer) + 1) % seats.size();
-        currentPlayer = seats.get(current);
+        int current = (players.indexOf(currentPlayer) + 1) % players.size();
+        currentPlayer = players.get(current);
         currentPlayer.drawCards(2);
         GameboardResponseModel responseModel = new GameboardResponseModel(getTargetList(currentPlayer), checkEnd(),
                 checkDeath(currentPlayer), roleExist(), currentPlayer);
@@ -92,10 +92,10 @@ public class GameboardInteractor implements GameboardInputBoundary{
      * @return A boolean indicating whether the distance is smaller or equal to 1.
      **/
     public boolean calDis(Player player1, Player player2){
-        int pos1 = players.indexOf(player1);
-        int pos2 = players.indexOf(player2);
+        int pos1 = seats.indexOf(player1);
+        int pos2 = seats.indexOf(player2);
         int dis = Math.max(pos1 - pos2, pos2 - pos1);
-        dis = Math.min(dis, players.size() - dis);
+        dis = Math.min(dis, seats.size() - dis);
         if (player1.getEquipment().get("Minus").equals("")){
             dis -= 1;
         }
@@ -112,12 +112,12 @@ public class GameboardInteractor implements GameboardInputBoundary{
      * @return A boolean indicating whether the player is dead
      **/
     public boolean checkDeath(Player player){
-        for(Player p: players){
+        for(Player p: seats){
             if(p.getHp() == 0 && p.isAlive()){
             p.isDead();
             Identity role = p.getRole();
             roleMap.get(role).remove(p);
-            players.remove(p);
+            seats.remove(p);
             return true;
             }
         }
@@ -132,7 +132,7 @@ public class GameboardInteractor implements GameboardInputBoundary{
      **/
     public List<String> getTargetList(Player currentPlayer){
         List<String> targetList = new ArrayList<>();
-        for(Player player: players){
+        for(Player player: seats){
             if (!player.equals(currentPlayer)){
                 if (calDis(currentPlayer, player)){
                     targetList.add(player.toString());
