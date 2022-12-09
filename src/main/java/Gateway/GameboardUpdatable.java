@@ -1,4 +1,6 @@
-package UseCase.GameBoard;
+package Gateway;
+
+import UseCase.GameBoard.GameboardViewModel;
 
 /**
  * An interface for UI to implement

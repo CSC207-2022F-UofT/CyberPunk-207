@@ -1,4 +1,6 @@
-package UseCase.PlayerJoin;
+package Gateway;
+
+import UseCase.PlayerJoin.PlayerJoinViewModel;
 
 /**
  * An interface for UI to implement

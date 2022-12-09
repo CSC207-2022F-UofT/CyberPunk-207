@@ -1,4 +1,6 @@
-package UseCase.UseCard;
+package Gateway;
+
+import UseCase.UseCard.UseCardViewModel;
 
 /**
  * An interface for UI to implement

@@ -1,5 +1,7 @@
 package UseCase.UseCard;
 
+import Gateway.UseCardUpdatable;
+
 /**
  * Presenter of player join use case which implements output boundary
  * Contain a method of letting UI displaying the message if shoot has already been used

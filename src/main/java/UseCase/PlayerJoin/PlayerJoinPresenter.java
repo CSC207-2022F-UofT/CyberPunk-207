@@ -1,5 +1,7 @@
 package UseCase.PlayerJoin;
 
+import Gateway.PlayerJoinUpdatable;
+
 /**
  * Presenter of player join use case which implements output boundary
  * Contain a method letting UI display the result of player's role and type assignment, incorporated in a response model

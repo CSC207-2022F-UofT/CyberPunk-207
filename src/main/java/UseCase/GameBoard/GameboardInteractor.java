@@ -15,6 +15,7 @@ import java.util.List;
 public class GameboardInteractor implements GameboardInputBoundary{
 
     private static List<Player> players = new ArrayList<>();
+    private List<Player> seats = new ArrayList<>();
     private HashMap<Identity, List<Player>> roleMap = new HashMap<>();
     private final GameboardOutputBoundary gameboardOutputBoundary;
     private Player currentPlayer;
@@ -29,8 +30,8 @@ public class GameboardInteractor implements GameboardInputBoundary{
      * Call display method in output boundary to display the current gameboard information
      **/
     public void turnChange(){
-        int current = (players.indexOf(currentPlayer) + 1) % players.size();
-        currentPlayer = players.get(current);
+        int current = (seats.indexOf(currentPlayer) + 1) % seats.size();
+        currentPlayer = seats.get(current);
         currentPlayer.drawCards(2);
         GameboardResponseModel responseModel = new GameboardResponseModel(getTargetList(currentPlayer), checkEnd(),
                 checkDeath(currentPlayer), roleExist(), currentPlayer);
@@ -46,6 +47,7 @@ public class GameboardInteractor implements GameboardInputBoundary{
     public void startGame(GameboardRequestModel gameboardRequestModel){
         CardsHeap.init();
         players = gameboardRequestModel.getPlayers();
+        seats = List.copyOf(players);
         roleMap = gameboardRequestModel.getRoleMap();
         for(Player player: players){
             player.drawCards(4);
@@ -110,13 +112,16 @@ public class GameboardInteractor implements GameboardInputBoundary{
      * @return A boolean indicating whether the player is dead
      **/
     public boolean checkDeath(Player player){
-        if(player.getHp() == 0 && player.isAlive()){
-            player.isDead();
-            Identity role = player.getRole();
-            roleMap.get(role).remove(player);
-            players.remove(player);
+        for(Player p: players){
+            if(p.getHp() == 0 && p.isAlive()){
+            p.isDead();
+            Identity role = p.getRole();
+            roleMap.get(role).remove(p);
+            players.remove(p);
             return true;
-        } else return !player.isAlive();
+            }
+        }
+        return !player.isAlive();
     }
 
     /**

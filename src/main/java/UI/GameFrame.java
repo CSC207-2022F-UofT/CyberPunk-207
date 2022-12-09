@@ -1,14 +1,15 @@
 package UI;
 
+import Gateway.StatusUpdatable;
 import UseCase.GameBoard.GameboardController;
-import UseCase.GameBoard.GameboardUpdatable;
+import Gateway.GameboardUpdatable;
 import UseCase.GameBoard.GameboardViewModel;
 import UseCase.GlobalStatus.*;
 import UseCase.PlayerJoin.PlayerJoinViewModel;
 import UseCase.UseCard.UseCardViewModel;
 import entity.Identity;
-import UseCase.PlayerJoin.PlayerJoinUpdatable;
-import UseCase.UseCard.UseCardUpdatable;
+import Gateway.PlayerJoinUpdatable;
+import Gateway.UseCardUpdatable;
 import entity.Player;
 
 import javax.swing.*;
@@ -164,10 +165,7 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
             gamePanel.setVisible(false);
             rulePanel.setVisible(true);
         }
-        if(gameboardViewModel.isDead()){
-            gameboardController.turnChange();
-            statusController.turnChange();
-        }
+
         current.setPlayer(currentPlayer);
         current.setPlist(gameboardViewModel.getTargetList());
         HashMap<String, Integer> roleExist = gameboardViewModel.getRoleExist();
@@ -176,6 +174,10 @@ public class GameFrame extends JFrame implements StatusUpdatable, GameboardUpdat
         if(gameboardViewModel.getStrategy().equals("AI")){
             current.setStrategy("AI");
             current.AIPlayStrategy();
+        }
+        if(gameboardViewModel.isDead()){
+            gameboardController.turnChange();
+            statusController.turnChange();
         }
     }
 

@@ -1,4 +1,6 @@
-package UseCase.Login;
+package Gateway;
+
+import UseCase.Login.LoginViewModel;
 
 /**
  * An interface for UI to implement

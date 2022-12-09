@@ -1,7 +1,7 @@
 package UI;
 
 import UseCase.EndTurn.EndTurnController;
-import UseCase.EndTurn.EndTurnUpdatable;
+import Gateway.EndTurnUpdatable;
 import UseCase.EndTurn.EndTurnViewModel;
 import UseCase.GameBoard.GameboardController;
 import UseCase.GlobalStatus.StatusController;
@@ -70,7 +70,7 @@ public class MainPlayerPanel extends JPanel implements EndTurnUpdatable {
 
     private final JButton show;
 
-    private String strategy;
+    private String strategy = "Human";
 
     /**
      * Main method that sets up all the gui elements for the MainPlayerPanel

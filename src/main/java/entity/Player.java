@@ -164,6 +164,9 @@ public class Player {
      */
     public void hurt(int num){
         this.hp -= num;
+        if(hp < 0){
+            hp = 0;
+        }
         notifyHp(getHp());
     }
 
@@ -228,9 +231,14 @@ public class Player {
      * @param num An integer instance representing number of card to throw
      */
     public void looseCard(int num) {
+        try{
         pocketCards.remove(num);
         notifyHand();
         notifyHandSize();
+        } catch(IndexOutOfBoundsException e){
+            System.out.println("No hand card");
+        }
+
     }
 
     /**

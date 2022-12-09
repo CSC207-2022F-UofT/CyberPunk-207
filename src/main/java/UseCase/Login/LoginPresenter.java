@@ -1,8 +1,6 @@
 package UseCase.Login;
 
-import UseCase.Login.LoginOutputBoundary;
-
-import javax.swing.*;
+import Gateway.LoginUpdatable;
 
 /**
  * Presenter of login use case which implements output boundary

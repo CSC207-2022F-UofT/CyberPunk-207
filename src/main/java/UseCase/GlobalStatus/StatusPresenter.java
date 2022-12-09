@@ -1,5 +1,7 @@
 package UseCase.GlobalStatus;
 
+import Gateway.StatusUpdatable;
+
 /**
  * Presenter of global status use case which implements output boundary
  * Contain a method letting UI display the status

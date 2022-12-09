@@ -1,4 +1,4 @@
-package UseCase.Login;
+package Gateway;
 
 import entity.Account;
 

@@ -1,7 +1,6 @@
 package UseCase.GameBoard;
 
-import UseCase.EndTurn.EndTurnResponseModel;
-import UseCase.EndTurn.EndTurnViewModel;
+import Gateway.GameboardUpdatable;
 
 /**
  * Presenter of game board use case which implements output boundary.

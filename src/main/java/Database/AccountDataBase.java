@@ -1,5 +1,6 @@
-package UseCase.Login;
+package Database;
 
+import Gateway.AccountDatabaseGateway;
 import entity.Account;
 
 import java.io.*;

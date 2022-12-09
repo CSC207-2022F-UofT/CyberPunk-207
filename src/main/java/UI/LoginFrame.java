@@ -1,5 +1,6 @@
 package UI;
 
+import Gateway.LoginUpdatable;
 import UseCase.Login.*;
 
 
@@ -7,17 +8,14 @@ import UseCase.Login.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Class that sets up the login page
  */
-public class LoginFrame extends JFrame implements LoginUpdatable{
+public class LoginFrame extends JFrame implements LoginUpdatable {
 
     private LoginController loginController;
 

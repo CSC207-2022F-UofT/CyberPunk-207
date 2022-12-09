@@ -1,4 +1,6 @@
-package UseCase.GlobalStatus;
+package Gateway;
+
+import UseCase.GlobalStatus.GlobalStatusViewModel;
 
 /**
  * An interface for UI to implement

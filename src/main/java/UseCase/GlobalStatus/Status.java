@@ -136,6 +136,7 @@ public class Status implements StatusInputBoundary{
             status.add(player.getPocketCardNames());//6
             globalStatus.add(status);
         }
+        turns = 0;
     }
 
     public LinkedList<List<String>> getStatus(){

@@ -1,5 +1,7 @@
 package UseCase.EndTurn;
 
+import Gateway.EndTurnUpdatable;
+
 /**
  * Presenter of end turn use case which implements output boundary.
  * Let UI display message and instructions after the player decide to end turn
